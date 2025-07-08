@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import Travellers from "../components/Travellers";
@@ -9,7 +10,7 @@ import {
   MapIcon,
 } from "@heroicons/react/24/outline";
 
-// Currency symbols for display in Expenses
+// Currency display mapping
 const CURRENCY_SYMBOLS = {
   USD: "$",
   EUR: "€",
@@ -30,8 +31,6 @@ export default function Home() {
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState("");
   const [selectedTrip, setSelectedTrip] = useState(null);
-
-  // For editing trips
   const [editingTripId, setEditingTripId] = useState(null);
   const [editingTripName, setEditingTripName] = useState("");
   const [editingTripCurrency, setEditingTripCurrency] = useState("USD");
@@ -101,16 +100,17 @@ export default function Home() {
   }
 
   return (
-    <main className="flex min-h-[100dvh] flex-col bg-base-200 pb-8 px-4 sm:px-8 lg:px-4 pt-6 sm:pt-12">
-      <div className="flex flex-col items-center w-full">
+    <main className="min-h-[100dvh] flex flex-col items-start px-4 sm:px-8 pt-6 sm:pt-12 pb-8">
+      <div className="w-full max-w-md mx-auto">
         <h1 className="text-4xl font-bold mb-8 flex items-center gap-2">
           <MapIcon className="h-8 w-8 text-primary" />
           TripTally
         </h1>
+
         {!selectedTrip && (
           <>
             <form
-              className="card bg-base-100 shadow w-full max-w-md mb-8 rounded-md"
+              className="card bg-base-100 shadow w-full mb-8 rounded-md"
               onSubmit={handleCreateTrip}
             >
               <div className="card-body">
@@ -129,16 +129,11 @@ export default function Home() {
                   disabled={creating}
                 >
                   <option value="">Select currency</option>
-                  <option value="USD">USD</option>
-                  <option value="EUR">EUR</option>
-                  <option value="GBP">GBP</option>
-                  <option value="ZAR">ZAR</option>
-                  <option value="INR">INR</option>
-                  <option value="AUD">AUD</option>
-                  <option value="CAD">CAD</option>
-                  <option value="JPY">JPY</option>
-                  <option value="CNY">CNY</option>
-                  {/* Add more as needed */}
+                  {Object.keys(CURRENCY_SYMBOLS).map((code) => (
+                    <option key={code} value={code}>
+                      {code}
+                    </option>
+                  ))}
                 </select>
                 {error && (
                   <div className="alert alert-error rounded-md">{error}</div>
@@ -165,10 +160,11 @@ export default function Home() {
                 </button>
               </div>
             </form>
+
             {loading ? (
               <span className="loading loading-spinner loading-lg"></span>
             ) : (
-              <div className="w-full max-w-md space-y-4 pb-8">
+              <div className="space-y-4">
                 {trips.length === 0 ? (
                   <div className="alert alert-info rounded-md">
                     No trips found.
@@ -197,15 +193,11 @@ export default function Home() {
                                   setEditingTripCurrency(e.target.value)
                                 }
                               >
-                                <option value="USD">USD</option>
-                                <option value="EUR">EUR</option>
-                                <option value="GBP">GBP</option>
-                                <option value="ZAR">ZAR</option>
-                                <option value="INR">INR</option>
-                                <option value="AUD">AUD</option>
-                                <option value="CAD">CAD</option>
-                                <option value="JPY">JPY</option>
-                                <option value="CNY">CNY</option>
+                                {Object.keys(CURRENCY_SYMBOLS).map((code) => (
+                                  <option key={code} value={code}>
+                                    {code}
+                                  </option>
+                                ))}
                               </select>
                               <div className="flex gap-2 mt-2">
                                 <button
@@ -263,8 +255,9 @@ export default function Home() {
             )}
           </>
         )}
+
         {selectedTrip && (
-          <div className="w-full max-w-md pb-8">
+          <div className="pb-8">
             <button className="btn btn-sm mb-4 rounded-md" onClick={handleBack}>
               ← Back to Trips
             </button>

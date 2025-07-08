@@ -1,3 +1,4 @@
+// ./app/layout.js
 import "./globals.css";
 
 export const metadata = {
@@ -41,7 +42,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="min-h-[100dvh] bg-base-200 text-base-content antialiased">
+        {children}
+      </body>
     </html>
   );
 }
