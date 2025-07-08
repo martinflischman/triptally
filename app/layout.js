@@ -3,6 +3,11 @@ import "./globals.css";
 export const metadata = {
   title: "TripTally",
   description: "Track your trips expenses with ease.",
+  themeColor: "rgb(243, 244, 246)",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
