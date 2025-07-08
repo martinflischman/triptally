@@ -34,15 +34,55 @@ export default function Home() {
   const [editingTripName, setEditingTripName] = useState("");
   const [editingTripCurrency, setEditingTripCurrency] = useState("USD");
 
+  // New states for travellers and expenses of selected trip
+  const [travellers, setTravellers] = useState([]);
+  const [expenses, setExpenses] = useState([]);
+  const [loadingTripData, setLoadingTripData] = useState(false);
+
   useEffect(() => {
     fetchTrips();
   }, []);
+
+  // When a trip is selected, fetch its travellers and expenses
+  useEffect(() => {
+    if (!selectedTrip) {
+      setTravellers([]);
+      setExpenses([]);
+      return;
+    }
+    fetchTripData(selectedTrip.id);
+  }, [selectedTrip]);
 
   async function fetchTrips() {
     setLoading(true);
     const { data, error } = await supabase.from("trips").select("*");
     if (!error) setTrips(data);
     setLoading(false);
+  }
+
+  // Fetch travellers and expenses for the selected trip
+  async function fetchTripData(tripId) {
+    setLoadingTripData(true);
+
+    // Fetch travellers
+    const { data: travellersData, error: travellersError } = await supabase
+      .from("travellers")
+      .select("*")
+      .eq("trip_id", tripId);
+
+    if (!travellersError) setTravellers(travellersData || []);
+    else setTravellers([]);
+
+    // Fetch expenses
+    const { data: expensesData, error: expensesError } = await supabase
+      .from("expenses")
+      .select("*")
+      .eq("trip_id", tripId);
+
+    if (!expensesError) setExpenses(expensesData || []);
+    else setExpenses([]);
+
+    setLoadingTripData(false);
   }
 
   async function handleCreateTrip(e) {
@@ -97,6 +137,15 @@ export default function Home() {
     setEditingTripCurrency("USD");
     fetchTrips();
   }
+
+  // Calculate total expense sum
+  const totalExpense = expenses.reduce(
+    (sum, exp) => sum + (Number(exp.amount) || 0),
+    0
+  );
+
+  // Calculate amount per traveller safely
+  const perTraveller = travellers.length ? totalExpense / travellers.length : 0;
 
   return (
     <main className="min-h-[100dvh] flex flex-col items-start px-4 sm:px-8 pt-6 sm:pt-12 pb-8">
@@ -255,19 +304,40 @@ export default function Home() {
           </>
         )}
 
+        {/* Selected Trip View */}
         {selectedTrip && (
           <div className="pb-8">
             <button className="btn btn-sm mb-4 rounded-md" onClick={handleBack}>
               ← Back to Trips
             </button>
+
             <div className="card bg-base-100 shadow mb-4 rounded-md">
               <div className="card-body">
                 <h2 className="card-title">{selectedTrip.name}</h2>
-                <p className="text-gray-500">
-                  {CURRENCY_SYMBOLS[selectedTrip.currency]}
+                <p className="text-gray-500 mb-2">
+                  Currency: {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
+                  {selectedTrip.currency}
                 </p>
+
+                {/* Show loading state if fetching trip data */}
+                {loadingTripData ? (
+                  <span className="loading loading-spinner loading-sm"></span>
+                ) : (
+                  <>
+                    <p className="font-semibold">
+                      Total Expenses: {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
+                      {totalExpense.toFixed(2)}
+                    </p>
+                    <p className="font-semibold">
+                      Per Traveller: {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
+                      {perTraveller.toFixed(2)}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
+
+            {/* Pass tripId and currency as before */}
             <Travellers tripId={selectedTrip.id} />
             <Expenses
               tripId={selectedTrip.id}
