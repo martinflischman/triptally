@@ -3,7 +3,7 @@ import "./globals.css";
 export const metadata = {
   title: "TripTally",
   description: "Track your trips expenses with ease.",
-  themeColor: "rgb(243, 244, 246)",
+  themeColor: "rgb(248, 248, 248)",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
