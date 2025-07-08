@@ -10,7 +10,6 @@ import {
   MapIcon,
 } from "@heroicons/react/24/outline";
 
-// Currency display mapping
 const CURRENCY_SYMBOLS = {
   USD: "$",
   EUR: "€",
@@ -102,7 +101,7 @@ export default function Home() {
   return (
     <main className="min-h-[100dvh] flex flex-col items-start px-4 sm:px-8 pt-6 sm:pt-12 pb-8">
       <div className="w-full max-w-md mx-auto">
-        <h1 className="text-4xl font-bold mb-8 flex items-center gap-2">
+        <h1 className="text-4xl font-bold mb-8 flex items-center gap-2 justify-center text-center">
           <MapIcon className="h-8 w-8 text-primary" />
           TripTally
         </h1>
@@ -265,9 +264,7 @@ export default function Home() {
               <div className="card-body">
                 <h2 className="card-title">{selectedTrip.name}</h2>
                 <p className="text-gray-500">
-                  {CURRENCY_SYMBOLS[selectedTrip.currency] ||
-                    selectedTrip.currency}{" "}
-                  {selectedTrip.currency}
+                  {CURRENCY_SYMBOLS[selectedTrip.currency]}
                 </p>
               </div>
             </div>
@@ -275,6 +272,7 @@ export default function Home() {
             <Expenses
               tripId={selectedTrip.id}
               currency={selectedTrip.currency}
+              currencySymbol={CURRENCY_SYMBOLS[selectedTrip.currency]}
             />
           </div>
         )}

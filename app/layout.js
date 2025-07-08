@@ -4,11 +4,11 @@ import "./globals.css";
 export const metadata = {
   title: "TripTally",
   description: "Track your trips expenses with ease.",
-  themeColor: "rgb(248, 248, 248)",
+  themeColor: "#E5E6E6", // Tailwind base-200 equivalent
   viewport: "width=device-width, initial-scale=1.0",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
   },
   icons: {
     icon: [
@@ -41,8 +41,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className="min-h-[100dvh] bg-base-200 text-base-content antialiased">
+    <html lang="en" className="bg-base-200">
+      <head>
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
+      </head>
+      <body className="min-h-[100dvh] bg-base-200 text-base-content antialiased overscroll-none scroll-smooth touch-pan-y">
         {children}
       </body>
     </html>

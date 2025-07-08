@@ -16,6 +16,18 @@ const CATEGORY_OPTIONS = [
   "Other",
 ].sort();
 
+const CURRENCY_SYMBOLS = {
+  USD: "$",
+  EUR: "€",
+  GBP: "£",
+  ZAR: "R",
+  INR: "₹",
+  AUD: "A$",
+  CAD: "C$",
+  JPY: "¥",
+  CNY: "¥",
+};
+
 export default function Expenses({ tripId, currency }) {
   const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -210,7 +222,8 @@ export default function Expenses({ tripId, currency }) {
                     <div>
                       <span className="font-semibold">{exp.category}</span>
                       <span className="ml-2">
-                        {currency} {Number(exp.amount).toFixed(2)}
+                        {CURRENCY_SYMBOLS[currency]}{" "}
+                        {Number(exp.amount).toFixed(2)}
                       </span>
                       {exp.description && (
                         <span className="block text-sm text-gray-500">
