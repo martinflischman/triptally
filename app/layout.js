@@ -4,6 +4,7 @@ export const metadata = {
   title: "TripTally",
   description: "Track your trips expenses with ease.",
   themeColor: "rgb(248, 248, 248)",
+  viewport: "width=device-width, initial-scale=1.0",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",

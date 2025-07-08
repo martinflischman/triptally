@@ -101,7 +101,7 @@ export default function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center bg-base-200 pb-8 px-6 sm:px-8 lg:px-4 pt-8 sm:pt-12">
+    <main className="flex min-h-[100dvh] flex-col items-center bg-base-200 pb-8 px-4 sm:px-8 lg:px-4 pt-6 sm:pt-12">
       <h1 className="text-4xl font-bold mb-8 flex items-center gap-2">
         <MapIcon className="h-8 w-8 text-primary" />
         TripTally
