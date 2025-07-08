@@ -4,7 +4,6 @@ import "./globals.css";
 export const metadata = {
   title: "TripTally",
   description: "Track your trips expenses with ease.",
-  themeColor: "#E5E6E6", // Tailwind base-200 equivalent
   viewport: "width=device-width, initial-scale=1.0",
   appleWebApp: {
     capable: true,
