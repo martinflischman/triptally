@@ -14,8 +14,8 @@ export default function Toast({ open, message, onClose, duration = 2000 }) {
 
   return (
     <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 flex justify-center w-full pointer-events-none">
-      <div className="alert alert-success shadow-lg pointer-events-auto animate-fade-in-up">
-        <span className="font-semibold">{message}</span>
+      <div className="alert bg-success/10 text-success shadow-lg pointer-events-auto animate-fade-in-up">
+        <span className="font-semibold text-success">{message}</span>
       </div>
     </div>
   );
