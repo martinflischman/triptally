@@ -1,7 +1,7 @@
 // page.js
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { supabase } from "../lib/supabaseClient";
 import Travellers from "../components/Travellers";
 import Expenses from "../components/Expenses";
@@ -40,6 +40,8 @@ export default function Home() {
   const [expenses, setExpenses] = useState([]);
   const [loadingTripData, setLoadingTripData] = useState(false);
 
+  const subscriptionsRef = useRef({});
+
   useEffect(() => {
     fetchTrips();
   }, []);
@@ -52,6 +54,40 @@ export default function Home() {
       return;
     }
     fetchTripData(selectedTrip.id);
+  }, [selectedTrip]);
+
+  useEffect(() => {
+    if (!selectedTrip) return;
+
+    // Clean up previous subscriptions
+    if (subscriptionsRef.current.travellers) subscriptionsRef.current.travellers.unsubscribe();
+    if (subscriptionsRef.current.expenses) subscriptionsRef.current.expenses.unsubscribe();
+
+    // Subscribe to travellers
+    subscriptionsRef.current.travellers = supabase
+      .channel('public:travellers')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'travellers', filter: `trip_id=eq.${selectedTrip.id}` },
+        () => fetchTripData(selectedTrip.id)
+      )
+      .subscribe();
+
+    // Subscribe to expenses
+    subscriptionsRef.current.expenses = supabase
+      .channel('public:expenses')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'expenses', filter: `trip_id=eq.${selectedTrip.id}` },
+        () => fetchTripData(selectedTrip.id)
+      )
+      .subscribe();
+
+    // Cleanup on unmount or trip change
+    return () => {
+      if (subscriptionsRef.current.travellers) subscriptionsRef.current.travellers.unsubscribe();
+      if (subscriptionsRef.current.expenses) subscriptionsRef.current.expenses.unsubscribe();
+    };
   }, [selectedTrip]);
 
   async function fetchTrips() {
