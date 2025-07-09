@@ -124,6 +124,9 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
     if (onExpensesChange) {
       await onExpensesChange();
     }
+    if (onShowToast) {
+      onShowToast("Expense deleted", "error");
+    }
   }
 
   function handleEditExpense(exp) {

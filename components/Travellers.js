@@ -79,6 +79,9 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
     if (onTravellersChange) {
       onTravellersChange();
     }
+    if (onShowToast) {
+      onShowToast("Traveller deleted", "error");
+    }
   }
 
   async function handleReassignAndDelete(reassignments) {
@@ -95,6 +98,9 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
     }
     if (onExpensesChange) {
       await onExpensesChange();
+    }
+    if (onShowToast) {
+      onShowToast("Traveller deleted", "error");
     }
     setShowReassignModal(false);
     setReassignTravellerId(null);

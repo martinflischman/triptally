@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export default function Toast({ open, message, onClose, duration = 2000 }) {
+export default function Toast({ open, message, onClose, duration = 2000, type = "success" }) {
   useEffect(() => {
     if (open) {
       const timer = setTimeout(() => {
@@ -12,10 +12,14 @@ export default function Toast({ open, message, onClose, duration = 2000 }) {
 
   if (!open) return null;
 
+  const colorClass = type === "error"
+    ? "bg-error/10 text-error"
+    : "bg-success/10 text-success";
+
   return (
     <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 flex justify-center w-full pointer-events-none">
-      <div className="alert bg-success/10 text-success shadow-lg pointer-events-auto animate-fade-in-up">
-        <span className="font-semibold text-success">{message}</span>
+      <div className={`alert ${colorClass} shadow-lg pointer-events-auto animate-fade-in-up`}>
+        <span className={`font-semibold ${type === "error" ? "text-error" : "text-success"}`}>{message}</span>
       </div>
     </div>
   );
