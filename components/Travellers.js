@@ -185,7 +185,7 @@ export default function Travellers({ tripId, onTravellersChange }) {
                           title="Edit Traveller"
                           type="button"
                         >
-                          <PencilSquareIcon className="h-7 w-7 xs:h-8 xs:w-8 sm:h-10 sm:w-10 md:h-8 md:w-8 lg:h-5 lg:w-5 xl:h-6 xl:w-6" />
+                          <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4" />
                         </button>
                         <button
                           className="btn btn-ghost btn-xs rounded-lg p-1"
@@ -193,7 +193,7 @@ export default function Travellers({ tripId, onTravellersChange }) {
                           title="Remove Traveller"
                           type="button"
                         >
-                          <TrashIcon className="h-7 w-7 xs:h-8 xs:w-8 sm:h-10 sm:w-10 md:h-8 md:w-8 lg:h-5 lg:w-5 xl:h-6 xl:w-6 text-error" />
+                          <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4 text-error" />
                         </button>
                       </div>
                     </div>

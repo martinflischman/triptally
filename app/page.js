@@ -167,7 +167,7 @@ export default function Home() {
     <main className="min-h-screen bg-base-200">
       <div className="container mx-auto px-3 xs:px-4 sm:px-5 py-4 xs:py-5 sm:py-6 max-w-full xs:max-w-[97vw] sm:max-w-[93vw] md:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl">
         <div className="flex flex-col items-center">
-          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-3xl xl:text-3xl font-bold mb-4 xs:mb-6 sm:mb-8 flex items-center gap-2 text-center text-primary">
+          <h1 className="mt-4 xs:mt-6 sm:mt-8 text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-3xl xl:text-3xl font-bold mb-4 xs:mb-6 sm:mb-8 flex items-center gap-2 text-center text-primary">
             <MapIcon className="h-8 w-8 xs:h-10 xs:w-10 sm:h-12 sm:w-12 md:h-10 md:w-10 lg:h-6 lg:w-6 xl:h-6 xl:w-6" />
             TripTally
           </h1>
@@ -341,40 +341,35 @@ export default function Home() {
 
               <div className="card bg-base-100 shadow mb-3 xs:mb-4 rounded-lg">
                 <div className="card-body p-3 xs:p-4 sm:p-6">
-                  <h2 className="card-title text-base xs:text-lg sm:text-xl md:text-lg lg:text-lg xl:text-lg mb-2 xs:mb-3">
+                  <h2 className="card-title text-lg xs:text-xl sm:text-2xl md:text-lg lg:text-lg xl:text-lg mb-2 xs:mb-3">
                     {selectedTrip.name}
                   </h2>
-                  <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-3 xs:mb-4">
-                    Currency: {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
-                    {selectedTrip.currency}
-                  </div>
-
                   {/* Show loading state if fetching trip data */}
                   {loadingTripData ? (
                     <div className="flex justify-center py-4">
                       <span className="loading loading-dots text-primary loading-sm"></span>
                     </div>
                   ) : (
-                    <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 xs:gap-4">
-                      <div className="bg-secondary/10 p-2 xs:p-3 rounded-lg border border-secondary/20">
-                        <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
-                          Total Expenses
-                        </div>
-                        <div className="text-base xs:text-lg md:text-base lg:text-base xl:text-base font-semibold text-secondary">
-                          {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
-                          {totalExpense.toFixed(2)}
-                        </div>
-                      </div>
-                      <div className="bg-primary/10 p-2 xs:p-3 rounded-lg border border-primary/20">
-                        <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
-                          Per Traveller
-                        </div>
-                        <div className="text-lg xs:text-xl md:text-lg lg:text-lg xl:text-lg font-bold text-primary">
-                          {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
-                          {perTraveller.toFixed(2)}
-                        </div>
-                      </div>
-                    </div>
+                   <div className="flex flex-row gap-3 xs:gap-4 w-full">
+                     <div className="flex-1 bg-secondary/10 p-2 xs:p-3 rounded-lg border border-secondary/20">
+                       <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
+                         Total Expenses
+                       </div>
+                       <div className="text-base xs:text-lg md:text-base lg:text-base xl:text-base font-semibold text-secondary">
+                         {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
+                         {totalExpense.toFixed(2)}
+                       </div>
+                     </div>
+                     <div className="flex-1 bg-primary/10 p-2 xs:p-3 rounded-lg border border-primary/20">
+                       <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
+                         Per Traveller
+                       </div>
+                       <div className="text-lg xs:text-xl md:text-lg lg:text-lg xl:text-lg font-bold text-primary">
+                         {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
+                         {perTraveller.toFixed(2)}
+                       </div>
+                     </div>
+                   </div>
                   )}
                 </div>
               </div>
