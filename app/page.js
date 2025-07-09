@@ -36,6 +36,8 @@ export default function Home() {
   const [editingTripId, setEditingTripId] = useState(null);
   const [editingTripName, setEditingTripName] = useState("");
   const [editingTripCurrency, setEditingTripCurrency] = useState("USD");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   // States for travellers and expenses of selected trip
   const [travellers, setTravellers] = useState([]);
@@ -121,7 +123,11 @@ export default function Home() {
   async function fetchTrips() {
     setLoading(true);
     const { data, error } = await supabase.from("trips").select("*");
-    if (!error) setTrips(data);
+    if (!error) {
+      // Sort by start_date ascending
+      data.sort((a, b) => (a.start_date || "") > (b.start_date || "") ? 1 : -1);
+      setTrips(data);
+    }
     setLoading(false);
   }
 
@@ -179,12 +185,24 @@ export default function Home() {
       setCreating(false);
       return;
     }
-    const { error } = await supabase.from("trips").insert([{ name, currency }]);
+    if (!startDate) {
+      setError("Start date is required.");
+      setCreating(false);
+      return;
+    }
+    if (!endDate) {
+      setError("End date is required.");
+      setCreating(false);
+      return;
+    }
+    const { error } = await supabase.from("trips").insert([{ name, currency, start_date: startDate, end_date: endDate }]);
     if (error) {
       setError(error.message);
     } else {
       setName("");
       setCurrency("");
+      setStartDate("");
+      setEndDate("");
       fetchTrips();
       showToast("Trip added", "success");
     }
@@ -277,6 +295,28 @@ export default function Home() {
                       </option>
                     ))}
                   </select>
+                  <div className="flex flex-row gap-3 mb-3 xs:mb-4">
+                    <div className="flex-1">
+                      <label className="block text-xs xs:text-sm mb-1 font-medium">Trip Start Date</label>
+                      <input
+                        type="date"
+                        className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                        disabled={creating}
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <label className="block text-xs xs:text-sm mb-1 font-medium">Trip End Date</label>
+                      <input
+                        type="date"
+                        className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                        disabled={creating}
+                      />
+                    </div>
+                  </div>
                   {error && (
                     <div className="alert alert-error rounded-lg mb-3 xs:mb-4 text-sm xs:text-base md:text-sm lg:text-sm py-2">
                       {error}
@@ -370,6 +410,11 @@ export default function Home() {
                                   <h2 className="card-title text-base xs:text-lg sm:text-xl md:text-lg lg:text-lg xl:text-lg">
                                     {trip.name}
                                   </h2>
+                                  {trip.start_date && trip.end_date && (
+                                    <div className="text-xs xs:text-sm text-base-content/60 mb-1">
+                                      {trip.start_date} <span className="mx-1">&rarr;</span> {trip.end_date}
+                                    </div>
+                                  )}
                                 </div>
                                 <div className="flex gap-1 ml-2">
                                   <button
