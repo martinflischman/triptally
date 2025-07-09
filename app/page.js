@@ -610,9 +610,10 @@ export default function Home() {
                                 .filter(exp => exp.paid_by === traveller.id)
                                 .reduce((sum, exp) => sum + (Number(exp.amount) || 0), 0);
                               return (
-                                <div key={traveller.id} className="bg-base-200 p-2 xs:p-3 h-20 flex flex-col justify-center rounded-lg border border-base-300 w-full min-w-[140px]">
-                                  <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1 truncate">{traveller.name}</div>
-                                  <div className="text-sm text-base-content/70">Paid</div>
+                                <div key={traveller.id} className="bg-base-200 p-2 xs:p-3 h-20 flex flex-col justify-between rounded-lg border border-base-300 w-full min-w-[140px]">
+                                  <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 truncate">
+                                    {traveller.name} paid
+                                  </div>
                                   <div className="text-lg font-bold text-base-content">
                                     {CURRENCY_SYMBOLS[selectedTrip.currency]} {totalPaid.toFixed(2)}
                                   </div>
