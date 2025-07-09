@@ -35,8 +35,12 @@ export default function SignIn() {
   async function handleGoogle() {
     setLoading(true);
     setError("");
-    const { error } = await supabase.auth.signInWithOAuth({ provider: "google" });
-    if (error) setError(error.message);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({ provider: "google" });
+      if (error) setError(error.message);
+    } catch (err) {
+      setError("Google sign-in failed. Please try again.");
+    }
     setLoading(false);
   }
 
@@ -96,11 +100,13 @@ export default function SignIn() {
             </button>
             {/* Show feedback messages */}
             {message && (
-              <div className="mt-4 rounded-lg bg-green-200/80 border border-green-300 text-green-900 text-sm px-4 py-3 text-center font-medium">
+              <div className="mt-4 rounded-lg bg-green-200/80 border border-green-300 text-green-900 text-sm px-4 py-3 text-center font-medium" role="alert">
                 {message}
               </div>
             )}
-            {error && <div className="alert alert-error mt-4 text-sm">{error}</div>}
+            {error && (
+              <div className="alert alert-error mt-4 text-sm" role="alert">{error}</div>
+            )}
           </>
         )}
       </div>

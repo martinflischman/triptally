@@ -104,6 +104,8 @@ export default function Home() {
       // Sort trips by start date
       data.sort((a, b) => (a.start_date || "") > (b.start_date || "") ? 1 : -1);
       setTrips(data);
+    } else {
+      showToast("Failed to load trips. Please try again.", "error");
     }
     setLoading(false);
   }
@@ -529,8 +531,9 @@ export default function Home() {
                           />
                         </div>
                       </div>
+                      {/* In the trip creation form, show error with role="alert" and consistent style */}
                       {error && (
-                        <div className="alert alert-error rounded-lg mb-3 xs:mb-4 text-sm xs:text-base md:text-sm lg:text-sm py-2">
+                        <div className="alert alert-error rounded-lg mb-3 xs:mb-4 text-sm xs:text-base md:text-sm lg:text-sm py-2" role="alert">
                           {error}
                         </div>
                       )}
