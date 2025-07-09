@@ -182,14 +182,14 @@ export default function Home() {
                     Create a New Trip
                   </h2>
                   <input
-                    className="input input-bordered w-full rounded-lg mb-3 xs:mb-4 text-sm xs:text-base h-10 xs:h-12"
+                    className="input input-bordered w-full rounded-lg mb-3 xs:mb-4 text-sm xs:text-base md:text-lg h-10 xs:h-12"
                     placeholder="Trip Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     disabled={creating}
                   />
                   <select
-                    className="select select-bordered w-full rounded-lg mb-3 xs:mb-4 text-sm xs:text-base h-10 xs:h-12"
+                    className="select select-bordered w-full rounded-lg mb-3 xs:mb-4 text-sm xs:text-base md:text-lg h-10 xs:h-12"
                     value={currency}
                     onChange={(e) => setCurrency(e.target.value)}
                     disabled={creating}
@@ -202,12 +202,12 @@ export default function Home() {
                     ))}
                   </select>
                   {error && (
-                    <div className="alert alert-error rounded-lg mb-3 xs:mb-4 text-sm py-2">
+                    <div className="alert alert-error rounded-lg mb-3 xs:mb-4 text-sm xs:text-base py-2">
                       {error}
                     </div>
                   )}
                   <button
-                    className="btn btn-primary w-full rounded-lg flex items-center gap-2 h-10 xs:h-12 text-sm xs:text-base"
+                    className="btn btn-primary w-full rounded-lg flex items-center gap-2 h-10 xs:h-12 text-sm xs:text-base md:text-lg"
                     disabled={creating}
                   >
                     <svg
@@ -236,7 +236,7 @@ export default function Home() {
               ) : (
                 <div className="space-y-3 xs:space-y-4 w-full">
                   {trips.length === 0 ? (
-                    <div className="alert alert-info rounded-lg text-sm py-2">
+                    <div className="alert alert-info rounded-lg text-sm xs:text-base py-2">
                       No trips found.
                     </div>
                   ) : (
@@ -250,14 +250,14 @@ export default function Home() {
                             {editingTripId === trip.id ? (
                               <div className="flex-1">
                                 <input
-                                  className="input input-bordered w-full mb-2 rounded-lg text-sm xs:text-base h-10 xs:h-12"
+                                  className="input input-bordered w-full mb-2 rounded-lg text-sm xs:text-base md:text-lg h-10 xs:h-12"
                                   value={editingTripName}
                                   onChange={(e) =>
                                     setEditingTripName(e.target.value)
                                   }
                                 />
                                 <select
-                                  className="select select-bordered w-full mb-2 rounded-lg text-sm xs:text-base h-10 xs:h-12"
+                                  className="select select-bordered w-full mb-2 rounded-lg text-sm xs:text-base md:text-lg h-10 xs:h-12"
                                   value={editingTripCurrency}
                                   onChange={(e) =>
                                     setEditingTripCurrency(e.target.value)
@@ -271,13 +271,13 @@ export default function Home() {
                                 </select>
                                 <div className="flex gap-2 mt-2">
                                   <button
-                                    className="btn btn-success btn-xs xs:btn-sm rounded-lg text-xs xs:text-sm"
+                                    className="btn btn-success btn-xs xs:btn-sm rounded-lg text-xs xs:text-sm md:text-base"
                                     onClick={() => handleSaveEditTrip(trip.id)}
                                   >
                                     Save
                                   </button>
                                   <button
-                                    className="btn btn-ghost btn-xs xs:btn-sm rounded-lg text-xs xs:text-sm"
+                                    className="btn btn-ghost btn-xs xs:btn-sm rounded-lg text-xs xs:text-sm md:text-base"
                                     onClick={() => setEditingTripId(null)}
                                   >
                                     Cancel
@@ -312,7 +312,7 @@ export default function Home() {
                           </div>
                           {editingTripId !== trip.id && (
                             <button
-                              className="btn btn-outline btn-sm w-full mt-3 xs:mt-4 flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base"
+                              className="btn btn-outline btn-sm w-full mt-3 xs:mt-4 flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-lg"
                               onClick={() => setSelectedTrip(trip)}
                             >
                               <MapIcon className="h-4 w-4" />
@@ -332,7 +332,7 @@ export default function Home() {
           {selectedTrip && (
             <div className="w-full">
               <button
-                className="btn btn-sm mb-3 xs:mb-4 rounded-lg text-xs xs:text-sm h-8 xs:h-10"
+                className="btn btn-sm mb-3 xs:mb-4 rounded-lg text-xs xs:text-sm md:text-base h-8 xs:h-10"
                 onClick={handleBack}
               >
                 ← Back to Trips
@@ -343,7 +343,7 @@ export default function Home() {
                   <h2 className="card-title text-base xs:text-lg sm:text-xl mb-2 xs:mb-3">
                     {selectedTrip.name}
                   </h2>
-                  <div className="text-xs xs:text-sm text-base-content/70 mb-3 xs:mb-4">
+                  <div className="text-xs xs:text-sm md:text-base text-base-content/70 mb-3 xs:mb-4">
                     Currency: {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
                     {selectedTrip.currency}
                   </div>
@@ -356,19 +356,19 @@ export default function Home() {
                   ) : (
                     <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 xs:gap-4">
                       <div className="bg-secondary/10 p-2 xs:p-3 rounded-lg border border-secondary/20">
-                        <div className="text-xs xs:text-sm text-base-content/70 mb-1">
+                        <div className="text-xs xs:text-sm md:text-base text-base-content/70 mb-1">
                           Total Expenses
                         </div>
-                        <div className="text-base xs:text-lg font-semibold text-secondary">
+                        <div className="text-base xs:text-lg md:text-xl font-semibold text-secondary">
                           {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
                           {totalExpense.toFixed(2)}
                         </div>
                       </div>
                       <div className="bg-primary/10 p-2 xs:p-3 rounded-lg border border-primary/20">
-                        <div className="text-xs xs:text-sm text-base-content/70 mb-1">
+                        <div className="text-xs xs:text-sm md:text-base text-base-content/70 mb-1">
                           Per Traveller
                         </div>
-                        <div className="text-lg xs:text-xl font-bold text-primary">
+                        <div className="text-lg xs:text-xl md:text-2xl font-bold text-primary">
                           {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
                           {perTraveller.toFixed(2)}
                         </div>
