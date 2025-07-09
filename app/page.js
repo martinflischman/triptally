@@ -249,7 +249,7 @@ export default function Home() {
     setEditingTripStartDate("");
     setEditingTripEndDate("");
     fetchTrips();
-    showToast("Trip saved", "success");
+    showToast("Changes saved", "success");
   }
 
   // Calculate total expense sum
@@ -490,82 +490,49 @@ export default function Home() {
                 ← Back to Trips
               </button>
 
+              {/* Remove edit/delete icons from trip view card */}
               <div className="card bg-base-100 shadow mb-3 xs:mb-4 rounded-lg">
                 <div className="card-body p-3 xs:p-4 sm:p-6">
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <h2 className="card-title text-lg xs:text-xl sm:text-2xl md:text-lg lg:text-lg xl:text-lg mb-0">
-                        {selectedTrip.name}
-                      </h2>
-                      {selectedTrip.start_date && selectedTrip.end_date && (
-                        <div className="text-xs xs:text-sm text-base-content/60 mt-1">
-                          {selectedTrip.start_date} <span className="mx-1">&rarr;</span> {selectedTrip.end_date}
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex gap-1 ml-2">
-                      <button
-                        className="btn btn-ghost btn-xs rounded-lg p-1"
-                        title="Edit Trip"
-                        onClick={() => handleEditTrip(selectedTrip)}
-                      >
-                        <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4" />
-                      </button>
-                      <button
-                        className="btn btn-ghost btn-xs rounded-lg p-1"
-                        title="Delete Trip"
-                        onClick={() => handleRequestDeleteTrip(selectedTrip)}
-                      >
-                        <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4 text-error" />
-                      </button>
-                    </div>
+                  <div className="mb-2">
+                    <h2 className="card-title text-lg xs:text-xl sm:text-2xl md:text-lg lg:text-lg xl:text-lg mb-0">
+                      {selectedTrip.name}
+                    </h2>
+                    {selectedTrip.start_date && selectedTrip.end_date && (
+                      <div className="text-xs xs:text-sm text-base-content/60 mt-1">
+                        {selectedTrip.start_date} <span className="mx-1">&rarr;</span> {selectedTrip.end_date}
+                      </div>
+                    )}
                   </div>
-                  {/* Show loading state if fetching trip data */}
-                  {loadingTripData ? (
-                    <div className="flex justify-center py-4">
-                      <span className="loading loading-dots text-primary loading-sm"></span>
-                    </div>
-                  ) : (
-                   <div className="flex flex-row gap-3 xs:gap-4 w-full">
-                     <div className="flex-1 bg-secondary/10 p-2 xs:p-3 rounded-lg border border-secondary/20">
-                       <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
-                         Total Expenses
-                       </div>
-                       <div className="text-base xs:text-lg md:text-base lg:text-base xl:text-base font-semibold text-secondary">
-                         {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
-                         {totalExpense.toFixed(2)}
-                       </div>
-                     </div>
-                     <div className="flex-1 bg-primary/10 p-2 xs:p-3 rounded-lg border border-primary/20">
-                       <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
-                         Per Traveller
-                       </div>
-                       <div className="text-lg xs:text-xl md:text-lg lg:text-lg xl:text-lg font-bold text-primary">
-                         {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
-                         {perTraveller.toFixed(2)}
-                       </div>
-                     </div>
-                   </div>
-                  )}
                 </div>
               </div>
 
-              {/* Pass refresh functions and data to components */}
-              <Travellers
-                tripId={selectedTrip.id}
-                onTravellersChange={refreshTravellers}
-                onExpensesChange={refreshExpenses}
-                expenses={expenses}
-                onShowToast={showToast}
-              />
-              <Expenses
-                tripId={selectedTrip.id}
-                currency={selectedTrip.currency}
-                currencySymbol={CURRENCY_SYMBOLS[selectedTrip.currency]}
-                travellers={travellers}
-                onExpensesChange={refreshExpenses}
-                onShowToast={showToast}
-              />
+              {/* Show loading state if fetching trip data */}
+              {loadingTripData ? (
+                <div className="flex justify-center py-4">
+                  <span className="loading loading-dots text-primary loading-sm"></span>
+                </div>
+              ) : (
+               <div className="flex flex-row gap-3 xs:gap-4 w-full">
+                 <div className="flex-1 bg-secondary/10 p-2 xs:p-3 rounded-lg border border-secondary/20">
+                   <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
+                     Total Expenses
+                   </div>
+                   <div className="text-base xs:text-lg md:text-base lg:text-base xl:text-base font-semibold text-secondary">
+                     {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
+                     {totalExpense.toFixed(2)}
+                   </div>
+                 </div>
+                 <div className="flex-1 bg-primary/10 p-2 xs:p-3 rounded-lg border border-primary/20">
+                   <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
+                     Per Traveller
+                   </div>
+                   <div className="text-lg xs:text-xl md:text-lg lg:text-lg xl:text-lg font-bold text-primary">
+                     {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
+                     {perTraveller.toFixed(2)}
+                   </div>
+                 </div>
+               </div>
+              )}
             </div>
           )}
         </div>
