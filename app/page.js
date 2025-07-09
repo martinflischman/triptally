@@ -322,59 +322,68 @@ export default function Home() {
                   <h2 className="card-title text-base xs:text-lg sm:text-xl md:text-lg lg:text-lg xl:text-lg mb-3 xs:mb-4">
                     Create a New Trip
                   </h2>
+                  {/* In the trip creation form, move labels above their respective input fields */}
                   <div className="flex flex-col sm:flex-row gap-3 xs:gap-4 mb-3 xs:mb-4">
-                    <label htmlFor="trip-name" className="block text-xs xs:text-sm mb-1 font-medium">
-                      Trip Name
-                    </label>
-                    <input
-                      id="trip-name"
-                      className="input input-bordered w-full sm:w-2/3 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
-                      placeholder="Trip Name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      disabled={creating}
-                    />
-                    <label htmlFor="currency-select" className="block text-xs xs:text-sm mb-1 font-medium">
-                      Currency
-                    </label>
-                    <select
-                      id="currency-select"
-                      className="select select-bordered w-full sm:w-1/3 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
-                      value={currency}
-                      onChange={(e) => setCurrency(e.target.value)}
-                      disabled={creating}
-                    >
-                      <option value="">Select currency</option>
-                      {Object.keys(CURRENCY_SYMBOLS).map((code) => (
-                        <option key={code} value={code}>
-                          {code}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="flex-1 flex flex-col">
+                      <label htmlFor="trip-name" className="block text-xs xs:text-sm mb-1 font-medium text-left">
+                        Trip Name
+                      </label>
+                      <input
+                        id="trip-name"
+                        className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
+                        placeholder="Trip Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        disabled={creating}
+                      />
+                    </div>
+                    <div className="flex-1 flex flex-col">
+                      <label htmlFor="currency-select" className="block text-xs xs:text-sm mb-1 font-medium text-left">
+                        Currency
+                      </label>
+                      <select
+                        id="currency-select"
+                        className="select select-bordered w-full rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
+                        value={currency}
+                        onChange={(e) => setCurrency(e.target.value)}
+                        disabled={creating}
+                      >
+                        <option value="">Select currency</option>
+                        {Object.keys(CURRENCY_SYMBOLS).map((code) => (
+                          <option key={code} value={code}>
+                            {code}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
-                  <div className="flex flex-row gap-3 mb-3 xs:mb-4">
-                    <label htmlFor="start-date" className="block text-xs xs:text-sm mb-1 font-medium">
-                      Trip Start Date
-                    </label>
-                    <input
-                      id="start-date"
-                      type="date"
-                      className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
-                      value={startDate}
-                      onChange={(e) => setStartDate(e.target.value)}
-                      disabled={creating}
-                    />
-                    <label htmlFor="end-date" className="block text-xs xs:text-sm mb-1 font-medium">
-                      Trip End Date
-                    </label>
-                    <input
-                      id="end-date"
-                      type="date"
-                      className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
-                      value={endDate}
-                      onChange={(e) => setEndDate(e.target.value)}
-                      disabled={creating}
-                    />
+                  <div className="flex flex-col sm:flex-row gap-3 mb-3 xs:mb-4">
+                    <div className="flex-1 flex flex-col">
+                      <label htmlFor="start-date" className="block text-xs xs:text-sm mb-1 font-medium text-left">
+                        Trip Start Date
+                      </label>
+                      <input
+                        id="start-date"
+                        type="date"
+                        className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                        disabled={creating}
+                      />
+                    </div>
+                    <div className="flex-1 flex flex-col">
+                      <label htmlFor="end-date" className="block text-xs xs:text-sm mb-1 font-medium text-left">
+                        Trip End Date
+                      </label>
+                      <input
+                        id="end-date"
+                        type="date"
+                        className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                        disabled={creating}
+                      />
+                    </div>
                   </div>
                   {error && (
                     <div className="alert alert-error rounded-lg mb-3 xs:mb-4 text-sm xs:text-base md:text-sm lg:text-sm py-2">
