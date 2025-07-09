@@ -167,12 +167,12 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
   return (
     <div className="card bg-base-100 shadow mt-3 xs:mt-4 sm:mt-6 rounded-lg">
       <div className="card-body p-3 xs:p-4 sm:p-6">
-        <h3 className="card-title flex items-center gap-2 text-base xs:text-lg sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl mb-3 xs:mb-4">
+        <h3 className="card-title flex items-center gap-2 text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl xl:text-xl mb-3 xs:mb-4">
           Add Expense
         </h3>
 
         {travellers.length === 0 ? (
-          <div className="alert alert-warning mb-3 xs:mb-4 rounded-lg text-sm xs:text-base md:text-base lg:text-lg py-2">
+          <div className="alert alert-warning mb-3 xs:mb-4 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm py-2">
             Add travellers first to assign expenses.
           </div>
         ) : (
@@ -181,7 +181,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
             onSubmit={handleAddExpense}
           >
             <select
-              className="select select-bordered w-full rounded-lg text-sm xs:text-base md:text-lg lg:text-xl xl:text-xl h-10 xs:h-12"
+              className="select select-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               disabled={adding}
@@ -194,7 +194,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
             </select>
 
             <input
-              className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-lg lg:text-xl xl:text-xl h-10 xs:h-12"
+              className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
               placeholder={`Amount (${currency})`}
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
@@ -206,7 +206,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
             />
 
             <select
-              className="select select-bordered w-full rounded-lg text-sm xs:text-base md:text-lg lg:text-xl xl:text-xl h-10 xs:h-12"
+              className="select select-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
               value={paidBy}
               onChange={(e) => setPaidBy(e.target.value)}
               disabled={adding}
@@ -220,7 +220,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
             </select>
 
             <input
-              className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-lg lg:text-xl xl:text-xl h-10 xs:h-12"
+              className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
               placeholder="Description (optional)"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -228,22 +228,22 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
             />
 
             <button
-              className="btn btn-primary w-full flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-lg lg:text-xl xl:text-xl"
+              className="btn btn-primary w-full flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-base lg:text-base xl:text-base"
               disabled={adding || !paidBy}
             >
-              <PlusIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-6 md:w-6 lg:h-6 lg:w-6 xl:h-7 xl:w-7" />
+              <PlusIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-5 md:w-5 lg:h-5 lg:w-5 xl:h-6 xl:w-6" />
               {adding ? "Adding..." : "Add Expense"}
             </button>
           </form>
         )}
 
         {error && (
-          <div className="alert alert-error mb-3 xs:mb-4 rounded-lg text-sm xs:text-base md:text-base lg:text-lg py-2">
+          <div className="alert alert-error mb-3 xs:mb-4 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm py-2">
             {error}
           </div>
         )}
 
-        <h4 className="font-bold text-base xs:text-lg sm:text-xl md:text-xl lg:text-2xl xl:text-2xl mb-2 xs:mb-3">
+        <h4 className="font-bold text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl xl:text-xl mb-2 xs:mb-3">
           Expense History
         </h4>
 
@@ -252,7 +252,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
             <span className="loading loading-dots loading-md loading-md text-primary"></span>
           </div>
         ) : expenses.length === 0 ? (
-          <div className="alert alert-info rounded-lg text-sm xs:text-base md:text-base lg:text-lg py-2">
+          <div className="alert alert-info rounded-lg text-sm xs:text-base md:text-sm lg:text-sm py-2">
             No expenses yet.
           </div>
         ) : (
@@ -263,7 +263,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
                   {editingId === exp.id ? (
                     <div className="flex flex-col gap-2 xs:gap-3">
                       <select
-                        className="select select-bordered w-full rounded-lg text-sm xs:text-base md:text-lg lg:text-xl xl:text-xl h-10 xs:h-12"
+                        className="select select-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
                         value={editingCategory}
                         onChange={(e) => setEditingCategory(e.target.value)}
                       >
@@ -275,7 +275,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
                       </select>
 
                       <input
-                        className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-lg lg:text-xl xl:text-xl h-10 xs:h-12"
+                        className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
                         value={editingAmount}
                         onChange={(e) => setEditingAmount(e.target.value)}
                         type="number"
@@ -285,7 +285,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
                       />
 
                       <select
-                        className="select select-bordered w-full rounded-lg text-sm xs:text-base md:text-lg lg:text-xl xl:text-xl h-10 xs:h-12"
+                        className="select select-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
                         value={editingPaidBy}
                         onChange={(e) => setEditingPaidBy(e.target.value)}
                       >
@@ -298,7 +298,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
                       </select>
 
                       <input
-                        className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-lg lg:text-xl xl:text-xl h-10 xs:h-12"
+                        className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
                         value={editingDescription}
                         onChange={(e) => setEditingDescription(e.target.value)}
                         placeholder="Description (optional)"
@@ -306,14 +306,14 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
 
                       <div className="flex gap-2">
                         <button
-                          className="btn btn-success btn-xs xs:btn-sm md:btn-md rounded-lg text-xs xs:text-sm md:text-base lg:text-lg xl:text-lg"
+                          className="btn btn-success btn-xs xs:btn-sm md:btn-sm rounded-lg text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm"
                           onClick={() => handleSaveEditExpense(exp.id)}
                           type="button"
                         >
                           Save
                         </button>
                         <button
-                          className="btn btn-ghost btn-xs xs:btn-sm md:btn-md rounded-lg text-xs xs:text-sm md:text-base lg:text-lg xl:text-lg"
+                          className="btn btn-ghost btn-xs xs:btn-sm md:btn-sm rounded-lg text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm"
                           onClick={() => setEditingId(null)}
                           type="button"
                         >
@@ -325,26 +325,26 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
                     <div className="flex justify-between items-start">
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-col xs:flex-row xs:items-center gap-1 xs:gap-2 mb-1">
-                          <span className="font-semibold text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-xl truncate">
+                          <span className="font-semibold text-xs xs:text-sm sm:text-base md:text-base lg:text-base xl:text-base truncate">
                             {exp.category}
                           </span>
-                          <span className="text-base xs:text-lg sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl font-bold text-secondary">
+                          <span className="text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl xl:text-xl font-bold text-secondary">
                             {CURRENCY_SYMBOLS[currency]}{" "}
                             {Number(exp.amount).toFixed(2)}
                           </span>
                         </div>
 
-                        <div className="text-xs xs:text-sm md:text-base lg:text-lg xl:text-xl text-primary font-medium mb-1">
+                        <div className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-primary font-medium mb-1">
                           Paid by: {getTravellerName(exp)}
                         </div>
 
                         {exp.description && (
-                          <p className="text-xs xs:text-sm md:text-base lg:text-lg xl:text-xl text-base-content/70 mb-1 line-clamp-2">
+                          <p className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/70 mb-1 line-clamp-2">
                             {exp.description}
                           </p>
                         )}
 
-                        <span className="text-xs xs:text-sm md:text-base lg:text-lg xl:text-xl text-base-content/50">
+                        <span className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/50">
                           {new Date(exp.created_at).toLocaleDateString()}
                           <span className="inline">
                             {" "}
@@ -363,7 +363,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
                           onClick={() => handleEditExpense(exp)}
                           type="button"
                         >
-                          <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-6 md:w-6 lg:h-6 lg:w-6 xl:h-7 xl:w-7" />
+                          <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-5 md:w-5 lg:h-5 lg:w-5 xl:h-6 xl:w-6" />
                         </button>
                         <button
                           className="btn btn-ghost btn-xs rounded-lg p-1"
@@ -371,7 +371,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
                           onClick={() => handleDeleteExpense(exp.id)}
                           type="button"
                         >
-                          <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-6 md:w-6 lg:h-6 lg:w-6 xl:h-7 xl:w-7 text-error" />
+                          <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-5 md:w-5 lg:h-5 lg:w-5 xl:h-6 xl:w-6 text-error" />
                         </button>
                       </div>
                     </div>
