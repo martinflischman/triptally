@@ -29,7 +29,7 @@ const CURRENCY_SYMBOLS = {
   CNY: "¥",
 };
 
-export default function Expenses({ tripId, currency, travellers = [] }) {
+export default function Expenses({ tripId, currency, travellers = [], onExpensesChange }) {
   const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [adding, setAdding] = useState(false);
@@ -118,6 +118,9 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
     if (!window.confirm("Delete this expense?")) return;
     await supabase.from("expenses").delete().eq("id", id);
     fetchExpenses();
+    if (onExpensesChange) {
+      await onExpensesChange();
+    }
   }
 
   function handleEditExpense(exp) {
