@@ -327,7 +327,18 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
                   ) : (
                     <div className="flex flex-row justify-between items-start">
                       <div className="flex-1 min-w-0">
-                        {/* Category at the top */}
+                        {/* Top row: Date and Paid by */}
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/50">
+                            {new Date(exp.created_at).toLocaleDateString()}
+                          </span>
+                          <span className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-primary font-semibold">
+                            · Paid by: {getTravellerName(exp)}
+                          </span>
+                        </div>
+                        {/* Small space */}
+                        <div className="h-1" />
+                        {/* Category */}
                         <div className="font-semibold text-xs xs:text-sm sm:text-base md:text-base lg:text-base xl:text-base truncate mb-1">
                           {exp.category}
                         </div>
@@ -338,16 +349,8 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
                           </div>
                         )}
                         {/* Amount */}
-                        <div className="text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl xl:text-xl font-bold text-secondary mb-1">
+                        <div className="text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl xl:text-xl font-bold text-secondary mt-1">
                           {CURRENCY_SYMBOLS[currency]} {Number(exp.amount).toFixed(2)}
-                        </div>
-                        {/* Date and time */}
-                        <div className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/50 mb-1">
-                          {new Date(exp.created_at).toLocaleDateString()} {new Date(exp.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                        </div>
-                        {/* Paid by at the bottom */}
-                        <div className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-primary font-medium">
-                          Paid by: {getTravellerName(exp)}
                         </div>
                       </div>
                       <div className="flex flex-col gap-1 ml-2 xs:ml-3">
