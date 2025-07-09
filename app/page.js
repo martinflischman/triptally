@@ -3,6 +3,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { supabase } from "../lib/supabaseClient";
 import Travellers from "../components/Travellers";
 import Expenses from "../components/Expenses";
@@ -28,6 +29,8 @@ const CURRENCY_SYMBOLS = {
 };
 
 export default function Home() {
+  const router = useRouter();
+  const [authChecked, setAuthChecked] = useState(false);
   // State variables for trips, form fields, and UI state
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -82,6 +85,23 @@ export default function Home() {
   useEffect(() => {
     fetchTrips();
   }, []);
+
+  // Route protection: redirect to /signin if not authenticated
+  useEffect(() => {
+    async function checkAuth() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        router.replace("/signin");
+      } else {
+        setAuthChecked(true);
+      }
+    }
+    checkAuth();
+  }, [router]);
+
+  if (!authChecked) {
+    return null; // Or a loading spinner
+  }
 
   // When a trip is selected, fetch its travellers and expenses
   useEffect(() => {
