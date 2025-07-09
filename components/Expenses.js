@@ -325,10 +325,10 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
                       </div>
                     </div>
                   ) : (
-                    <div className="flex flex-row justify-between items-start">
-                      <div className="flex-1 min-w-0">
-                        {/* Top row: Date and Paid by */}
-                        <div className="flex items-center gap-2 mb-1">
+                    <div className="flex flex-col">
+                      <div className="flex flex-row justify-between items-start">
+                        {/* Top row: Date and Paid by, and action icons */}
+                        <div className="flex items-center gap-2">
                           <span className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/50">
                             {new Date(exp.created_at).toLocaleDateString()}
                           </span>
@@ -336,40 +336,40 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
                             · Paid by: {getTravellerName(exp)}
                           </span>
                         </div>
-                        {/* Small space */}
-                        <div className="h-1" />
-                        {/* Category */}
-                        <div className="font-semibold text-xs xs:text-sm sm:text-base md:text-base lg:text-base xl:text-base truncate mb-1">
-                          {exp.category}
-                        </div>
-                        {/* Description below category, if present */}
-                        {exp.description && (
-                          <div className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/70 mb-1 line-clamp-2">
-                            {exp.description}
-                          </div>
-                        )}
-                        {/* Amount */}
-                        <div className="text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl xl:text-xl font-bold text-secondary mt-1">
-                          {CURRENCY_SYMBOLS[currency]} {Number(exp.amount).toFixed(2)}
+                        <div className="flex flex-row gap-1 ml-2 xs:ml-3">
+                          <button
+                            className="btn btn-ghost btn-xs rounded-lg p-1"
+                            title="Edit Expense"
+                            onClick={() => handleEditExpense(exp)}
+                            type="button"
+                          >
+                            <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4" />
+                          </button>
+                          <button
+                            className="btn btn-ghost btn-xs rounded-lg p-1"
+                            title="Delete Expense"
+                            onClick={() => handleDeleteExpense(exp.id)}
+                            type="button"
+                          >
+                            <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4 text-error" />
+                          </button>
                         </div>
                       </div>
-                      <div className="flex flex-col gap-1 ml-2 xs:ml-3">
-                        <button
-                          className="btn btn-ghost btn-xs rounded-lg p-1"
-                          title="Edit Expense"
-                          onClick={() => handleEditExpense(exp)}
-                          type="button"
-                        >
-                          <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4" />
-                        </button>
-                        <button
-                          className="btn btn-ghost btn-xs rounded-lg p-1"
-                          title="Delete Expense"
-                          onClick={() => handleDeleteExpense(exp.id)}
-                          type="button"
-                        >
-                          <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4 text-error" />
-                        </button>
+                      {/* Small space */}
+                      <div className="h-1" />
+                      {/* Category */}
+                      <div className="font-semibold text-xs xs:text-sm sm:text-base md:text-base lg:text-base xl:text-base truncate mb-1">
+                        {exp.category}
+                      </div>
+                      {/* Description below category, if present */}
+                      {exp.description && (
+                        <div className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/70 mb-1 line-clamp-2">
+                          {exp.description}
+                        </div>
+                      )}
+                      {/* Amount */}
+                      <div className="text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl xl:text-xl font-bold text-secondary mt-1">
+                        {CURRENCY_SYMBOLS[currency]} {Number(exp.amount).toFixed(2)}
                       </div>
                     </div>
                   )}
