@@ -249,6 +249,7 @@ export default function Home() {
     setEditingTripStartDate("");
     setEditingTripEndDate("");
     fetchTrips();
+    showToast("Trip saved", "success");
   }
 
   // Calculate total expense sum
@@ -417,7 +418,7 @@ export default function Home() {
                                 </div>
                                 <div className="flex gap-2 mt-2">
                                   <button
-                                    className="btn btn-success btn-xs xs:btn-sm md:btn-xs lg:btn-xs rounded-lg text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs"
+                                    className="h-10 rounded-lg px-4 bg-success/20 text-success font-semibold"
                                     onClick={() => handleSaveEditTrip(trip.id)}
                                   >
                                     Save
