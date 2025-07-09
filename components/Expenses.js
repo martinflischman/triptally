@@ -181,7 +181,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
         </h3>
 
         {travellers.length === 0 ? (
-          <div className="mb-3 xs:mb-4 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm py-2 bg-warning/20 text-warning font-semibold border border-warning/20">
+          <div className="mb-3 xs:mb-4 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm p-4 bg-warning/20 text-warning font-semibold border border-warning/20">
             Add travellers first to assign expenses.
           </div>
         ) : (
@@ -261,7 +261,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
             <span className="loading loading-dots loading-md loading-md text-primary"></span>
           </div>
         ) : expenses.length === 0 ? (
-          <div className="rounded-lg text-sm xs:text-base md:text-sm lg:text-sm py-2 bg-info/20 text-info font-semibold border border-info/20">
+          <div className="rounded-lg text-sm xs:text-base md:text-sm lg:text-sm p-4 bg-info/20 text-info font-semibold border border-info/20">
             No expenses yet.
           </div>
         ) : (
