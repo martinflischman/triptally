@@ -603,21 +603,23 @@ export default function Home() {
                       </div>
                       {/* Traveller blocks: grid with 4 columns (md:grid-cols-4), each block w-full in its cell */}
                       {travellers.length > 0 && expenses.length > 0 && (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 xs:gap-4 w-full">
-                          {travellers.map(traveller => {
-                            const totalPaid = expenses
-                              .filter(exp => exp.paid_by === traveller.id)
-                              .reduce((sum, exp) => sum + (Number(exp.amount) || 0), 0);
-                            return (
-                              <div key={traveller.id} className="bg-base-200 p-2 xs:p-3 rounded-lg border border-base-300 flex flex-col justify-center w-full min-w-[140px]">
-                                <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">{traveller.name}</div>
-                                <div className="text-sm text-base-content/70">Paid</div>
-                                <div className="text-lg font-bold text-base-content">
-                                  {CURRENCY_SYMBOLS[selectedTrip.currency]} {totalPaid.toFixed(2)}
+                        <div className={`w-full ${travellers.length === 1 ? 'flex justify-center' : ''}`}>
+                          <div className={`grid ${travellers.length === 1 ? '' : 'grid-cols-2'} md:grid-cols-4 gap-3 xs:gap-4 w-full`}>
+                            {travellers.map(traveller => {
+                              const totalPaid = expenses
+                                .filter(exp => exp.paid_by === traveller.id)
+                                .reduce((sum, exp) => sum + (Number(exp.amount) || 0), 0);
+                              return (
+                                <div key={traveller.id} className="bg-base-200 p-2 xs:p-3 rounded-lg border border-base-300 flex flex-col justify-center w-full min-w-[140px]">
+                                  <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">{traveller.name}</div>
+                                  <div className="text-sm text-base-content/70">Paid</div>
+                                  <div className="text-lg font-bold text-base-content">
+                                    {CURRENCY_SYMBOLS[selectedTrip.currency]} {totalPaid.toFixed(2)}
+                                  </div>
                                 </div>
-                              </div>
-                            );
-                          })}
+                              );
+                            })}
+                          </div>
                         </div>
                       )}
                     </>
