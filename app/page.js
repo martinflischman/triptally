@@ -149,10 +149,10 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-base-200">
-      <div className="container mx-auto px-4 py-8 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
+      <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
         <div className="flex flex-col items-center">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 flex items-center gap-2 text-center">
-            <MapIcon className="h-7 w-7 sm:h-8 sm:w-8 text-primary" />
+          <h1 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 flex items-center gap-2 text-center text-primary">
+            <MapIcon className="h-7 w-7 sm:h-8 sm:w-8" />
             TripTally
           </h1>
 
@@ -325,29 +325,40 @@ export default function Home() {
 
               <div className="card bg-base-100 shadow mb-4 rounded-lg">
                 <div className="card-body p-4 sm:p-6">
-                  <h2 className="card-title text-lg sm:text-xl">
+                  <h2 className="card-title text-lg sm:text-xl mb-3">
                     {selectedTrip.name}
                   </h2>
-                  <p className="text-gray-500 mb-2">
+                  <div className="text-sm text-base-content/70 mb-4">
                     Currency: {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
                     {selectedTrip.currency}
-                  </p>
+                  </div>
 
                   {/* Show loading state if fetching trip data */}
                   {loadingTripData ? (
-                    <span className="loading loading-spinner loading-sm"></span>
+                    <div className="flex justify-center py-4">
+                      <span className="loading loading-spinner loading-sm"></span>
+                    </div>
                   ) : (
-                    <>
-                      <p className="font-semibold">
-                        Total Expenses:{" "}
-                        {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
-                        {totalExpense.toFixed(2)}
-                      </p>
-                      <p className="font-semibold">
-                        Per Traveller: {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
-                        {perTraveller.toFixed(2)}
-                      </p>
-                    </>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="bg-secondary/10 p-3 rounded-lg border border-secondary/20">
+                        <div className="text-sm text-base-content/70 mb-1">
+                          Total Expenses
+                        </div>
+                        <div className="text-lg font-semibold text-secondary">
+                          {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
+                          {totalExpense.toFixed(2)}
+                        </div>
+                      </div>
+                      <div className="bg-primary/10 p-3 rounded-lg border border-primary/20">
+                        <div className="text-sm text-base-content/70 mb-1">
+                          Per Traveller
+                        </div>
+                        <div className="text-xl font-bold text-primary">
+                          {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
+                          {perTraveller.toFixed(2)}
+                        </div>
+                      </div>
+                    </div>
                   )}
                 </div>
               </div>

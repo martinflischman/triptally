@@ -1,4 +1,3 @@
-// ./app/layout.js
 import "./globals.css";
 
 export const metadata = {
@@ -7,7 +6,7 @@ export const metadata = {
   viewport: "width=device-width, initial-scale=1.0",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
   },
   icons: {
     icon: [
@@ -36,15 +35,37 @@ export const metadata = {
       },
     ],
   },
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#1f2937" },
+  ],
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="bg-base-200">
+    <html lang="en" className="bg-base-200" data-theme="">
       <head>
+        <meta name="theme-color" content="#ffffff" />
         <meta
-          name="apple-mobile-web-app-status-bar-style"
-          content="black-translucent"
+          name="theme-color"
+          content="#1f2937"
+          media="(prefers-color-scheme: dark)"
+        />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const theme = localStorage.getItem('theme') || 
+                  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+                
+                // Update theme color based on current theme
+                const themeColor = theme === 'dark' ? '#1f2937' : '#ffffff';
+                document.querySelector('meta[name="theme-color"]').setAttribute('content', themeColor);
+              })();
+            `,
+          }}
         />
       </head>
       <body className="min-h-[100dvh] bg-base-200 text-base-content antialiased overscroll-none scroll-smooth touch-pan-y">

@@ -118,12 +118,14 @@ export default function Expenses({ tripId, currency }) {
   if (!tripId) return null;
 
   return (
-    <div className="card bg-base-100 shadow mt-6 rounded-md">
-      <div className="card-body">
-        <h3 className="card-title flex items-center gap-2">Add Expense</h3>
-        <form className="flex flex-col gap-2 mb-4" onSubmit={handleAddExpense}>
+    <div className="card bg-base-100 shadow mt-4 sm:mt-6 rounded-lg">
+      <div className="card-body p-4 sm:p-6">
+        <h3 className="card-title flex items-center gap-2 text-lg sm:text-xl mb-4">
+          Add Expense
+        </h3>
+        <form className="flex flex-col gap-3 mb-4" onSubmit={handleAddExpense}>
           <select
-            className="select select-bordered w-full rounded-md"
+            className="select select-bordered w-full rounded-lg"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             disabled={adding}
@@ -135,7 +137,7 @@ export default function Expenses({ tripId, currency }) {
             ))}
           </select>
           <input
-            className="input input-bordered w-full rounded-md"
+            className="input input-bordered w-full rounded-lg"
             placeholder={`Amount (${currency})`}
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
@@ -146,14 +148,14 @@ export default function Expenses({ tripId, currency }) {
             step="0.01"
           />
           <input
-            className="input input-bordered w-full rounded-md"
+            className="input input-bordered w-full rounded-lg"
             placeholder="Description (optional)"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             disabled={adding}
           />
           <button
-            className="btn btn-secondary flex items-center gap-2 rounded-md"
+            className="btn btn-primary w-full flex items-center gap-2 rounded-lg"
             disabled={adding}
           >
             <PlusIcon className="h-4 w-4" />
@@ -161,102 +163,111 @@ export default function Expenses({ tripId, currency }) {
           </button>
         </form>
         {error && (
-          <div className="alert alert-error mb-2 rounded-md">{error}</div>
+          <div className="alert alert-error mb-4 rounded-lg">{error}</div>
         )}
-        <h4 className="font-bold mt-4 mb-2">Expense History</h4>
+
+        <h4 className="font-bold text-lg mb-3">Expense History</h4>
         {loading ? (
-          <span className="loading loading-spinner loading-md"></span>
+          <div className="flex justify-center py-4">
+            <span className="loading loading-spinner loading-md"></span>
+          </div>
         ) : expenses.length === 0 ? (
-          <div className="alert alert-info rounded-md">No expenses yet.</div>
+          <div className="alert alert-info rounded-lg">No expenses yet.</div>
         ) : (
-          <ul className="divide-y">
+          <div className="space-y-3">
             {expenses.map((exp) => (
-              <li key={exp.id} className="py-2 flex flex-col">
-                {editingId === exp.id ? (
-                  <div className="flex flex-col gap-2">
-                    <select
-                      className="select select-bordered w-full rounded-md"
-                      value={editingCategory}
-                      onChange={(e) => setEditingCategory(e.target.value)}
-                    >
-                      {CATEGORY_OPTIONS.map((cat) => (
-                        <option key={cat} value={cat}>
-                          {cat}
-                        </option>
-                      ))}
-                    </select>
-                    <input
-                      className="input input-bordered w-full rounded-md"
-                      value={editingAmount}
-                      onChange={(e) => setEditingAmount(e.target.value)}
-                      type="number"
-                      inputMode="decimal"
-                      min="0"
-                      step="0.01"
-                    />
-                    <input
-                      className="input input-bordered w-full rounded-md"
-                      value={editingDescription}
-                      onChange={(e) => setEditingDescription(e.target.value)}
-                      placeholder="Description (optional)"
-                    />
-                    <div className="flex gap-2">
-                      <button
-                        className="btn btn-success btn-xs rounded-md"
-                        onClick={() => handleSaveEditExpense(exp.id)}
-                        type="button"
+              <div key={exp.id} className="card bg-base-200 shadow rounded-lg">
+                <div className="card-body p-3 sm:p-4">
+                  {editingId === exp.id ? (
+                    <div className="flex flex-col gap-3">
+                      <select
+                        className="select select-bordered w-full rounded-lg"
+                        value={editingCategory}
+                        onChange={(e) => setEditingCategory(e.target.value)}
                       >
-                        Save
-                      </button>
-                      <button
-                        className="btn btn-ghost btn-xs rounded-md"
-                        onClick={() => setEditingId(null)}
-                        type="button"
-                      >
-                        Cancel
-                      </button>
+                        {CATEGORY_OPTIONS.map((cat) => (
+                          <option key={cat} value={cat}>
+                            {cat}
+                          </option>
+                        ))}
+                      </select>
+                      <input
+                        className="input input-bordered w-full rounded-lg"
+                        value={editingAmount}
+                        onChange={(e) => setEditingAmount(e.target.value)}
+                        type="number"
+                        inputMode="decimal"
+                        min="0"
+                        step="0.01"
+                      />
+                      <input
+                        className="input input-bordered w-full rounded-lg"
+                        value={editingDescription}
+                        onChange={(e) => setEditingDescription(e.target.value)}
+                        placeholder="Description (optional)"
+                      />
+                      <div className="flex gap-2">
+                        <button
+                          className="btn btn-success btn-sm rounded-lg"
+                          onClick={() => handleSaveEditExpense(exp.id)}
+                          type="button"
+                        >
+                          Save
+                        </button>
+                        <button
+                          className="btn btn-ghost btn-sm rounded-lg"
+                          onClick={() => setEditingId(null)}
+                          type="button"
+                        >
+                          Cancel
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <span className="font-semibold">{exp.category}</span>
-                      <span className="ml-2">
-                        {CURRENCY_SYMBOLS[currency]}{" "}
-                        {Number(exp.amount).toFixed(2)}
-                      </span>
-                      {exp.description && (
-                        <span className="block text-sm text-gray-500">
-                          {exp.description}
+                  ) : (
+                    <div className="flex justify-between items-start">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="font-semibold text-sm sm:text-base">
+                            {exp.category}
+                          </span>
+                          <span className="text-lg sm:text-xl font-bold text-secondary">
+                            {CURRENCY_SYMBOLS[currency]}{" "}
+                            {Number(exp.amount).toFixed(2)}
+                          </span>
+                        </div>
+                        {exp.description && (
+                          <p className="text-sm text-base-content/70 mb-1">
+                            {exp.description}
+                          </p>
+                        )}
+                        <span className="text-xs text-base-content/50">
+                          {new Date(exp.created_at).toLocaleString()}
                         </span>
-                      )}
-                      <span className="block text-xs text-gray-400">
-                        {new Date(exp.created_at).toLocaleString()}
-                      </span>
+                      </div>
+                      <div className="flex gap-1 ml-3">
+                        <button
+                          className="btn btn-ghost btn-xs rounded-lg"
+                          title="Edit Expense"
+                          onClick={() => handleEditExpense(exp)}
+                          type="button"
+                        >
+                          <PencilSquareIcon className="h-4 w-4" />
+                        </button>
+                        <button
+                          className="btn btn-ghost btn-xs rounded-lg"
+                          title="Delete Expense"
+                          onClick={() => handleDeleteExpense(exp.id)}
+                          type="button"
+                        >
+                          <TrashIcon className="h-4 w-4 text-error" />
+                        </button>
+                      </div>
                     </div>
-                    <div className="flex gap-1">
-                      <button
-                        className="btn btn-ghost btn-xs rounded-md"
-                        title="Edit Expense"
-                        onClick={() => handleEditExpense(exp)}
-                        type="button"
-                      >
-                        <PencilSquareIcon className="h-4 w-4" />
-                      </button>
-                      <button
-                        className="btn btn-ghost btn-xs rounded-md"
-                        title="Delete Expense"
-                        onClick={() => handleDeleteExpense(exp.id)}
-                        type="button"
-                      >
-                        <TrashIcon className="h-4 w-4 text-error" />
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </li>
+                  )}
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
       </div>
     </div>

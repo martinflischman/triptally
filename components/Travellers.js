@@ -76,19 +76,19 @@ export default function Travellers({ tripId }) {
   if (!tripId) return null;
 
   return (
-    <div className="card bg-base-100 shadow mt-6 rounded-md">
-      <div className="card-body">
+    <div className="card bg-base-100 shadow mt-6 rounded-lg">
+      <div className="card-body p-4 sm:p-6">
         <h3 className="card-title flex items-center gap-2">Travellers</h3>
         <form className="flex gap-2 mb-4" onSubmit={handleAddTraveller}>
           <input
-            className="input input-bordered flex-1 rounded-md"
+            className="input input-bordered flex-1 rounded-lg"
             placeholder="Traveller Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             disabled={adding}
           />
           <button
-            className="btn btn-secondary flex items-center gap-2 rounded-md"
+            className="btn btn-primary flex items-center gap-2 rounded-lg"
             disabled={adding}
           >
             <PlusIcon className="h-4 w-4" />
@@ -96,34 +96,36 @@ export default function Travellers({ tripId }) {
           </button>
         </form>
         {error && (
-          <div className="alert alert-error mb-2 rounded-md">{error}</div>
+          <div className="alert alert-error mb-2 rounded-lg">{error}</div>
         )}
         {loading ? (
-          <span className="loading loading-spinner loading-md"></span>
+          <div className="flex justify-center py-4">
+            <span className="loading loading-spinner loading-md"></span>
+          </div>
         ) : travellers.length === 0 ? (
-          <div className="alert alert-info rounded-md">No travellers yet.</div>
+          <div className="alert alert-info rounded-lg">No travellers yet.</div>
         ) : (
           <div className="grid gap-2">
             {travellers.map((trav) => (
               <div
                 key={trav.id}
-                className="card bg-base-200 shadow flex flex-row items-center p-2 rounded-md"
+                className="card bg-base-200 shadow flex flex-row items-center p-3 rounded-lg"
               >
                 {editingId === trav.id ? (
                   <>
                     <input
-                      className="input input-bordered flex-1 rounded-md"
+                      className="input input-bordered flex-1 rounded-lg"
                       value={editingName}
                       onChange={(e) => setEditingName(e.target.value)}
                     />
                     <button
-                      className="btn btn-success btn-xs ml-2 rounded-md"
+                      className="btn btn-success btn-xs ml-2 rounded-lg"
                       onClick={() => handleSaveEdit(trav.id)}
                     >
                       Save
                     </button>
                     <button
-                      className="btn btn-ghost btn-xs ml-2 rounded-md"
+                      className="btn btn-ghost btn-xs ml-2 rounded-lg"
                       onClick={() => setEditingId(null)}
                     >
                       Cancel
@@ -134,14 +136,14 @@ export default function Travellers({ tripId }) {
                     <span className="flex-1">{trav.name}</span>
                     <div className="flex gap-1">
                       <button
-                        className="btn btn-ghost btn-xs rounded-md"
+                        className="btn btn-ghost btn-xs rounded-lg"
                         onClick={() => handleEditTraveller(trav.id, trav.name)}
                         title="Edit"
                       >
                         <PencilSquareIcon className="h-4 w-4" />
                       </button>
                       <button
-                        className="btn btn-ghost btn-xs rounded-md"
+                        className="btn btn-ghost btn-xs rounded-lg"
                         onClick={() => handleDeleteTraveller(trav.id)}
                         title="Delete"
                       >
