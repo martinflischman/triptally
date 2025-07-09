@@ -9,7 +9,12 @@ TripTally is a modern web app for tracking group travel expenses. Easily add tri
 - Responsive, mobile-friendly design
 - Modern toast notifications and confirmation modals
 - Confetti animation on trip creation for delightful UX
-- Accessible and SEO-friendly (WCAG and best practices)
+- **Accessible and SEO/PWA-friendly:**
+  - WCAG-compliant color contrast and keyboard navigation
+  - Semantic HTML, ARIA labels, and accessible modals/dialogs
+  - All error messages are shown to users in a clear, friendly way
+  - Meta tags, manifest, and icons for SEO and installability
+  - App can be installed as a PWA on mobile/desktop
 - **Authentication:**
   - Magic link sign-in (email, no password required)
   - Google sign-in (one-click, fast)
@@ -22,6 +27,7 @@ TripTally is a modern web app for tracking group travel expenses. Easily add tri
   - Works great on all screen sizes
 - **Easy to use for non-coders:**
   - Code is commented throughout to help you understand and modify it
+  - README and code comments explain all major features and flows
 
 ## Tech Stack
 - Next.js (React framework)
@@ -54,16 +60,24 @@ TripTally is a modern web app for tracking group travel expenses. Easily add tri
    ```
    The app will be available at [http://localhost:3000](http://localhost:3000)
 
-## Accessibility & SEO
+## Accessibility, SEO & PWA
 - Uses semantic HTML and ARIA labels for screen readers
 - High color contrast and keyboard navigation support
-- Meta tags and headings for SEO best practices
+- All modals/dialogs are accessible (role, aria-modal, Escape to close)
+- All error messages are visible and accessible (role="alert")
+- Meta tags, manifest, and icons for SEO and PWA
+- App is installable as a PWA (add to home screen on mobile/desktop)
 
 ## Code Structure & Comments (for Non-Coders)
 - All main files and components are commented to explain what each part does
 - Look for comments at the top of each file and above major functions/sections
 - If you want to change something, read the comments to understand what it does first
 - If you get stuck, you can always ask for help or open an issue
+
+## Inviting Testers & Production Readiness
+- You can share your deployed app link with friends or team members for testing
+- All authentication and error flows are production-ready
+- If you add new features, follow the same accessibility and error handling patterns
 
 ## Contributing
 Pull requests are welcome! Please open an issue first to discuss major changes.
