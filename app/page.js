@@ -6,6 +6,7 @@ import { supabase } from "../lib/supabaseClient";
 import Travellers from "../components/Travellers";
 import Expenses from "../components/Expenses";
 import Toast from "../components/Toast";
+import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 import {
   TrashIcon,
   PencilSquareIcon,
@@ -48,6 +49,23 @@ export default function Home() {
     setToastMessage(message);
     setToastType(type);
     setToastOpen(true);
+  }
+
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+  const [tripToDelete, setTripToDelete] = useState(null);
+
+  function handleRequestDeleteTrip(trip) {
+    setTripToDelete(trip);
+    setConfirmDeleteOpen(true);
+  }
+
+  async function handleDeleteTripConfirmed() {
+    if (!tripToDelete) return;
+    await supabase.from("trips").delete().eq("id", tripToDelete.id);
+    fetchTrips();
+    setConfirmDeleteOpen(false);
+    setTripToDelete(null);
+    showToast("Trip deleted", "error");
   }
 
   const subscriptionsRef = useRef({});
@@ -213,6 +231,15 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-base-200">
       <Toast open={toastOpen} message={toastMessage} type={toastType} onClose={() => setToastOpen(false)} />
+      <ConfirmDeleteModal
+        open={confirmDeleteOpen}
+        onClose={() => { setConfirmDeleteOpen(false); setTripToDelete(null); }}
+        onConfirm={handleDeleteTripConfirmed}
+        title="Delete Trip?"
+        message="Are you sure you want to delete this trip? This will permanently delete all trip information and cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+      />
       <div className="container mx-auto px-3 xs:px-4 sm:px-5 py-4 xs:py-5 sm:py-6 max-w-full xs:max-w-[97vw] sm:max-w-[93vw] md:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl">
         <div className="flex flex-col items-center">
           <h1 className="mt-4 xs:mt-6 sm:mt-8 text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-3xl xl:text-3xl font-bold mb-4 xs:mb-6 sm:mb-8 flex items-center gap-2 text-center text-primary">
@@ -355,7 +382,7 @@ export default function Home() {
                                   <button
                                     className="btn btn-ghost btn-xs rounded-lg p-1"
                                     title="Delete Trip"
-                                    onClick={() => handleDeleteTrip(trip.id)}
+                                    onClick={() => handleRequestDeleteTrip(trip)}
                                   >
                                     <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4 text-error" />
                                   </button>

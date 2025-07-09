@@ -13,12 +13,12 @@ export default function Toast({ open, message, onClose, duration = 2000, type = 
   if (!open) return null;
 
   const colorClass = type === "error"
-    ? "bg-error/20 text-error"
-    : "bg-success/20 text-success";
+    ? "bg-error text-error-content border-0 shadow-none"
+    : "bg-success text-success-content border-0 shadow-none";
 
   return (
     <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 flex justify-center w-full pointer-events-none">
-      <div className={`alert ${colorClass} shadow-lg pointer-events-auto animate-fade-in-up`}>
+      <div className={`alert ${colorClass} pointer-events-auto animate-fade-in-up`}>
         <span className={`font-semibold ${type === "error" ? "text-error" : "text-success"}`}>{message}</span>
       </div>
     </div>
