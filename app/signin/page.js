@@ -55,20 +55,22 @@ export default function SignIn() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200">
       <div className="card bg-base-100 shadow-lg p-6 w-full max-w-sm">
-        {/* Logo and Brand - moved higher for better visual balance */}
-        <div className="flex flex-col items-center justify-center gap-2 mb-4">
+        {/* Logo and Brand - improved sizing and spacing for modern look */}
+        <div className="flex flex-col items-center justify-center gap-2 mb-6">
           <div className="flex items-center justify-center gap-2">
-            {/* MapIcon SVG, always matches theme primary color */}
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width={32} height={32} className="block text-primary">
+            {/* MapIcon SVG, larger for stronger branding */}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" width={40} height={40} className="block text-primary">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
             </svg>
-            <span className="text-3xl font-bold text-primary" style={{ letterSpacing: "-1px" }}>TripTally</span>
+            <span className="text-4xl font-extrabold text-primary leading-tight" style={{ letterSpacing: "-1px" }}>TripTally</span>
           </div>
-          {/* Short accessible description below the title */}
-          <span className="text-xs mt-1 text-primary/70 text-center max-w-xs">
-            Effortlessly track group travel expenses, split costs, and see who paid what. Modern, mobile-friendly, and real-time.
+          {/* Short accessible description below the title, larger and with better spacing */}
+          <span className="text-sm mt-2 text-primary/80 text-center max-w-xs font-medium">
+            Easily track and split travel expenses with friends, partners, or groups. See who paid what, and settle up with confidence.
           </span>
         </div>
+        {/* Add extra margin below brand for visual separation */}
+        <div className="mb-2" />
         {/* Show feedback if magic link was sent */}
         {emailSent ? (
           <div className="flex flex-col items-center justify-center gap-4">
