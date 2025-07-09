@@ -167,7 +167,7 @@ export default function Home() {
     <main className="min-h-screen bg-base-200">
       <div className="container mx-auto px-3 xs:px-4 sm:px-5 py-4 xs:py-5 sm:py-6 max-w-full xs:max-w-[97vw] sm:max-w-[93vw] md:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl">
         <div className="flex flex-col items-center">
-          <h1 className="mt-4 xs:mt-6 sm:mt-8 text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-3xl xl:text-3xl font-bold mb-4 xs:mb-6 sm:mb-8 flex items-center gap-2 text-center text-primary">
+          <h1 className="mt-8 xs:mt-12 sm:mt-16 text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-3xl xl:text-3xl font-bold mb-4 xs:mb-6 sm:mb-8 flex items-center gap-2 text-center text-primary">
             <MapIcon className="h-8 w-8 xs:h-10 xs:w-10 sm:h-12 sm:w-12 md:h-10 md:w-10 lg:h-6 lg:w-6 xl:h-6 xl:w-6" />
             TripTally
           </h1>
@@ -229,6 +229,10 @@ export default function Home() {
                   </button>
                 </div>
               </form>
+
+              {trips.length > 0 && (
+                <h2 className="text-base xs:text-lg sm:text-xl md:text-lg lg:text-lg xl:text-lg font-semibold mb-2 xs:mb-3 text-primary w-full text-left">Your Trips</h2>
+              )}
 
               {loading ? (
                 <div className="flex justify-center py-4">
