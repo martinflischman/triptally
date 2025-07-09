@@ -184,10 +184,10 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
 
           {loading ? (
             <div className="flex justify-center py-4">
-              <span className="loading loading-dots loading-md text-primary loading-md"></span>
+              <span className="loading loading-dots loading-md loading-md text-primary loading-md"></span>
             </div>
           ) : travellers.length === 0 ? (
-            <div className="alert alert-info rounded-lg text-sm xs:text-base md:text-sm lg:text-sm py-2">
+            <div className="rounded-lg text-sm xs:text-base md:text-sm lg:text-sm py-2 bg-info/20 text-info font-semibold border border-info/20">
               No travellers yet.
             </div>
           ) : (
