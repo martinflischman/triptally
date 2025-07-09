@@ -165,10 +165,10 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-base-200">
-      <div className="container mx-auto px-3 py-4 xs:py-6 sm:py-8 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
+      <div className="container mx-auto px-3 py-4 xs:py-6 sm:py-8 max-w-sm sm:max-w-md md:max-w-md lg:max-w-md xl:max-w-lg">
         <div className="flex flex-col items-center">
-          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-4xl xl:text-5xl font-bold mb-4 xs:mb-6 sm:mb-8 flex items-center gap-2 text-center text-primary">
-            <MapIcon className="h-6 w-6 xs:h-7 xs:w-7 sm:h-7 sm:w-7 md:h-8 md:w-8 lg:h-8 lg:w-8 xl:h-9 xl:w-9" />
+          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-3xl lg:text-3xl xl:text-3xl font-bold mb-4 xs:mb-6 sm:mb-8 flex items-center gap-2 text-center text-primary">
+            <MapIcon className="h-6 w-6 xs:h-7 xs:w-7 sm:h-7 sm:w-7 md:h-6 md:w-6 lg:h-6 lg:w-6 xl:h-6 xl:w-6" />
             TripTally
           </h1>
 
@@ -179,18 +179,18 @@ export default function Home() {
                 onSubmit={handleCreateTrip}
               >
                 <div className="card-body p-3 xs:p-4 sm:p-6">
-                  <h2 className="card-title text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl xl:text-xl mb-3 xs:mb-4">
+                  <h2 className="card-title text-base xs:text-lg sm:text-xl md:text-lg lg:text-lg xl:text-lg mb-3 xs:mb-4">
                     Create a New Trip
                   </h2>
                   <input
-                    className="input input-bordered w-full rounded-lg mb-3 xs:mb-4 text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
+                    className="input input-bordered w-full rounded-lg mb-3 xs:mb-4 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
                     placeholder="Trip Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     disabled={creating}
                   />
                   <select
-                    className="select select-bordered w-full rounded-lg mb-3 xs:mb-4 text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
+                    className="select select-bordered w-full rounded-lg mb-3 xs:mb-4 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
                     value={currency}
                     onChange={(e) => setCurrency(e.target.value)}
                     disabled={creating}
@@ -208,12 +208,12 @@ export default function Home() {
                     </div>
                   )}
                   <button
-                    className="btn btn-primary w-full rounded-lg flex items-center gap-2 h-10 xs:h-12 text-sm xs:text-base md:text-base lg:text-base xl:text-base"
+                    className="btn btn-primary w-full rounded-lg flex items-center gap-2 h-10 xs:h-12 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm"
                     disabled={creating}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4 xs:h-5 xs:w-5 md:h-5 md:w-5 lg:h-5 lg:w-5 xl:h-6 xl:w-6"
+                      className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -251,14 +251,14 @@ export default function Home() {
                             {editingTripId === trip.id ? (
                               <div className="flex-1">
                                 <input
-                                  className="input input-bordered w-full mb-2 rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
+                                  className="input input-bordered w-full mb-2 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
                                   value={editingTripName}
                                   onChange={(e) =>
                                     setEditingTripName(e.target.value)
                                   }
                                 />
                                 <select
-                                  className="select select-bordered w-full mb-2 rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
+                                  className="select select-bordered w-full mb-2 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
                                   value={editingTripCurrency}
                                   onChange={(e) =>
                                     setEditingTripCurrency(e.target.value)
@@ -272,13 +272,13 @@ export default function Home() {
                                 </select>
                                 <div className="flex gap-2 mt-2">
                                   <button
-                                    className="btn btn-success btn-xs xs:btn-sm md:btn-sm rounded-lg text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm"
+                                    className="btn btn-success btn-xs xs:btn-sm md:btn-xs lg:btn-xs rounded-lg text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs"
                                     onClick={() => handleSaveEditTrip(trip.id)}
                                   >
                                     Save
                                   </button>
                                   <button
-                                    className="btn btn-ghost btn-xs xs:btn-sm md:btn-sm rounded-lg text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm"
+                                    className="btn btn-ghost btn-xs xs:btn-sm md:btn-xs lg:btn-xs rounded-lg text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs"
                                     onClick={() => setEditingTripId(null)}
                                   >
                                     Cancel
@@ -288,7 +288,7 @@ export default function Home() {
                             ) : (
                               <>
                                 <div className="flex-1">
-                                  <h2 className="card-title text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl xl:text-xl">
+                                  <h2 className="card-title text-base xs:text-lg sm:text-xl md:text-lg lg:text-lg xl:text-lg">
                                     {trip.name}
                                   </h2>
                                 </div>
@@ -298,14 +298,14 @@ export default function Home() {
                                     title="Edit Trip"
                                     onClick={() => handleEditTrip(trip)}
                                   >
-                                    <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-5 md:w-5 lg:h-5 lg:w-5 xl:h-6 xl:w-6" />
+                                    <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4" />
                                   </button>
                                   <button
                                     className="btn btn-ghost btn-xs rounded-lg p-1"
                                     title="Delete Trip"
                                     onClick={() => handleDeleteTrip(trip.id)}
                                   >
-                                    <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-5 md:w-5 lg:h-5 lg:w-5 xl:h-6 xl:w-6 text-error" />
+                                    <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4 text-error" />
                                   </button>
                                 </div>
                               </>
@@ -313,10 +313,10 @@ export default function Home() {
                           </div>
                           {editingTripId !== trip.id && (
                             <button
-                              className="btn btn-outline btn-sm w-full mt-3 xs:mt-4 flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-base lg:text-base xl:text-base"
+                              className="btn btn-outline btn-sm w-full mt-3 xs:mt-4 flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm"
                               onClick={() => setSelectedTrip(trip)}
                             >
-                              <MapIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-5 md:w-5" />
+                              <MapIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4" />
                               View Trip
                             </button>
                           )}
@@ -333,7 +333,7 @@ export default function Home() {
           {selectedTrip && (
             <div className="w-full">
               <button
-                className="btn btn-sm mb-3 xs:mb-4 rounded-lg text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm h-8 xs:h-10"
+                className="btn btn-sm mb-3 xs:mb-4 rounded-lg text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs h-8 xs:h-10"
                 onClick={handleBack}
               >
                 ← Back to Trips
@@ -341,10 +341,10 @@ export default function Home() {
 
               <div className="card bg-base-100 shadow mb-3 xs:mb-4 rounded-lg">
                 <div className="card-body p-3 xs:p-4 sm:p-6">
-                  <h2 className="card-title text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl xl:text-xl mb-2 xs:mb-3">
+                  <h2 className="card-title text-base xs:text-lg sm:text-xl md:text-lg lg:text-lg xl:text-lg mb-2 xs:mb-3">
                     {selectedTrip.name}
                   </h2>
-                  <div className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/70 mb-3 xs:mb-4">
+                  <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-3 xs:mb-4">
                     Currency: {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
                     {selectedTrip.currency}
                   </div>
@@ -357,19 +357,19 @@ export default function Home() {
                   ) : (
                     <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 xs:gap-4">
                       <div className="bg-secondary/10 p-2 xs:p-3 rounded-lg border border-secondary/20">
-                        <div className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/70 mb-1">
+                        <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
                           Total Expenses
                         </div>
-                        <div className="text-base xs:text-lg md:text-xl lg:text-xl xl:text-xl font-semibold text-secondary">
+                        <div className="text-base xs:text-lg md:text-base lg:text-base xl:text-base font-semibold text-secondary">
                           {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
                           {totalExpense.toFixed(2)}
                         </div>
                       </div>
                       <div className="bg-primary/10 p-2 xs:p-3 rounded-lg border border-primary/20">
-                        <div className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/70 mb-1">
+                        <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
                           Per Traveller
                         </div>
-                        <div className="text-lg xs:text-xl md:text-xl lg:text-xl xl:text-xl font-bold text-primary">
+                        <div className="text-lg xs:text-xl md:text-lg lg:text-lg xl:text-lg font-bold text-primary">
                           {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
                           {perTraveller.toFixed(2)}
                         </div>
