@@ -1,33 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-export default function ReassignExpensesModal({ open, onClose, onConfirm, travellers, excludeTravellerId }) {
-  const [selectedTraveller, setSelectedTraveller] = useState("");
+export default function ReassignExpensesModal({ open, onClose, onConfirm, travellers, excludeTravellerId, expenses = [] }) {
+  const [reassignments, setReassignments] = useState({});
+
+  useEffect(() => {
+    // Reset reassignments when modal opens or expenses change
+    if (open) {
+      const initial = {};
+      expenses.forEach(exp => { initial[exp.id] = ""; });
+      setReassignments(initial);
+    }
+  }, [open, expenses]);
 
   if (!open) return null;
 
   const availableTravellers = travellers.filter(t => t.id !== excludeTravellerId);
+  const allAssigned = expenses.length > 0 && Object.values(reassignments).every(val => val);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-      <div className="bg-base-100 rounded-lg shadow-lg p-6 w-full max-w-xs">
+      <div className="bg-base-100 rounded-lg shadow-lg p-6 w-full max-w-md">
         <h3 className="text-lg font-bold mb-4">Reassign Expenses</h3>
-        <p className="mb-3 text-sm">This traveller has paid for one or more expenses. Please select another traveller to reassign these expenses to before deleting.</p>
-        <select
-          className="select select-bordered w-full mb-4"
-          value={selectedTraveller}
-          onChange={e => setSelectedTraveller(e.target.value)}
-        >
-          <option value="">Select new traveller</option>
-          {availableTravellers.map(t => (
-            <option key={t.id} value={t.id}>{t.name}</option>
+        <p className="mb-3 text-sm">This traveller has paid for the following expenses. Please select a new payer for each before deleting.</p>
+        <div className="space-y-3 max-h-64 overflow-y-auto mb-4">
+          {expenses.map(exp => (
+            <div key={exp.id} className="flex items-center gap-2">
+              <div className="flex-1 truncate text-sm">
+                {exp.category} <span className="text-xs text-base-content/60">({Number(exp.amount).toFixed(2)})</span>
+              </div>
+              <select
+                className="select select-bordered select-sm"
+                value={reassignments[exp.id] || ""}
+                onChange={e => setReassignments(r => ({ ...r, [exp.id]: e.target.value }))}
+              >
+                <option value="">Select new payer</option>
+                {availableTravellers.map(t => (
+                  <option key={t.id} value={t.id}>{t.name}</option>
+                ))}
+              </select>
+            </div>
           ))}
-        </select>
+        </div>
         <div className="flex justify-end gap-2">
           <button className="btn btn-ghost" onClick={onClose}>Cancel</button>
           <button
             className="btn btn-primary"
-            disabled={!selectedTraveller}
-            onClick={() => onConfirm(selectedTraveller)}
+            disabled={!allAssigned}
+            onClick={() => onConfirm(reassignments)}
           >
             Reassign & Delete
           </button>

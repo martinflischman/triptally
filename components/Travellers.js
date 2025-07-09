@@ -18,6 +18,7 @@ export default function Travellers({ tripId, onTravellersChange, expenses = [] }
   const [editingName, setEditingName] = useState("");
   const [showReassignModal, setShowReassignModal] = useState(false);
   const [reassignTravellerId, setReassignTravellerId] = useState(null);
+  const [modalExpenses, setModalExpenses] = useState([]);
 
   useEffect(() => {
     if (tripId) fetchTravellers();
@@ -62,28 +63,32 @@ export default function Travellers({ tripId, onTravellersChange, expenses = [] }
 
   async function handleDeleteTraveller(id) {
     // Check if this traveller is referenced in any expenses
-    const referenced = expenses.some(exp => exp.paid_by === id);
-    if (referenced) {
+    const referencedExpenses = expenses.filter(exp => exp.paid_by === id);
+    if (referencedExpenses.length > 0) {
       setReassignTravellerId(id);
+      setModalExpenses(referencedExpenses);
       setShowReassignModal(true);
       return;
     }
     if (!window.confirm("Remove this traveller?")) return;
     await supabase.from("travellers").delete().eq("id", id);
     fetchTravellers();
-    // Notify parent component that travellers changed
     if (onTravellersChange) {
       onTravellersChange();
     }
   }
 
-  async function handleReassignAndDelete(newTravellerId) {
-    // Update all expenses to new traveller
-    await supabase.from("expenses").update({ paid_by: newTravellerId }).eq("paid_by", reassignTravellerId);
+  async function handleReassignAndDelete(reassignments) {
+    // Update each expense to the selected new payer
+    const updates = Object.entries(reassignments).map(([expenseId, newTravellerId]) =>
+      supabase.from("expenses").update({ paid_by: newTravellerId }).eq("id", expenseId)
+    );
+    await Promise.all(updates);
     // Now delete the traveller
     await supabase.from("travellers").delete().eq("id", reassignTravellerId);
     setShowReassignModal(false);
     setReassignTravellerId(null);
+    setModalExpenses([]);
     fetchTravellers();
     if (onTravellersChange) {
       onTravellersChange();
@@ -127,10 +132,11 @@ export default function Travellers({ tripId, onTravellersChange, expenses = [] }
     <>
       <ReassignExpensesModal
         open={showReassignModal}
-        onClose={() => { setShowReassignModal(false); setReassignTravellerId(null); }}
+        onClose={() => { setShowReassignModal(false); setReassignTravellerId(null); setModalExpenses([]); }}
         onConfirm={handleReassignAndDelete}
         travellers={travellers}
         excludeTravellerId={reassignTravellerId}
+        expenses={modalExpenses}
       />
       <div className="card bg-base-100 shadow mt-3 xs:mt-4 sm:mt-6 rounded-lg w-full max-w-full xs:max-w-[97vw] sm:max-w-[93vw] md:max-w-full">
         <div className="card-body p-3 xs:p-4 sm:p-5">
