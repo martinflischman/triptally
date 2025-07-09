@@ -325,57 +325,50 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
                       </div>
                     </div>
                   ) : (
-                    <div className="flex justify-between items-start">
-                      <div className="flex-1 min-w-0">
-                        <div className="flex flex-col xs:flex-row xs:items-center gap-1 xs:gap-2 mb-1">
-                          <span className="font-semibold text-xs xs:text-sm sm:text-base md:text-base lg:text-base xl:text-base truncate">
-                            {exp.category}
-                          </span>
-                          <span className="text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl xl:text-xl font-bold text-secondary">
-                            {CURRENCY_SYMBOLS[currency]}{" "}
-                            {Number(exp.amount).toFixed(2)}
-                          </span>
-                        </div>
-
-                        <div className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-primary font-medium mb-1">
-                          Paid by: {getTravellerName(exp)}
-                        </div>
-
+                    <div className="flex flex-col gap-1">
+                      {/* Top row: Category | Description */}
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="font-semibold text-xs xs:text-sm sm:text-base truncate">
+                          {exp.category}
+                        </span>
                         {exp.description && (
-                          <p className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/70 mb-1 line-clamp-2">
+                          <span className="text-xs xs:text-sm text-base-content/60 ml-2 truncate max-w-[50%] text-right">
                             {exp.description}
-                          </p>
-                        )}
-
-                        <span className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/50">
-                          {new Date(exp.created_at).toLocaleDateString()}
-                          <span className="inline">
-                            {" "}
-                            {new Date(exp.created_at).toLocaleTimeString([], {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
                           </span>
+                        )}
+                      </div>
+                      {/* Second row: Amount | Date/Time */}
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-base xs:text-lg sm:text-xl font-bold text-secondary">
+                          {CURRENCY_SYMBOLS[currency]} {Number(exp.amount).toFixed(2)}
+                        </span>
+                        <span className="text-xs xs:text-sm text-base-content/50 ml-2 text-right whitespace-nowrap">
+                          {new Date(exp.created_at).toLocaleDateString()} {new Date(exp.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                         </span>
                       </div>
-
-                      <div className="flex flex-row gap-1 ml-2 xs:ml-3">
-                        <button
-                          className="btn btn-ghost btn-xs rounded-lg p-1"
-                          title="Edit Expense"
-                          onClick={() => handleEditExpense(exp)}
-                          type="button"
-                        >
-                          <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4" />
-                        </button>
-                        <button
-                          className="btn btn-ghost btn-xs rounded-lg p-1"
-                          title="Delete Expense"
-                          onClick={() => handleDeleteExpense(exp.id)}
-                          type="button"
-                        >
-                          <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4 text-error" />
-                        </button>
+                      {/* Bottom row: Paid by | Action icons */}
+                      <div className="flex justify-between items-center mt-1">
+                        <span className="text-xs xs:text-sm text-base-content/70">
+                          Paid by: {getTravellerName(exp)}
+                        </span>
+                        <div className="flex flex-row gap-1 ml-2 xs:ml-3">
+                          <button
+                            className="btn btn-ghost btn-xs rounded-lg p-1"
+                            title="Edit Expense"
+                            onClick={() => handleEditExpense(exp)}
+                            type="button"
+                          >
+                            <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4" />
+                          </button>
+                          <button
+                            className="btn btn-ghost btn-xs rounded-lg p-1"
+                            title="Delete Expense"
+                            onClick={() => handleDeleteExpense(exp.id)}
+                            type="button"
+                          >
+                            <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4 text-error" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   )}
