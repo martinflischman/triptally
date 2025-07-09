@@ -12,6 +12,7 @@ import {
   PencilSquareIcon,
   MapIcon,
 } from "@heroicons/react/24/outline";
+import confetti from "canvas-confetti";
 
 const CURRENCY_SYMBOLS = {
   USD: "$",
@@ -225,6 +226,15 @@ export default function Home() {
       setEndDate("");
       fetchTrips();
       showToast("Trip added", "success");
+      // Fire confetti instantly and smoothly
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        startVelocity: 35,
+        gravity: 0.7,
+        ticks: 200,
+        origin: { y: 0.6 }
+      });
     }
     setCreating(false);
   }
