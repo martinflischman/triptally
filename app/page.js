@@ -558,26 +558,46 @@ export default function Home() {
                       <span className="loading loading-dots text-primary loading-sm"></span>
                     </div>
                   ) : (
-                    <div className="flex flex-row gap-3 xs:gap-4 w-full">
-                      <div className="flex-1 bg-secondary/10 p-2 xs:p-3 rounded-lg border border-secondary/20">
-                        <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
-                          Total Expenses
+                    <>
+                      {/* Summary row: two blocks, each w-1/2 */}
+                      <div className="flex flex-row gap-3 xs:gap-4 w-full mb-3">
+                        <div className="w-1/2 bg-secondary/10 p-2 xs:p-3 rounded-lg border border-secondary/20 min-w-[140px]">
+                          <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
+                            Total Expenses
+                          </div>
+                          <div className="text-base xs:text-lg md:text-base lg:text-base xl:text-base font-semibold text-secondary">
+                            {CURRENCY_SYMBOLS[selectedTrip.currency]} {totalExpense.toFixed(2)}
+                          </div>
                         </div>
-                        <div className="text-base xs:text-lg md:text-base lg:text-base xl:text-base font-semibold text-secondary">
-                          {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
-                          {totalExpense.toFixed(2)}
+                        <div className="w-1/2 bg-primary/10 p-2 xs:p-3 rounded-lg border border-primary/20 min-w-[140px]">
+                          <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
+                            Per Traveller
+                          </div>
+                          <div className="text-lg xs:text-xl md:text-lg lg:text-lg xl:text-lg font-bold text-primary">
+                            {CURRENCY_SYMBOLS[selectedTrip.currency]} {perTraveller.toFixed(2)}
+                          </div>
                         </div>
                       </div>
-                      <div className="flex-1 bg-primary/10 p-2 xs:p-3 rounded-lg border border-primary/20">
-                        <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
-                          Per Traveller
+                      {/* Traveller blocks: grid with 4 columns (md:grid-cols-4), each block w-full in its cell */}
+                      {travellers.length > 0 && expenses.length > 0 && (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 xs:gap-4 w-full">
+                          {travellers.map(traveller => {
+                            const totalPaid = expenses
+                              .filter(exp => exp.paid_by === traveller.id)
+                              .reduce((sum, exp) => sum + (Number(exp.amount) || 0), 0);
+                            return (
+                              <div key={traveller.id} className="bg-base-200 p-2 xs:p-3 rounded-lg border border-base-300 flex flex-col justify-center w-full min-w-[140px]">
+                                <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">{traveller.name}</div>
+                                <div className="text-sm text-base-content/70">Paid</div>
+                                <div className="text-lg font-bold text-base-content">
+                                  {CURRENCY_SYMBOLS[selectedTrip.currency]} {totalPaid.toFixed(2)}
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
-                        <div className="text-lg xs:text-xl md:text-lg lg:text-lg xl:text-lg font-bold text-primary">
-                          {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
-                          {perTraveller.toFixed(2)}
-                        </div>
-                      </div>
-                    </div>
+                      )}
+                    </>
                   )}
                 </div>
               </div>
