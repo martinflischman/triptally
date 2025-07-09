@@ -223,17 +223,29 @@ export default function Home() {
     setEditingTripId(trip.id);
     setEditingTripName(trip.name);
     setEditingTripCurrency(trip.currency);
+    setEditingTripStartDate(trip.start_date || "");
+    setEditingTripEndDate(trip.end_date || "");
   }
 
   async function handleSaveEditTrip(id) {
     if (!editingTripName) return;
+    if (!editingTripCurrency) return;
+    if (!editingTripStartDate) return;
+    if (!editingTripEndDate) return;
     await supabase
       .from("trips")
-      .update({ name: editingTripName, currency: editingTripCurrency })
+      .update({
+        name: editingTripName,
+        currency: editingTripCurrency,
+        start_date: editingTripStartDate,
+        end_date: editingTripEndDate,
+      })
       .eq("id", id);
     setEditingTripId(null);
     setEditingTripName("");
     setEditingTripCurrency("USD");
+    setEditingTripStartDate("");
+    setEditingTripEndDate("");
     fetchTrips();
   }
 
@@ -374,23 +386,33 @@ export default function Home() {
                                 <input
                                   className="input input-bordered w-full mb-2 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
                                   value={editingTripName}
-                                  onChange={(e) =>
-                                    setEditingTripName(e.target.value)
-                                  }
+                                  onChange={(e) => setEditingTripName(e.target.value)}
                                 />
-                                <select
-                                  className="select select-bordered w-full mb-2 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
-                                  value={editingTripCurrency}
-                                  onChange={(e) =>
-                                    setEditingTripCurrency(e.target.value)
-                                  }
-                                >
-                                  {Object.keys(CURRENCY_SYMBOLS).map((code) => (
-                                    <option key={code} value={code}>
-                                      {code}
-                                    </option>
-                                  ))}
-                                </select>
+                                <div className="flex flex-col sm:flex-row gap-2 mb-2">
+                                  <select
+                                    className="select select-bordered w-full sm:w-1/3 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
+                                    value={editingTripCurrency}
+                                    onChange={(e) => setEditingTripCurrency(e.target.value)}
+                                  >
+                                    {Object.keys(CURRENCY_SYMBOLS).map((code) => (
+                                      <option key={code} value={code}>
+                                        {code}
+                                      </option>
+                                    ))}
+                                  </select>
+                                  <input
+                                    type="date"
+                                    className="input input-bordered w-full sm:w-1/3 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
+                                    value={editingTripStartDate}
+                                    onChange={(e) => setEditingTripStartDate(e.target.value)}
+                                  />
+                                  <input
+                                    type="date"
+                                    className="input input-bordered w-full sm:w-1/3 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
+                                    value={editingTripEndDate}
+                                    onChange={(e) => setEditingTripEndDate(e.target.value)}
+                                  />
+                                </div>
                                 <div className="flex gap-2 mt-2">
                                   <button
                                     className="btn btn-success btn-xs xs:btn-sm md:btn-xs lg:btn-xs rounded-lg text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs"
