@@ -92,33 +92,47 @@ export default function Home() {
     if (!selectedTrip) return;
 
     // Clean up previous subscriptions
-    if (subscriptionsRef.current.travellers) subscriptionsRef.current.travellers.unsubscribe();
-    if (subscriptionsRef.current.expenses) subscriptionsRef.current.expenses.unsubscribe();
+    if (subscriptionsRef.current.travellers)
+      subscriptionsRef.current.travellers.unsubscribe();
+    if (subscriptionsRef.current.expenses)
+      subscriptionsRef.current.expenses.unsubscribe();
 
     // Subscribe to travellers
     subscriptionsRef.current.travellers = supabase
-      .channel('public:travellers')
+      .channel("public:travellers")
       .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'travellers', filter: `trip_id=eq.${selectedTrip.id}` },
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "travellers",
+          filter: `trip_id=eq.${selectedTrip.id}`,
+        },
         () => fetchTripData(selectedTrip.id)
       )
       .subscribe();
 
     // Subscribe to expenses
     subscriptionsRef.current.expenses = supabase
-      .channel('public:expenses')
+      .channel("public:expenses")
       .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'expenses', filter: `trip_id=eq.${selectedTrip.id}` },
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "expenses",
+          filter: `trip_id=eq.${selectedTrip.id}`,
+        },
         () => fetchTripData(selectedTrip.id)
       )
       .subscribe();
 
     // Cleanup on unmount or trip change
     return () => {
-      if (subscriptionsRef.current.travellers) subscriptionsRef.current.travellers.unsubscribe();
-      if (subscriptionsRef.current.expenses) subscriptionsRef.current.expenses.unsubscribe();
+      if (subscriptionsRef.current.travellers)
+        subscriptionsRef.current.travellers.unsubscribe();
+      if (subscriptionsRef.current.expenses)
+        subscriptionsRef.current.expenses.unsubscribe();
     };
   }, [selectedTrip]);
 
@@ -127,7 +141,9 @@ export default function Home() {
     const { data, error } = await supabase.from("trips").select("*");
     if (!error) {
       // Sort by start_date ascending
-      data.sort((a, b) => (a.start_date || "") > (b.start_date || "") ? 1 : -1);
+      data.sort((a, b) =>
+        (a.start_date || "") > (b.start_date || "") ? 1 : -1
+      );
       setTrips(data);
     }
     setLoading(false);
@@ -197,7 +213,9 @@ export default function Home() {
       setCreating(false);
       return;
     }
-    const { error } = await supabase.from("trips").insert([{ name, currency, start_date: startDate, end_date: endDate }]);
+    const { error } = await supabase
+      .from("trips")
+      .insert([{ name, currency, start_date: startDate, end_date: endDate }]);
     if (error) {
       setError(error.message);
     } else {
@@ -263,10 +281,18 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-base-200">
-      <Toast open={toastOpen} message={toastMessage} type={toastType} onClose={() => setToastOpen(false)} />
+      <Toast
+        open={toastOpen}
+        message={toastMessage}
+        type={toastType}
+        onClose={() => setToastOpen(false)}
+      />
       <ConfirmDeleteModal
         open={confirmDeleteOpen}
-        onClose={() => { setConfirmDeleteOpen(false); setTripToDelete(null); }}
+        onClose={() => {
+          setConfirmDeleteOpen(false);
+          setTripToDelete(null);
+        }}
         onConfirm={handleDeleteTripConfirmed}
         title="Delete Trip?"
         message="Are you sure you want to delete this trip? This will permanently delete all trip information and cannot be undone."
@@ -314,7 +340,9 @@ export default function Home() {
                   </div>
                   <div className="flex flex-row gap-3 mb-3 xs:mb-4">
                     <div className="flex-1">
-                      <label className="block text-xs xs:text-sm mb-1 font-medium">Trip Start Date</label>
+                      <label className="block text-xs xs:text-sm mb-1 font-medium">
+                        Trip Start Date
+                      </label>
                       <input
                         type="date"
                         className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
@@ -324,7 +352,9 @@ export default function Home() {
                       />
                     </div>
                     <div className="flex-1">
-                      <label className="block text-xs xs:text-sm mb-1 font-medium">Trip End Date</label>
+                      <label className="block text-xs xs:text-sm mb-1 font-medium">
+                        Trip End Date
+                      </label>
                       <input
                         type="date"
                         className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
@@ -363,7 +393,9 @@ export default function Home() {
               </form>
 
               {trips.length > 0 && (
-                <h2 className="text-base xs:text-lg sm:text-xl md:text-lg lg:text-lg xl:text-lg font-semibold mb-2 xs:mb-3 text-primary w-full text-left">Your Trips</h2>
+                <h2 className="text-base xs:text-lg sm:text-xl md:text-lg lg:text-lg xl:text-lg font-semibold mb-2 xs:mb-3 text-primary w-full text-left">
+                  Your Trips
+                </h2>
               )}
 
               {loading ? (
@@ -389,31 +421,41 @@ export default function Home() {
                                 <input
                                   className="input input-bordered w-full mb-2 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
                                   value={editingTripName}
-                                  onChange={(e) => setEditingTripName(e.target.value)}
+                                  onChange={(e) =>
+                                    setEditingTripName(e.target.value)
+                                  }
                                 />
                                 <div className="flex flex-col sm:flex-row gap-2 mb-2">
                                   <select
                                     className="select select-bordered w-full sm:w-1/3 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
                                     value={editingTripCurrency}
-                                    onChange={(e) => setEditingTripCurrency(e.target.value)}
+                                    onChange={(e) =>
+                                      setEditingTripCurrency(e.target.value)
+                                    }
                                   >
-                                    {Object.keys(CURRENCY_SYMBOLS).map((code) => (
-                                      <option key={code} value={code}>
-                                        {code}
-                                      </option>
-                                    ))}
+                                    {Object.keys(CURRENCY_SYMBOLS).map(
+                                      (code) => (
+                                        <option key={code} value={code}>
+                                          {code}
+                                        </option>
+                                      )
+                                    )}
                                   </select>
                                   <input
                                     type="date"
                                     className="input input-bordered w-full sm:w-1/3 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
                                     value={editingTripStartDate}
-                                    onChange={(e) => setEditingTripStartDate(e.target.value)}
+                                    onChange={(e) =>
+                                      setEditingTripStartDate(e.target.value)
+                                    }
                                   />
                                   <input
                                     type="date"
                                     className="input input-bordered w-full sm:w-1/3 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
                                     value={editingTripEndDate}
-                                    onChange={(e) => setEditingTripEndDate(e.target.value)}
+                                    onChange={(e) =>
+                                      setEditingTripEndDate(e.target.value)
+                                    }
                                   />
                                 </div>
                                 <div className="flex gap-2 mt-2">
@@ -439,7 +481,9 @@ export default function Home() {
                                   </h2>
                                   {trip.start_date && trip.end_date && (
                                     <div className="text-xs xs:text-sm text-base-content/60 mb-1">
-                                      {trip.start_date} <span className="mx-1">&rarr;</span> {trip.end_date}
+                                      {trip.start_date}{" "}
+                                      <span className="mx-1">&rarr;</span>{" "}
+                                      {trip.end_date}
                                     </div>
                                   )}
                                 </div>
@@ -454,7 +498,9 @@ export default function Home() {
                                   <button
                                     className="btn btn-ghost btn-xs rounded-lg p-1"
                                     title="Delete Trip"
-                                    onClick={() => handleRequestDeleteTrip(trip)}
+                                    onClick={() =>
+                                      handleRequestDeleteTrip(trip)
+                                    }
                                   >
                                     <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4 text-error" />
                                   </button>
@@ -490,7 +536,6 @@ export default function Home() {
                 ← Back to Trips
               </button>
 
-              {/* Remove edit/delete icons from trip view card */}
               <div className="card bg-base-100 shadow mb-3 xs:mb-4 rounded-lg">
                 <div className="card-body p-3 xs:p-4 sm:p-6">
                   <div className="flex items-start justify-between mb-2">
@@ -500,42 +545,59 @@ export default function Home() {
                       </h2>
                       {selectedTrip.start_date && selectedTrip.end_date && (
                         <div className="text-xs xs:text-sm text-base-content/60 mt-1">
-                          {selectedTrip.start_date} <span className="mx-1">&rarr;</span> {selectedTrip.end_date}
+                          {selectedTrip.start_date}{" "}
+                          <span className="mx-1">&rarr;</span>{" "}
+                          {selectedTrip.end_date}
                         </div>
                       )}
                     </div>
-                    {/* Edit/Delete icons removed as requested */}
                   </div>
+                  {/* Show loading state if fetching trip data */}
+                  {loadingTripData ? (
+                    <div className="flex justify-center py-4">
+                      <span className="loading loading-dots text-primary loading-sm"></span>
+                    </div>
+                  ) : (
+                    <div className="flex flex-row gap-3 xs:gap-4 w-full">
+                      <div className="flex-1 bg-secondary/10 p-2 xs:p-3 rounded-lg border border-secondary/20">
+                        <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
+                          Total Expenses
+                        </div>
+                        <div className="text-base xs:text-lg md:text-base lg:text-base xl:text-base font-semibold text-secondary">
+                          {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
+                          {totalExpense.toFixed(2)}
+                        </div>
+                      </div>
+                      <div className="flex-1 bg-primary/10 p-2 xs:p-3 rounded-lg border border-primary/20">
+                        <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
+                          Per Traveller
+                        </div>
+                        <div className="text-lg xs:text-xl md:text-lg lg:text-lg xl:text-lg font-bold text-primary">
+                          {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
+                          {perTraveller.toFixed(2)}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {/* Show loading state if fetching trip data */}
-              {loadingTripData ? (
-                <div className="flex justify-center py-4">
-                  <span className="loading loading-dots text-primary loading-sm"></span>
-                </div>
-              ) : (
-               <div className="flex flex-row gap-3 xs:gap-4 w-full">
-                 <div className="flex-1 bg-secondary/10 p-2 xs:p-3 rounded-lg border border-secondary/20">
-                   <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
-                     Total Expenses
-                   </div>
-                   <div className="text-base xs:text-lg md:text-base lg:text-base xl:text-base font-semibold text-secondary">
-                     {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
-                     {totalExpense.toFixed(2)}
-                   </div>
-                 </div>
-                 <div className="flex-1 bg-primary/10 p-2 xs:p-3 rounded-lg border border-primary/20">
-                   <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
-                     Per Traveller
-                   </div>
-                   <div className="text-lg xs:text-xl md:text-lg lg:text-lg xl:text-lg font-bold text-primary">
-                     {CURRENCY_SYMBOLS[selectedTrip.currency]}{" "}
-                     {perTraveller.toFixed(2)}
-                   </div>
-                 </div>
-               </div>
-              )}
+              {/* Pass refresh functions and data to components */}
+              <Travellers
+                tripId={selectedTrip.id}
+                onTravellersChange={refreshTravellers}
+                onExpensesChange={refreshExpenses}
+                expenses={expenses}
+                onShowToast={showToast}
+              />
+              <Expenses
+                tripId={selectedTrip.id}
+                currency={selectedTrip.currency}
+                currencySymbol={CURRENCY_SYMBOLS[selectedTrip.currency]}
+                travellers={travellers}
+                onExpensesChange={refreshExpenses}
+                onShowToast={showToast}
+              />
             </div>
           )}
         </div>
