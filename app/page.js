@@ -165,10 +165,10 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-base-200">
-      <div className="container mx-auto px-3 py-4 xs:py-6 sm:py-8 max-w-sm sm:max-w-md md:max-w-md lg:max-w-md xl:max-w-lg">
+      <div className="container mx-auto px-3 py-4 xs:py-6 sm:py-8 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl">
         <div className="flex flex-col items-center">
-          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-3xl lg:text-3xl xl:text-3xl font-bold mb-4 xs:mb-6 sm:mb-8 flex items-center gap-2 text-center text-primary">
-            <MapIcon className="h-6 w-6 xs:h-7 xs:w-7 sm:h-7 sm:w-7 md:h-6 md:w-6 lg:h-6 lg:w-6 xl:h-6 xl:w-6" />
+          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-3xl xl:text-3xl font-bold mb-4 xs:mb-6 sm:mb-8 flex items-center gap-2 text-center text-primary">
+            <MapIcon className="h-8 w-8 xs:h-10 xs:w-10 sm:h-12 sm:w-12 md:h-10 md:w-10 lg:h-6 lg:w-6 xl:h-6 xl:w-6" />
             TripTally
           </h1>
 

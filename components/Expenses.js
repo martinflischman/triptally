@@ -165,9 +165,9 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
   if (!tripId) return null;
 
   return (
-    <div className="card bg-base-100 shadow mt-3 xs:mt-4 sm:mt-6 rounded-lg">
+    <div className="card bg-base-100 shadow mt-3 xs:mt-4 sm:mt-6 rounded-lg w-full max-w-full">
       <div className="card-body p-3 xs:p-4 sm:p-6">
-        <h3 className="card-title flex items-center gap-2 text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl xl:text-xl mb-3 xs:mb-4">
+        <h3 className="card-title flex items-center gap-2 text-lg xs:text-xl sm:text-2xl md:text-xl lg:text-xl xl:text-xl mb-3 xs:mb-4">
           Add Expense
         </h3>
 
@@ -228,10 +228,10 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
             />
 
             <button
-              className="btn btn-primary w-full flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-base lg:text-base xl:text-base"
+              className="btn btn-primary w-full flex items-center gap-2 rounded-lg h-12 xs:h-14 text-base xs:text-lg md:text-xl lg:text-base xl:text-base"
               disabled={adding || !paidBy}
             >
-              <PlusIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-5 md:w-5 lg:h-5 lg:w-5 xl:h-6 xl:w-6" />
+              <PlusIcon className="h-6 w-6 xs:h-7 xs:w-7 md:h-8 md:w-8 lg:h-5 lg:w-5 xl:h-6 xl:w-6" />
               {adding ? "Adding..." : "Add Expense"}
             </button>
           </form>
@@ -363,7 +363,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
                           onClick={() => handleEditExpense(exp)}
                           type="button"
                         >
-                          <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-5 md:w-5 lg:h-5 lg:w-5 xl:h-6 xl:w-6" />
+                          <PencilSquareIcon className="h-6 w-6 xs:h-7 xs:w-7 md:h-8 md:w-8 lg:h-5 lg:w-5 xl:h-6 xl:w-6" />
                         </button>
                         <button
                           className="btn btn-ghost btn-xs rounded-lg p-1"
@@ -371,7 +371,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
                           onClick={() => handleDeleteExpense(exp.id)}
                           type="button"
                         >
-                          <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-5 md:w-5 lg:h-5 lg:w-5 xl:h-6 xl:w-6 text-error" />
+                          <TrashIcon className="h-6 w-6 xs:h-7 xs:w-7 md:h-8 md:w-8 lg:h-5 lg:w-5 xl:h-6 xl:w-6 text-error" />
                         </button>
                       </div>
                     </div>
