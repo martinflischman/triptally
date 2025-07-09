@@ -59,6 +59,8 @@ export default function Home() {
   // State for displaying the logged-in user's info
   const [userDisplay, setUserDisplay] = useState("");
   const [userAvatar, setUserAvatar] = useState(null);
+  // State for the full user object (needed for dropdown info)
+  const [user, setUser] = useState(null);
   // Toast notification state
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -250,6 +252,7 @@ export default function Home() {
     async function fetchUser() {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
+        setUser(user); // Store the full user object for later use
         const name = user.user_metadata?.name || user.user_metadata?.full_name;
         const avatarUrl = user.user_metadata?.avatar_url;
         if (avatarUrl) {
@@ -374,7 +377,7 @@ export default function Home() {
               <img
                 src={userAvatar}
                 alt="User avatar"
-                className="w-8 h-8 rounded-full object-cover border border-base-200 cursor-pointer transition-opacity hover:opacity-80"
+                className="w-8 h-8 rounded-full object-cover border-2 border-primary cursor-pointer transition-opacity hover:opacity-80"
                 onClick={() => setMenuOpen((v) => !v)}
                 tabIndex={0}
                 aria-label="Open user menu"
@@ -382,7 +385,7 @@ export default function Home() {
               />
             ) : (
               <span
-                className="w-8 h-8 rounded-full flex items-center justify-center bg-primary text-white font-bold text-base select-none cursor-pointer transition-opacity hover:opacity-80"
+                className="w-8 h-8 rounded-full flex items-center justify-center bg-primary text-white font-bold text-base select-none border-2 border-primary cursor-pointer transition-opacity hover:opacity-80"
                 onClick={() => setMenuOpen((v) => !v)}
                 tabIndex={0}
                 aria-label="Open user menu"
@@ -393,10 +396,17 @@ export default function Home() {
             )
           )}
           {/* Dropdown menu: appears below avatar when open */}
-          {menuOpen && (
-            <div className="absolute right-0 top-12 z-50 min-w-[180px] bg-base-200 rounded-xl shadow-lg border border-base-300 py-2 px-4 animate-fade-in" role="menu" aria-label="User menu">
-              <div className="text-xs text-base-content/60 mb-1">Logged in as</div>
-              <div className="font-medium text-base-content mb-2 truncate" title={userDisplay || user.email}>{userDisplay || user.email}</div>
+          {menuOpen && user && (
+            <div className="absolute right-0 top-12 z-50 bg-base-200 rounded-xl shadow-lg border border-base-300 py-2 px-4 animate-fade-in min-w-[200px] max-w-xs w-fit" role="menu" aria-label="User menu">
+              {/* User's name and email, no avatar in dropdown */}
+              <div className="flex flex-col min-w-0 mb-2">
+                {/* Full name (or first name), horizontal */}
+                <span className="font-medium text-base-content break-words" title={user.user_metadata?.full_name || user.user_metadata?.name || user.email}>
+                  {user.user_metadata?.full_name || user.user_metadata?.name || user.email}
+                </span>
+                {/* Email below name */}
+                <span className="text-xs text-base-content/60 break-words" title={user.email}>{user.email}</span>
+              </div>
               <div className="border-t border-base-300 my-2" />
               <button
                 className="flex items-center gap-2 text-error font-medium py-1 px-2 rounded hover:bg-error/10 w-full text-left"
