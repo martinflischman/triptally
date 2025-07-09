@@ -4,7 +4,7 @@ export default function ConfirmDeleteModal({ open, onClose, onConfirm, title, me
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-20">
       <div className="bg-base-100 rounded-lg shadow-lg p-6 w-full max-w-xs border-t-4 border-error flex flex-col items-center">
         <h3 className="text-lg font-bold mb-3 text-error text-center">{title}</h3>
         <p className="mb-5 text-sm text-base-content/80 text-center">{message}</p>
