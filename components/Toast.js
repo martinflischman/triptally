@@ -13,8 +13,8 @@ export default function Toast({ open, message, onClose, duration = 2000, type = 
   if (!open) return null;
 
   const colorClass = type === "error"
-    ? "bg-error/90 text-error-content rounded-lg"
-    : "bg-success/90 text-success-content rounded-lg";
+    ? "bg-error/20 text-error rounded-lg"
+    : "bg-success/20 text-success rounded-lg";
 
   return (
     <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 flex justify-center w-full pointer-events-none">
