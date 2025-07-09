@@ -86,16 +86,16 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
     await Promise.all(updates);
     // Now delete the traveller
     await supabase.from("travellers").delete().eq("id", reassignTravellerId);
-    setShowReassignModal(false);
-    setReassignTravellerId(null);
-    setModalExpenses([]);
     fetchTravellers();
     if (onTravellersChange) {
       onTravellersChange();
     }
     if (onExpensesChange) {
-      onExpensesChange();
+      await onExpensesChange();
     }
+    setShowReassignModal(false);
+    setReassignTravellerId(null);
+    setModalExpenses([]);
   }
 
   async function handleEditTraveller(id, currentName) {
