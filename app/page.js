@@ -164,7 +164,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-base-200">
-      <div className="container mx-auto px-2 xs:px-3 sm:px-4 py-4 xs:py-6 sm:py-8 max-w-xs xs:max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
+      <div className="container mx-auto px-3 py-4 xs:py-6 sm:py-8 max-w-sm xs:max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl">
         <div className="flex flex-col items-center">
           <h1 className="text-2xl xs:text-3xl sm:text-4xl font-bold mb-4 xs:mb-6 sm:mb-8 flex items-center gap-2 text-center text-primary">
             <MapIcon className="h-6 w-6 xs:h-7 xs:w-7 sm:h-8 sm:w-8" />
