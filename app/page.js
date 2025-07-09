@@ -285,12 +285,13 @@ export default function Home() {
   const perTraveller = travellers.length ? totalExpense / travellers.length : 0;
 
   return (
-    <main className="min-h-screen bg-base-200">
+    <main className="min-h-screen bg-base-200" role="main">
       <Toast
         open={toastOpen}
         message={toastMessage}
         type={toastType}
         onClose={() => setToastOpen(false)}
+        role="alert"
       />
       <ConfirmDeleteModal
         open={confirmDeleteOpen}
@@ -322,14 +323,22 @@ export default function Home() {
                     Create a New Trip
                   </h2>
                   <div className="flex flex-col sm:flex-row gap-3 xs:gap-4 mb-3 xs:mb-4">
+                    <label htmlFor="trip-name" className="block text-xs xs:text-sm mb-1 font-medium">
+                      Trip Name
+                    </label>
                     <input
+                      id="trip-name"
                       className="input input-bordered w-full sm:w-2/3 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
                       placeholder="Trip Name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       disabled={creating}
                     />
+                    <label htmlFor="currency-select" className="block text-xs xs:text-sm mb-1 font-medium">
+                      Currency
+                    </label>
                     <select
+                      id="currency-select"
                       className="select select-bordered w-full sm:w-1/3 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
                       value={currency}
                       onChange={(e) => setCurrency(e.target.value)}
@@ -344,30 +353,28 @@ export default function Home() {
                     </select>
                   </div>
                   <div className="flex flex-row gap-3 mb-3 xs:mb-4">
-                    <div className="flex-1">
-                      <label className="block text-xs xs:text-sm mb-1 font-medium">
-                        Trip Start Date
-                      </label>
-                      <input
-                        type="date"
-                        className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
-                        disabled={creating}
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <label className="block text-xs xs:text-sm mb-1 font-medium">
-                        Trip End Date
-                      </label>
-                      <input
-                        type="date"
-                        className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
-                        value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
-                        disabled={creating}
-                      />
-                    </div>
+                    <label htmlFor="start-date" className="block text-xs xs:text-sm mb-1 font-medium">
+                      Trip Start Date
+                    </label>
+                    <input
+                      id="start-date"
+                      type="date"
+                      className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
+                      value={startDate}
+                      onChange={(e) => setStartDate(e.target.value)}
+                      disabled={creating}
+                    />
+                    <label htmlFor="end-date" className="block text-xs xs:text-sm mb-1 font-medium">
+                      Trip End Date
+                    </label>
+                    <input
+                      id="end-date"
+                      type="date"
+                      className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
+                      value={endDate}
+                      onChange={(e) => setEndDate(e.target.value)}
+                      disabled={creating}
+                    />
                   </div>
                   {error && (
                     <div className="alert alert-error rounded-lg mb-3 xs:mb-4 text-sm xs:text-base md:text-sm lg:text-sm py-2">
@@ -496,6 +503,7 @@ export default function Home() {
                                   <button
                                     className="btn btn-ghost btn-xs rounded-lg p-1"
                                     title="Edit Trip"
+                                    aria-label="Edit Trip"
                                     onClick={() => handleEditTrip(trip)}
                                   >
                                     <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4" />
@@ -503,6 +511,7 @@ export default function Home() {
                                   <button
                                     className="btn btn-ghost btn-xs rounded-lg p-1"
                                     title="Delete Trip"
+                                    aria-label="Delete Trip"
                                     onClick={() =>
                                       handleRequestDeleteTrip(trip)
                                     }

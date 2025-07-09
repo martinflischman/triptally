@@ -17,7 +17,7 @@ export default function Toast({ open, message, onClose, duration = 2000, type = 
     : "bg-success/20 text-success rounded-lg border-none shadow-none outline-none";
 
   return (
-    <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 flex justify-center w-full pointer-events-none">
+    <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 flex justify-center w-full pointer-events-none" role="alert" aria-live="assertive">
       <div className={`alert ${colorClass} pointer-events-auto animate-fade-in-up`}>
         <span className={`font-semibold ${type === "error" ? "text-error" : "text-success"}`}>{message}</span>
       </div>
