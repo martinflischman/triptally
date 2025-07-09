@@ -325,41 +325,32 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
                       </div>
                     </div>
                   ) : (
-                    <div className="flex justify-between items-start">
+                    <div className="flex flex-row justify-between items-start">
                       <div className="flex-1 min-w-0">
-                        <div className="flex flex-col xs:flex-row xs:items-center gap-1 xs:gap-2 mb-1">
-                          <span className="font-semibold text-xs xs:text-sm sm:text-base md:text-base lg:text-base xl:text-base truncate">
-                            {exp.category}
-                          </span>
-                          <span className="text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl xl:text-xl font-bold text-secondary">
-                            {CURRENCY_SYMBOLS[currency]}{" "}
-                            {Number(exp.amount).toFixed(2)}
-                          </span>
+                        {/* Category at the top */}
+                        <div className="font-semibold text-xs xs:text-sm sm:text-base md:text-base lg:text-base xl:text-base truncate mb-1">
+                          {exp.category}
                         </div>
-
-                        <div className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-primary font-medium mb-1">
+                        {/* Description below category, if present */}
+                        {exp.description && (
+                          <div className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/70 mb-1 line-clamp-2">
+                            {exp.description}
+                          </div>
+                        )}
+                        {/* Amount */}
+                        <div className="text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl xl:text-xl font-bold text-secondary mb-1">
+                          {CURRENCY_SYMBOLS[currency]} {Number(exp.amount).toFixed(2)}
+                        </div>
+                        {/* Date and time */}
+                        <div className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/50 mb-1">
+                          {new Date(exp.created_at).toLocaleDateString()} {new Date(exp.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                        </div>
+                        {/* Paid by at the bottom */}
+                        <div className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-primary font-medium">
                           Paid by: {getTravellerName(exp)}
                         </div>
-
-                        {exp.description && (
-                          <p className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/70 mb-1 line-clamp-2">
-                            {exp.description}
-                          </p>
-                        )}
-
-                        <span className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/50">
-                          {new Date(exp.created_at).toLocaleDateString()}
-                          <span className="inline">
-                            {" "}
-                            {new Date(exp.created_at).toLocaleTimeString([], {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })}
-                          </span>
-                        </span>
                       </div>
-
-                      <div className="flex flex-row gap-1 ml-2 xs:ml-3">
+                      <div className="flex flex-col gap-1 ml-2 xs:ml-3">
                         <button
                           className="btn btn-ghost btn-xs rounded-lg p-1"
                           title="Edit Expense"
