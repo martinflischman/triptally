@@ -1,4 +1,5 @@
 // Travellers.js
+// Handles adding, editing, and removing travellers for a trip
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import {
@@ -9,22 +10,30 @@ import {
 import ReassignExpensesModal from "./ReassignExpensesModal";
 
 export default function Travellers({ tripId, onTravellersChange, onExpensesChange, expenses = [], onShowToast }) {
+  // State for all travellers in the trip
   const [travellers, setTravellers] = useState([]);
+  // State for the add traveller form
   const [name, setName] = useState("");
+  // Loading state for fetching travellers
   const [loading, setLoading] = useState(true);
+  // State for add/edit errors
   const [adding, setAdding] = useState(false);
   const [error, setError] = useState("");
+  // State for editing a traveller
   const [editingId, setEditingId] = useState(null);
   const [editingName, setEditingName] = useState("");
+  // State for reassign modal
   const [showReassignModal, setShowReassignModal] = useState(false);
   const [reassignTravellerId, setReassignTravellerId] = useState(null);
   const [modalExpenses, setModalExpenses] = useState([]);
 
+  // Fetch all travellers for the trip when tripId changes
   useEffect(() => {
     if (tripId) fetchTravellers();
     // eslint-disable-next-line
   }, [tripId]);
 
+  // Fetch all travellers from Supabase
   async function fetchTravellers() {
     setLoading(true);
     const { data, error } = await supabase
@@ -36,6 +45,7 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
     setLoading(false);
   }
 
+  // Handle adding a new traveller
   async function handleAddTraveller(e) {
     e.preventDefault();
     setAdding(true);

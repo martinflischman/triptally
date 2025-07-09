@@ -1,4 +1,5 @@
 // Expenses.js
+// Handles adding, editing, and removing expenses for a trip
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import {

@@ -16,6 +16,7 @@ import {
 } from "@heroicons/react/24/outline";
 import confetti from "canvas-confetti";
 
+// Currency symbols for supported currencies
 const CURRENCY_SYMBOLS = {
   USD: "$",
   EUR: "€",
@@ -29,15 +30,20 @@ const CURRENCY_SYMBOLS = {
 };
 
 export default function Home() {
+  // Router for navigation
   const router = useRouter();
+  // State for checking if user is authenticated
   const [authChecked, setAuthChecked] = useState(false);
-  // State variables for trips, form fields, and UI state
+  // State for all trips
   const [trips, setTrips] = useState([]);
+  // Loading state for trips
   const [loading, setLoading] = useState(true);
+  // Form fields for creating a new trip
   const [name, setName] = useState("");
   const [currency, setCurrency] = useState("");
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState("");
+  // State for selected trip and editing
   const [selectedTrip, setSelectedTrip] = useState(null);
   const [editingTripId, setEditingTripId] = useState(null);
   const [editingTripName, setEditingTripName] = useState("");
@@ -46,16 +52,22 @@ export default function Home() {
   const [editingTripEndDate, setEditingTripEndDate] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-
-  // States for travellers and expenses of selected trip
+  // State for travellers and expenses of selected trip
   const [travellers, setTravellers] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [loadingTripData, setLoadingTripData] = useState(false);
+  // State for displaying the logged-in user's info
   const [userDisplay, setUserDisplay] = useState("");
-
+  // Toast notification state
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("success");
+  // Modal state for confirming trip deletion
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+  const [tripToDelete, setTripToDelete] = useState(null);
+  // Ref for Supabase real-time subscriptions
+  const subscriptionsRef = useRef({});
+
   // Show a toast notification
   function showToast(message, type = "success") {
     setToastMessage(message);
@@ -63,8 +75,6 @@ export default function Home() {
     setToastOpen(true);
   }
 
-  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
-  const [tripToDelete, setTripToDelete] = useState(null);
   // Open the delete confirmation modal for a trip
   function handleRequestDeleteTrip(trip) {
     setTripToDelete(trip);
@@ -80,98 +90,6 @@ export default function Home() {
     setTripToDelete(null);
     showToast("Trip deleted", "error");
   }
-
-  const subscriptionsRef = useRef({});
-
-  useEffect(() => {
-    fetchTrips();
-  }, []);
-
-  useEffect(() => {
-    async function fetchUser() {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const name = user.user_metadata?.name || user.user_metadata?.full_name;
-        if (name) {
-          setUserDisplay(name.split(" ")[0]); // First name only
-        } else {
-          setUserDisplay(user.email);
-        }
-      }
-    }
-    fetchUser();
-  }, []);
-
-  // Route protection: redirect to /signin if not authenticated
-  useEffect(() => {
-    async function checkAuth() {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        router.replace("/signin");
-      } else {
-        setAuthChecked(true);
-      }
-    }
-    checkAuth();
-  }, [router]);
-
-  // When a trip is selected, fetch its travellers and expenses
-  useEffect(() => {
-    if (!selectedTrip) {
-      setTravellers([]);
-      setExpenses([]);
-      return;
-    }
-    fetchTripData(selectedTrip.id);
-  }, [selectedTrip]);
-
-  useEffect(() => {
-    if (!selectedTrip) return;
-
-    // Clean up previous subscriptions
-    if (subscriptionsRef.current.travellers)
-      subscriptionsRef.current.travellers.unsubscribe();
-    if (subscriptionsRef.current.expenses)
-      subscriptionsRef.current.expenses.unsubscribe();
-
-    // Subscribe to travellers
-    subscriptionsRef.current.travellers = supabase
-      .channel("public:travellers")
-      .on(
-        "postgres_changes",
-        {
-          event: "*",
-          schema: "public",
-          table: "travellers",
-          filter: `trip_id=eq.${selectedTrip.id}`,
-        },
-        () => fetchTripData(selectedTrip.id)
-      )
-      .subscribe();
-
-    // Subscribe to expenses
-    subscriptionsRef.current.expenses = supabase
-      .channel("public:expenses")
-      .on(
-        "postgres_changes",
-        {
-          event: "*",
-          schema: "public",
-          table: "expenses",
-          filter: `trip_id=eq.${selectedTrip.id}`,
-        },
-        () => fetchTripData(selectedTrip.id)
-      )
-      .subscribe();
-
-    // Cleanup on unmount or trip change
-    return () => {
-      if (subscriptionsRef.current.travellers)
-        subscriptionsRef.current.travellers.unsubscribe();
-      if (subscriptionsRef.current.expenses)
-        subscriptionsRef.current.expenses.unsubscribe();
-    };
-  }, [selectedTrip]);
 
   // Fetch all trips from the database
   async function fetchTrips() {
@@ -264,12 +182,14 @@ export default function Home() {
     setCreating(false);
   }
 
+  // Handle deleting a trip (with browser confirm)
   async function handleDeleteTrip(id) {
     if (!window.confirm("Are you sure you want to delete this trip?")) return;
     await supabase.from("trips").delete().eq("id", id);
     fetchTrips();
   }
 
+  // Go back to trip list
   function handleBack() {
     setSelectedTrip(null);
   }
@@ -307,7 +227,7 @@ export default function Home() {
     showToast("Changes saved", "success");
   }
 
-  // Calculate total expense sum
+  // Calculate total expense sum for selected trip
   const totalExpense = expenses.reduce(
     (sum, exp) => sum + (Number(exp.amount) || 0),
     0
@@ -316,11 +236,104 @@ export default function Home() {
   // Calculate amount per traveller safely
   const perTraveller = travellers.length ? totalExpense / travellers.length : 0;
 
-  // Add logout handler
+  // Handle user logout
   async function handleLogout() {
     await supabase.auth.signOut();
     router.replace("/signin");
   }
+
+  // Fetch user info for header display (first name for Google, email for magic link)
+  useEffect(() => {
+    async function fetchUser() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const name = user.user_metadata?.name || user.user_metadata?.full_name;
+        if (name) {
+          setUserDisplay(name.split(" ")[0]); // First name only
+        } else {
+          setUserDisplay(user.email);
+        }
+      }
+    }
+    fetchUser();
+  }, []);
+
+  // On mount, fetch all trips
+  useEffect(() => {
+    fetchTrips();
+  }, []);
+
+  // Route protection: redirect to /signin if not authenticated
+  useEffect(() => {
+    async function checkAuth() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        router.replace("/signin");
+      } else {
+        setAuthChecked(true);
+      }
+    }
+    checkAuth();
+  }, [router]);
+
+  // When a trip is selected, fetch its travellers and expenses
+  useEffect(() => {
+    if (!selectedTrip) {
+      setTravellers([]);
+      setExpenses([]);
+      return;
+    }
+    fetchTripData(selectedTrip.id);
+  }, [selectedTrip]);
+
+  // Subscribe to real-time updates for travellers and expenses of selected trip
+  useEffect(() => {
+    if (!selectedTrip) return;
+
+    // Clean up previous subscriptions
+    if (subscriptionsRef.current.travellers)
+      subscriptionsRef.current.travellers.unsubscribe();
+    if (subscriptionsRef.current.expenses)
+      subscriptionsRef.current.expenses.unsubscribe();
+
+    // Subscribe to travellers table changes
+    subscriptionsRef.current.travellers = supabase
+      .channel("public:travellers")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "travellers",
+          filter: `trip_id=eq.${selectedTrip.id}`,
+        },
+        () => fetchTripData(selectedTrip.id)
+      )
+      .subscribe();
+
+    // Subscribe to expenses table changes
+    subscriptionsRef.current.expenses = supabase
+      .channel("public:expenses")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "expenses",
+          filter: `trip_id=eq.${selectedTrip.id}`,
+        },
+        () => fetchTripData(selectedTrip.id)
+      )
+      .subscribe();
+
+    // Cleanup on unmount or trip change
+    return () => {
+      if (subscriptionsRef.current.travellers)
+        subscriptionsRef.current.travellers.unsubscribe();
+      if (subscriptionsRef.current.expenses)
+        subscriptionsRef.current.expenses.unsubscribe();
+    };
+  }, [selectedTrip]);
 
   return (
     <main className="min-h-screen bg-base-200" role="main">

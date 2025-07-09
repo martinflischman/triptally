@@ -1,12 +1,18 @@
+// SignIn page for TripTally
+// Handles magic link and Google sign-in, and shows feedback to the user
 "use client";
 import { useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
 
 export default function SignIn() {
+  // State for email input
   const [email, setEmail] = useState("");
+  // Loading state for sign-in actions
   const [loading, setLoading] = useState(false);
+  // State for feedback messages
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  // State to track if magic link was sent
   const [emailSent, setEmailSent] = useState(false);
 
   // Handle magic link sign-in
@@ -34,6 +40,7 @@ export default function SignIn() {
     setLoading(false);
   }
 
+  // Reset the form to allow another email
   function handleReset() {
     setEmailSent(false);
     setMessage("");
@@ -52,6 +59,7 @@ export default function SignIn() {
           </svg>
           <span className="text-3xl font-bold text-primary" style={{ letterSpacing: "-1px" }}>TripTally</span>
         </div>
+        {/* Show feedback if magic link was sent */}
         {emailSent ? (
           <div className="flex flex-col items-center justify-center gap-4">
             <div className="rounded-lg bg-green-200/80 border border-green-300 text-green-900 text-base px-4 py-3 text-center font-medium w-full">
@@ -63,6 +71,7 @@ export default function SignIn() {
           </div>
         ) : (
           <>
+            {/* Magic link sign-in form */}
             <form onSubmit={handleMagicLink} className="flex flex-col gap-3">
               <label htmlFor="email" className="text-sm font-medium">Email</label>
               <input
@@ -80,10 +89,12 @@ export default function SignIn() {
               </button>
             </form>
             <div className="divider">or</div>
+            {/* Google sign-in button */}
             <button className="btn btn-outline w-full" onClick={handleGoogle} disabled={loading}>
-              <svg className="h-5 w-5 mr-2" viewBox="0 0 48 48"><g><path d="M44.5 20H24v8.5h11.7C34.7 33.1 29.8 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c2.7 0 5.2.9 7.2 2.5l6.4-6.4C33.5 5.1 28.1 3 24 3c-7.2 0-13.4 3.8-17 9.7z" fill="#FF3D00"/><path d="M24 45c5.8 0 10.7-1.9 14.6-5.1l-6.7-5.5C29.7 35.7 27 36.5 24 36.5c-5.7 0-10.5-3.7-12.2-8.8l-7 5.4C7.7 41.2 15.3 45 24 45z" fill="#4CAF50"/><path d="M44.5 20H24v8.5h11.7c-1.1 3.1-4.2 5.5-7.7 5.5-5.7 0-10.5-3.7-12.2-8.8l-7 5.4C7.7 41.2 15.3 45 24 45c10.5 0 20-8.5 20-20 0-1.3-.1-2.7-.5-4z" fill="#1976D2"/></g></svg>
+              <svg className="h-5 w-5 mr-2" viewBox="0 0 48 48"><g><path d="M44.5 20H24v8.5h11.7C34.7 33.1 29.8 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c2.7 0 5.2.9 7.2 2.5l6.4-6.4C33.5 5.1 28.1 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21c10.5 0 20-8.5 20-20 0-1.3-.1-2.7-.5-4z" fill="#FF3D00"/><path d="M24 45c5.8 0 10.7-1.9 14.6-5.1l-6.7-5.5C29.7 35.7 27 36.5 24 36.5c-5.7 0-10.5-3.7-12.2-8.8l-7 5.4C7.7 41.2 15.3 45 24 45z" fill="#4CAF50"/><path d="M44.5 20H24v8.5h11.7c-1.1 3.1-4.2 5.5-7.7 5.5-5.7 0-10.5-3.7-12.2-8.8l-7 5.4C7.7 41.2 15.3 45 24 45c10.5 0 20-8.5 20-20 0-1.3-.1-2.7-.5-4z" fill="#1976D2"/></g></svg>
               Sign in with Google
             </button>
+            {/* Show feedback messages */}
             {message && (
               <div className="mt-4 rounded-lg bg-green-200/80 border border-green-300 text-green-900 text-sm px-4 py-3 text-center font-medium">
                 {message}

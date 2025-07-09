@@ -1,6 +1,9 @@
+// Toast.js
+// Shows a temporary notification (success or error) at the bottom of the screen
 import { useEffect } from "react";
 
 export default function Toast({ open, message, onClose, duration = 2000, type = "success" }) {
+  // Automatically close the toast after 'duration' ms
   useEffect(() => {
     if (open) {
       const timer = setTimeout(() => {
@@ -12,6 +15,7 @@ export default function Toast({ open, message, onClose, duration = 2000, type = 
 
   if (!open) return null;
 
+  // Choose color based on type
   const colorClass = type === "error"
     ? "bg-error/20 text-error rounded-lg border-none shadow-none outline-none"
     : "bg-success/20 text-success rounded-lg border-none shadow-none outline-none";

@@ -1,6 +1,9 @@
+// ConfirmDeleteModal.js
+// Shows a modal dialog to confirm deleting a trip or traveller
 import React from "react";
 
 export default function ConfirmDeleteModal({ open, onClose, onConfirm, title, message, confirmText = "Delete", cancelText = "Cancel" }) {
+  // If not open, don't render anything
   if (!open) return null;
 
   return (
