@@ -1,3 +1,4 @@
+// Travellers.js
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import {
@@ -102,7 +103,7 @@ export default function Travellers({ tripId, onTravellersChange }) {
   return (
     <div className="card bg-base-100 shadow mt-3 xs:mt-4 sm:mt-6 rounded-lg">
       <div className="card-body p-3 xs:p-4 sm:p-6">
-        <h3 className="card-title flex items-center gap-2 text-base xs:text-lg sm:text-xl mb-3 xs:mb-4">
+        <h3 className="card-title flex items-center gap-2 text-base xs:text-lg sm:text-xl lg:text-2xl mb-3 xs:mb-4">
           Travellers
         </h3>
 
@@ -111,23 +112,23 @@ export default function Travellers({ tripId, onTravellersChange }) {
           onSubmit={handleAddTraveller}
         >
           <input
-            className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-lg h-10 xs:h-12"
+            className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-lg lg:text-xl h-10 xs:h-12"
             placeholder="Traveller Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             disabled={adding}
           />
           <button
-            className="btn btn-primary w-full flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-lg"
+            className="btn btn-primary w-full flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-lg lg:text-xl"
             disabled={adding}
           >
-            <PlusIcon className="h-4 w-4 xs:h-5 xs:w-5" />
+            <PlusIcon className="h-4 w-4 xs:h-5 xs:w-5 lg:h-6 lg:w-6" />
             {adding ? "Adding..." : "Add"}
           </button>
         </form>
 
         {error && (
-          <div className="alert alert-error mb-3 xs:mb-4 rounded-lg text-sm xs:text-base py-2">
+          <div className="alert alert-error mb-3 xs:mb-4 rounded-lg text-sm xs:text-base md:text-lg py-2">
             {error}
           </div>
         )}
@@ -137,7 +138,7 @@ export default function Travellers({ tripId, onTravellersChange }) {
             <span className="loading loading-dots loading-md text-primary loading-md"></span>
           </div>
         ) : travellers.length === 0 ? (
-          <div className="alert alert-info rounded-lg text-sm xs:text-base py-2">
+          <div className="alert alert-info rounded-lg text-sm xs:text-base md:text-lg py-2">
             No travellers yet.
           </div>
         ) : (
@@ -148,21 +149,21 @@ export default function Travellers({ tripId, onTravellersChange }) {
                   {editingId === trav.id ? (
                     <div className="flex flex-col gap-2 xs:gap-3">
                       <input
-                        className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-lg h-10 xs:h-12"
+                        className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-lg lg:text-xl h-10 xs:h-12"
                         value={editingName}
                         onChange={(e) => setEditingName(e.target.value)}
                         placeholder="Traveller Name"
                       />
                       <div className="flex gap-2">
                         <button
-                          className="btn btn-success btn-xs xs:btn-sm rounded-lg text-xs xs:text-sm md:text-base"
+                          className="btn btn-success btn-xs xs:btn-sm md:btn-md rounded-lg text-xs xs:text-sm md:text-base lg:text-lg"
                           onClick={() => handleSaveEdit(trav.id)}
                           type="button"
                         >
                           Save
                         </button>
                         <button
-                          className="btn btn-ghost btn-xs xs:btn-sm rounded-lg text-xs xs:text-sm md:text-base"
+                          className="btn btn-ghost btn-xs xs:btn-sm md:btn-md rounded-lg text-xs xs:text-sm md:text-base lg:text-lg"
                           onClick={handleCancelEdit}
                           type="button"
                         >
@@ -172,7 +173,7 @@ export default function Travellers({ tripId, onTravellersChange }) {
                     </div>
                   ) : (
                     <div className="flex justify-between items-center">
-                      <span className="flex-1 min-w-0 text-sm xs:text-base md:text-lg font-medium truncate pr-2">
+                      <span className="flex-1 min-w-0 text-sm xs:text-base md:text-lg lg:text-xl font-medium truncate pr-2">
                         {trav.name}
                       </span>
                       <div className="flex gap-1">
@@ -184,7 +185,7 @@ export default function Travellers({ tripId, onTravellersChange }) {
                           title="Edit Traveller"
                           type="button"
                         >
-                          <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5" />
+                          <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 lg:h-6 lg:w-6" />
                         </button>
                         <button
                           className="btn btn-ghost btn-xs rounded-lg p-1"
@@ -192,7 +193,7 @@ export default function Travellers({ tripId, onTravellersChange }) {
                           title="Remove Traveller"
                           type="button"
                         >
-                          <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 text-error" />
+                          <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 lg:h-6 lg:w-6 text-error" />
                         </button>
                       </div>
                     </div>
