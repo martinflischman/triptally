@@ -36,6 +36,8 @@ export default function Home() {
   const [editingTripId, setEditingTripId] = useState(null);
   const [editingTripName, setEditingTripName] = useState("");
   const [editingTripCurrency, setEditingTripCurrency] = useState("USD");
+  const [editingTripStartDate, setEditingTripStartDate] = useState("");
+  const [editingTripEndDate, setEditingTripEndDate] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
