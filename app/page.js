@@ -68,6 +68,8 @@ export default function Home() {
   const [tripToDelete, setTripToDelete] = useState(null);
   // Ref for Supabase real-time subscriptions
   const subscriptionsRef = useRef({});
+  // State for dropdown menu visibility
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // Show a toast notification
   function showToast(message, type = "success") {
@@ -344,6 +346,19 @@ export default function Home() {
     };
   }, [selectedTrip]);
 
+  // Close dropdown on outside click
+  function handleClickOutside(e) {
+    if (!e.target.closest('#user-menu')) setMenuOpen(false);
+  }
+  useEffect(() => {
+    if (menuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [menuOpen]);
+
   return (
     <main className="min-h-screen bg-base-200" role="main">
       {/* Responsive header bar with MapIcon and user info */}
@@ -352,31 +367,50 @@ export default function Home() {
           <MapIcon className="h-6 w-6" />
           TripTally
         </span>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 relative" id="user-menu">
+          {/* User avatar: Google image or fallback initial. Click to open menu. */}
           {userAvatar && (
             typeof userAvatar === "string" && userAvatar.startsWith("http") ? (
-              <img src={userAvatar} alt="User avatar" className="w-8 h-8 rounded-full object-cover border-2 border-primary" />
+              <img
+                src={userAvatar}
+                alt="User avatar"
+                className="w-8 h-8 rounded-full object-cover border border-base-200 cursor-pointer transition-opacity hover:opacity-80"
+                onClick={() => setMenuOpen((v) => !v)}
+                tabIndex={0}
+                aria-label="Open user menu"
+                onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setMenuOpen(v => !v); }}
+              />
             ) : (
-              <span className="w-8 h-8 rounded-full flex items-center justify-center bg-primary text-white font-bold text-base select-none">
+              <span
+                className="w-8 h-8 rounded-full flex items-center justify-center bg-primary text-white font-bold text-base select-none cursor-pointer transition-opacity hover:opacity-80"
+                onClick={() => setMenuOpen((v) => !v)}
+                tabIndex={0}
+                aria-label="Open user menu"
+                onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setMenuOpen(v => !v); }}
+              >
                 {userAvatar}
               </span>
             )
           )}
-          {userDisplay && (
-            <span className="text-base font-medium text-base-content/70">
-              Logged in as {userDisplay}
-            </span>
+          {/* Dropdown menu: appears below avatar when open */}
+          {menuOpen && (
+            <div className="absolute right-0 top-12 z-50 min-w-[180px] bg-base-200 rounded-xl shadow-lg border border-base-300 py-2 px-4 animate-fade-in" role="menu" aria-label="User menu">
+              <div className="text-xs text-base-content/60 mb-1">Logged in as</div>
+              <div className="font-medium text-base-content mb-2 truncate" title={userDisplay || user.email}>{userDisplay || user.email}</div>
+              <div className="border-t border-base-300 my-2" />
+              <button
+                className="flex items-center gap-2 text-error font-medium py-1 px-2 rounded hover:bg-error/10 w-full text-left"
+                onClick={handleLogout}
+                role="menuitem"
+                aria-label="Log out"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m-6-3h12m0 0l-3-3m3 3l-3 3" />
+                </svg>
+                Log out
+              </button>
+            </div>
           )}
-          <button
-            className="btn btn-ghost btn-sm text-base-content hover:bg-base-200 rounded-lg"
-            onClick={handleLogout}
-            aria-label="Log Out"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-1 inline-block align-text-bottom">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m-6-3h12m0 0l-3-3m3 3l-3 3" />
-            </svg>
-            <span className="hidden xs:inline">Log Out</span>
-          </button>
         </div>
       </header>
       {!authChecked ? (
