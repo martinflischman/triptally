@@ -493,15 +493,18 @@ export default function Home() {
               {/* Remove edit/delete icons from trip view card */}
               <div className="card bg-base-100 shadow mb-3 xs:mb-4 rounded-lg">
                 <div className="card-body p-3 xs:p-4 sm:p-6">
-                  <div className="mb-2">
-                    <h2 className="card-title text-lg xs:text-xl sm:text-2xl md:text-lg lg:text-lg xl:text-lg mb-0">
-                      {selectedTrip.name}
-                    </h2>
-                    {selectedTrip.start_date && selectedTrip.end_date && (
-                      <div className="text-xs xs:text-sm text-base-content/60 mt-1">
-                        {selectedTrip.start_date} <span className="mx-1">&rarr;</span> {selectedTrip.end_date}
-                      </div>
-                    )}
+                  <div className="flex items-start justify-between mb-2">
+                    <div>
+                      <h2 className="card-title text-lg xs:text-xl sm:text-2xl md:text-lg lg:text-lg xl:text-lg mb-0">
+                        {selectedTrip.name}
+                      </h2>
+                      {selectedTrip.start_date && selectedTrip.end_date && (
+                        <div className="text-xs xs:text-sm text-base-content/60 mt-1">
+                          {selectedTrip.start_date} <span className="mx-1">&rarr;</span> {selectedTrip.end_date}
+                        </div>
+                      )}
+                    </div>
+                    {/* Edit/Delete icons removed as requested */}
                   </div>
                 </div>
               </div>
