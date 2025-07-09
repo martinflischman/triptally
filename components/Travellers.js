@@ -187,7 +187,7 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
               <span className="loading loading-dots loading-md loading-md text-primary loading-md"></span>
             </div>
           ) : travellers.length === 0 ? (
-            <div className="w-full h-12 flex items-center justify-center rounded-lg text-sm xs:text-base md:text-sm lg:text-sm px-4 bg-info/20 text-info font-semibold border border-info/20">
+            <div className="input input-bordered w-full rounded-lg pointer-events-none cursor-default bg-info/20 text-info font-semibold border-info/20">
                 No travellers yet.
              </div>
           ) : (
