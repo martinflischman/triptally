@@ -58,6 +58,7 @@ export default function Home() {
   const [loadingTripData, setLoadingTripData] = useState(false);
   // State for displaying the logged-in user's info
   const [userDisplay, setUserDisplay] = useState("");
+  const [userAvatar, setUserAvatar] = useState(null);
   // Toast notification state
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -248,6 +249,14 @@ export default function Home() {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
         const name = user.user_metadata?.name || user.user_metadata?.full_name;
+        const avatarUrl = user.user_metadata?.avatar_url;
+        if (avatarUrl) {
+          setUserAvatar(avatarUrl);
+        } else {
+          // Use first letter of name or email for fallback avatar
+          const initial = name ? name[0].toUpperCase() : (user.email ? user.email[0].toUpperCase() : "?");
+          setUserAvatar(initial);
+        }
         if (name) {
           setUserDisplay(name.split(" ")[0]); // First name only
         } else {
@@ -344,6 +353,15 @@ export default function Home() {
           TripTally
         </span>
         <div className="flex items-center gap-4">
+          {userAvatar && (
+            typeof userAvatar === "string" && userAvatar.startsWith("http") ? (
+              <img src={userAvatar} alt="User avatar" className="w-8 h-8 rounded-full object-cover border-2 border-primary" />
+            ) : (
+              <span className="w-8 h-8 rounded-full flex items-center justify-center bg-primary text-white font-bold text-base select-none">
+                {userAvatar}
+              </span>
+            )
+          )}
           {userDisplay && (
             <span className="text-base font-medium text-base-content/70">
               Logged in as {userDisplay}

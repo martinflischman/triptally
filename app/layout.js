@@ -53,6 +53,17 @@ export default function RootLayout({ children }) {
           media="(prefers-color-scheme: dark)"
         />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        {/* Open Graph meta tags for social sharing */}
+        <meta property="og:title" content="TripTally" />
+        <meta property="og:description" content="Effortlessly track group travel expenses, split costs, and see who paid what. Modern, mobile-friendly, and real-time." />
+        <meta property="og:image" content="/android-chrome-192x192.png" />
+        <meta property="og:url" content="https://triptally-xi.vercel.app" />
+        <meta property="og:type" content="website" />
+        {/* Twitter Card meta tags */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="TripTally" />
+        <meta name="twitter:description" content="Effortlessly track group travel expenses, split costs, and see who paid what. Modern, mobile-friendly, and real-time." />
+        <meta name="twitter:image" content="/android-chrome-192x192.png" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
