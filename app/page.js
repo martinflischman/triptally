@@ -467,15 +467,33 @@ export default function Home() {
 
               <div className="card bg-base-100 shadow mb-3 xs:mb-4 rounded-lg">
                 <div className="card-body p-3 xs:p-4 sm:p-6">
-                  <div className="flex flex-col">
-                    <h2 className="card-title text-lg xs:text-xl sm:text-2xl md:text-lg lg:text-lg xl:text-lg mb-1">
-                      {selectedTrip.name}
-                    </h2>
-                    {selectedTrip.start_date && selectedTrip.end_date && (
-                      <div className="text-xs xs:text-sm text-base-content/60 mb-2">
-                        {selectedTrip.start_date} <span className="mx-1">&rarr;</span> {selectedTrip.end_date}
-                      </div>
-                    )}
+                  <div className="flex items-start justify-between mb-2">
+                    <div>
+                      <h2 className="card-title text-lg xs:text-xl sm:text-2xl md:text-lg lg:text-lg xl:text-lg mb-0">
+                        {selectedTrip.name}
+                      </h2>
+                      {selectedTrip.start_date && selectedTrip.end_date && (
+                        <div className="text-xs xs:text-sm text-base-content/60 mt-1">
+                          {selectedTrip.start_date} <span className="mx-1">&rarr;</span> {selectedTrip.end_date}
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex gap-1 ml-2">
+                      <button
+                        className="btn btn-ghost btn-xs rounded-lg p-1"
+                        title="Edit Trip"
+                        onClick={() => handleEditTrip(selectedTrip)}
+                      >
+                        <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4" />
+                      </button>
+                      <button
+                        className="btn btn-ghost btn-xs rounded-lg p-1"
+                        title="Delete Trip"
+                        onClick={() => handleRequestDeleteTrip(selectedTrip)}
+                      >
+                        <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4 text-error" />
+                      </button>
+                    </div>
                   </div>
                   {/* Show loading state if fetching trip data */}
                   {loadingTripData ? (
