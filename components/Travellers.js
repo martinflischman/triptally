@@ -101,9 +101,9 @@ export default function Travellers({ tripId, onTravellersChange }) {
   if (!tripId) return null;
 
   return (
-    <div className="card bg-base-100 shadow mt-3 xs:mt-4 sm:mt-6 rounded-lg w-full max-w-full">
-      <div className="card-body p-3 xs:p-4 sm:p-6">
-        <h3 className="card-title flex items-center gap-2 text-lg xs:text-xl sm:text-2xl md:text-xl lg:text-xl xl:text-xl mb-3 xs:mb-4">
+    <div className="card bg-base-100 shadow mt-3 xs:mt-4 sm:mt-6 rounded-lg w-full max-w-full xs:max-w-[97vw] sm:max-w-[93vw] md:max-w-full">
+      <div className="card-body p-3 xs:p-4 sm:p-5">
+        <h3 className="card-title flex items-center gap-2 text-lg xs:text-2xl sm:text-3xl md:text-xl lg:text-xl xl:text-xl mb-3 xs:mb-4">
           Travellers
         </h3>
 
@@ -119,10 +119,10 @@ export default function Travellers({ tripId, onTravellersChange }) {
             disabled={adding}
           />
           <button
-            className="btn btn-primary w-full flex items-center gap-2 rounded-lg h-12 xs:h-14 text-base xs:text-lg md:text-xl lg:text-base xl:text-base"
+            className="btn btn-primary w-full flex items-center gap-2 rounded-lg h-12 xs:h-14 sm:h-16 text-lg xs:text-xl sm:text-2xl md:text-xl lg:text-base xl:text-base"
             disabled={adding}
           >
-            <PlusIcon className="h-6 w-6 xs:h-7 xs:w-7 md:h-8 md:w-8 lg:h-5 lg:w-5 xl:h-6 xl:w-6" />
+            <PlusIcon className="h-7 w-7 xs:h-8 xs:w-8 sm:h-10 sm:w-10 md:h-8 md:w-8 lg:h-5 lg:w-5 xl:h-6 xl:w-6" />
             {adding ? "Adding..." : "Add"}
           </button>
         </form>
@@ -185,7 +185,7 @@ export default function Travellers({ tripId, onTravellersChange }) {
                           title="Edit Traveller"
                           type="button"
                         >
-                          <PencilSquareIcon className="h-6 w-6 xs:h-7 xs:w-7 md:h-8 md:w-8 lg:h-5 lg:w-5 xl:h-6 xl:w-6" />
+                          <PencilSquareIcon className="h-7 w-7 xs:h-8 xs:w-8 sm:h-10 sm:w-10 md:h-8 md:w-8 lg:h-5 lg:w-5 xl:h-6 xl:w-6" />
                         </button>
                         <button
                           className="btn btn-ghost btn-xs rounded-lg p-1"
@@ -193,7 +193,7 @@ export default function Travellers({ tripId, onTravellersChange }) {
                           title="Remove Traveller"
                           type="button"
                         >
-                          <TrashIcon className="h-6 w-6 xs:h-7 xs:w-7 md:h-8 md:w-8 lg:h-5 lg:w-5 xl:h-6 xl:w-6 text-error" />
+                          <TrashIcon className="h-7 w-7 xs:h-8 xs:w-8 sm:h-10 sm:w-10 md:h-8 md:w-8 lg:h-5 lg:w-5 xl:h-6 xl:w-6 text-error" />
                         </button>
                       </div>
                     </div>
