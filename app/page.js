@@ -418,6 +418,7 @@ export default function Home() {
               <Travellers
                 tripId={selectedTrip.id}
                 onTravellersChange={refreshTravellers}
+                expenses={expenses}
               />
               <Expenses
                 tripId={selectedTrip.id}
