@@ -1,4 +1,5 @@
-// page.js
+// Main page for TripTally app
+// Handles trip creation, selection, editing, deletion, and displays all trip-related data
 "use client";
 
 import { useEffect, useState, useRef } from "react";
@@ -27,6 +28,7 @@ const CURRENCY_SYMBOLS = {
 };
 
 export default function Home() {
+  // State variables for trips, form fields, and UI state
   const [trips, setTrips] = useState([]);
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState("");
@@ -50,6 +52,7 @@ export default function Home() {
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("success");
+  // Show a toast notification
   function showToast(message, type = "success") {
     setToastMessage(message);
     setToastType(type);
@@ -58,12 +61,13 @@ export default function Home() {
 
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
   const [tripToDelete, setTripToDelete] = useState(null);
-
+  // Open the delete confirmation modal for a trip
   function handleRequestDeleteTrip(trip) {
     setTripToDelete(trip);
     setConfirmDeleteOpen(true);
   }
 
+  // Actually delete a trip after confirmation
   async function handleDeleteTripConfirmed() {
     if (!tripToDelete) return;
     await supabase.from("trips").delete().eq("id", tripToDelete.id);
@@ -137,63 +141,53 @@ export default function Home() {
     };
   }, [selectedTrip]);
 
+  // Fetch all trips from the database
   async function fetchTrips() {
     setLoading(true);
     const { data, error } = await supabase.from("trips").select("*");
     if (!error) {
-      // Sort by start_date ascending
-      data.sort((a, b) =>
-        (a.start_date || "") > (b.start_date || "") ? 1 : -1
-      );
+      // Sort trips by start date
+      data.sort((a, b) => (a.start_date || "") > (b.start_date || "") ? 1 : -1);
       setTrips(data);
     }
     setLoading(false);
   }
 
-  // Fetch travellers and expenses for the selected trip
+  // Fetch travellers and expenses for a selected trip
   async function fetchTripData(tripId) {
     setLoadingTripData(true);
-
     // Fetch travellers
     const { data: travellersData, error: travellersError } = await supabase
       .from("travellers")
       .select("*")
       .eq("trip_id", tripId)
       .order("name", { ascending: true });
-
     if (!travellersError) setTravellers(travellersData || []);
     else setTravellers([]);
-
     // Fetch expenses
     const { data: expensesData, error: expensesError } = await supabase
       .from("expenses")
       .select("*")
       .eq("trip_id", tripId);
-
     if (!expensesError) setExpenses(expensesData || []);
     else setExpenses([]);
-
     setLoadingTripData(false);
   }
 
-  // Function to refresh travellers data
+  // Refresh functions for child components
   const refreshTravellers = () => {
-    if (selectedTrip) {
-      fetchTripData(selectedTrip.id);
-    }
+    if (selectedTrip) fetchTripData(selectedTrip.id);
   };
-
-  // Function to refresh expenses data
   const refreshExpenses = () => {
-    if (selectedTrip) {
-      fetchTripData(selectedTrip.id);
-    }
+    if (selectedTrip) fetchTripData(selectedTrip.id);
   };
 
+  // Handle creating a new trip
   async function handleCreateTrip(e) {
     e.preventDefault();
     setCreating(true);
     setError("");
+    // Validate form fields
     if (!name) {
       setError("Trip name is required.");
       setCreating(false);
@@ -214,9 +208,8 @@ export default function Home() {
       setCreating(false);
       return;
     }
-    const { error } = await supabase
-      .from("trips")
-      .insert([{ name, currency, start_date: startDate, end_date: endDate }]);
+    // Insert new trip into database
+    const { error } = await supabase.from("trips").insert([{ name, currency, start_date: startDate, end_date: endDate }]);
     if (error) {
       setError(error.message);
     } else {
@@ -226,7 +219,7 @@ export default function Home() {
       setEndDate("");
       fetchTrips();
       showToast("Trip added", "success");
-      // Fire confetti instantly and smoothly
+      // Fire confetti animation on success
       confetti({
         particleCount: 120,
         spread: 80,
@@ -249,6 +242,7 @@ export default function Home() {
     setSelectedTrip(null);
   }
 
+  // Handle editing a trip (open edit mode)
   function handleEditTrip(trip) {
     setEditingTripId(trip.id);
     setEditingTripName(trip.name);
@@ -257,6 +251,7 @@ export default function Home() {
     setEditingTripEndDate(trip.end_date || "");
   }
 
+  // Save edits to a trip
   async function handleSaveEditTrip(id) {
     if (!editingTripName) return;
     if (!editingTripCurrency) return;
