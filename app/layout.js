@@ -52,7 +52,6 @@ export default function RootLayout({ children }) {
           media="(prefers-color-scheme: dark)"
         />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <title>TripTally</title> {/* fallback title for non-Next rendering */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -60,6 +59,8 @@ export default function RootLayout({ children }) {
                 const theme = localStorage.getItem('theme') || 
                   (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
                 document.documentElement.setAttribute('data-theme', theme);
+                
+                // Update theme color based on current theme
                 const themeColor = theme === 'dark' ? '#1f2937' : '#ffffff';
                 document.querySelector('meta[name="theme-color"]').setAttribute('content', themeColor);
               })();
@@ -67,8 +68,8 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body className="min-h-[100dvh] bg-base-200 text-base-content antialiased overscroll-none scroll-smooth touch-pan-y pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
-        <main>{children}</main>
+      <body className="min-h-[100dvh] bg-base-200 text-base-content antialiased overscroll-none scroll-smooth touch-pan-y">
+        {children}
       </body>
     </html>
   );
