@@ -95,18 +95,18 @@ export default function Travellers({ tripId }) {
         </h3>
 
         <form
-          className="flex flex-col xs:flex-row gap-2 xs:gap-3 mb-3 xs:mb-4"
+          className="space-y-2 xs:space-y-3 mb-3 xs:mb-4"
           onSubmit={handleAddTraveller}
         >
           <input
-            className="input input-bordered flex-1 rounded-lg text-sm xs:text-base h-10 xs:h-12"
+            className="input input-bordered w-full rounded-lg text-sm xs:text-base h-10 xs:h-12"
             placeholder="Traveller Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             disabled={adding}
           />
           <button
-            className="btn btn-primary flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base xs:w-auto w-full"
+            className="btn btn-primary w-full flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base"
             disabled={adding}
           >
             <PlusIcon className="h-4 w-4" />
