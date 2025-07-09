@@ -168,6 +168,7 @@ export default function Home() {
       setName("");
       setCurrency("");
       fetchTrips();
+      showToast("Trip added", "success");
     }
     setCreating(false);
   }
