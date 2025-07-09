@@ -335,6 +335,7 @@ export default function Home() {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         disabled={creating}
+                        required
                       />
                     </div>
                     <div className="flex-1 flex flex-col">
@@ -347,6 +348,7 @@ export default function Home() {
                         value={currency}
                         onChange={(e) => setCurrency(e.target.value)}
                         disabled={creating}
+                        required
                       >
                         <option value="">Select currency</option>
                         {Object.keys(CURRENCY_SYMBOLS).map((code) => (
@@ -369,6 +371,7 @@ export default function Home() {
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
                         disabled={creating}
+                        required
                       />
                     </div>
                     <div className="flex-1 flex flex-col">
@@ -382,6 +385,7 @@ export default function Home() {
                         value={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
                         disabled={creating}
+                        required
                       />
                     </div>
                   </div>
