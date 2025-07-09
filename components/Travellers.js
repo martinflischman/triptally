@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import ReassignExpensesModal from "./ReassignExpensesModal";
 
-export default function Travellers({ tripId, onTravellersChange, expenses = [] }) {
+export default function Travellers({ tripId, onTravellersChange, onExpensesChange, expenses = [] }) {
   const [travellers, setTravellers] = useState([]);
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(true);
@@ -92,6 +92,9 @@ export default function Travellers({ tripId, onTravellersChange, expenses = [] }
     fetchTravellers();
     if (onTravellersChange) {
       onTravellersChange();
+    }
+    if (onExpensesChange) {
+      onExpensesChange();
     }
   }
 
