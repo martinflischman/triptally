@@ -1,2 +1,8 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+@layer base {
+  input, select, textarea {
+    @apply text-base;
+  }
+}

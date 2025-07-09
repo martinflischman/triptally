@@ -181,7 +181,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
             onSubmit={handleAddExpense}
           >
             <select
-              className="select select-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
+              className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               disabled={adding}
@@ -194,7 +194,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
             </select>
 
             <input
-              className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
+              className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
               placeholder={`Amount (${currency})`}
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
@@ -206,7 +206,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
             />
 
             <select
-              className="select select-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
+              className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
               value={paidBy}
               onChange={(e) => setPaidBy(e.target.value)}
               disabled={adding}
@@ -220,7 +220,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
             </select>
 
             <input
-              className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
+              className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
               placeholder="Description (optional)"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -263,7 +263,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
                   {editingId === exp.id ? (
                     <div className="flex flex-col gap-2 xs:gap-3">
                       <select
-                        className="select select-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
+                        className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
                         value={editingCategory}
                         onChange={(e) => setEditingCategory(e.target.value)}
                       >
@@ -275,7 +275,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
                       </select>
 
                       <input
-                        className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
+                        className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
                         value={editingAmount}
                         onChange={(e) => setEditingAmount(e.target.value)}
                         type="number"
@@ -285,7 +285,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
                       />
 
                       <select
-                        className="select select-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
+                        className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
                         value={editingPaidBy}
                         onChange={(e) => setEditingPaidBy(e.target.value)}
                       >
@@ -298,7 +298,7 @@ export default function Expenses({ tripId, currency, travellers = [] }) {
                       </select>
 
                       <input
-                        className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
+                        className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
                         value={editingDescription}
                         onChange={(e) => setEditingDescription(e.target.value)}
                         placeholder="Description (optional)"

@@ -152,7 +152,7 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
             onSubmit={handleAddTraveller}
           >
             <input
-              className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
+              className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
               placeholder="Traveller Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -189,7 +189,7 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
                     {editingId === trav.id ? (
                       <div className="flex flex-col gap-2 xs:gap-3">
                         <input
-                          className="input input-bordered w-full rounded-lg text-sm xs:text-base md:text-base lg:text-base xl:text-base h-10 xs:h-12"
+                          className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
                           value={editingName}
                           onChange={(e) => setEditingName(e.target.value)}
                           placeholder="Traveller Name"

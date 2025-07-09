@@ -29,7 +29,7 @@ export default function ReassignExpensesModal({ open, onClose, onConfirm, travel
                 {exp.category} <span className="text-xs text-base-content/60">({Number(exp.amount).toFixed(2)})</span>
               </div>
               <select
-                className="select select-bordered select-sm"
+                className="select select-bordered select-sm text-base"
                 value={reassignments[exp.id] || ""}
                 onChange={e => setReassignments(r => ({ ...r, [exp.id]: e.target.value }))}
               >
