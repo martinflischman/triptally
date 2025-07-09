@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import ReassignExpensesModal from "./ReassignExpensesModal";
 
-export default function Travellers({ tripId, onTravellersChange, onExpensesChange, expenses = [] }) {
+export default function Travellers({ tripId, onTravellersChange, onExpensesChange, expenses = [], onShowToast }) {
   const [travellers, setTravellers] = useState([]);
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(true);
@@ -56,6 +56,9 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
       // Notify parent component that travellers changed
       if (onTravellersChange) {
         onTravellersChange();
+      }
+      if (onShowToast) {
+        onShowToast("Traveller added");
       }
     }
     setAdding(false);

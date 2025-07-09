@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { supabase } from "../lib/supabaseClient";
 import Travellers from "../components/Travellers";
 import Expenses from "../components/Expenses";
+import Toast from "../components/Toast";
 import {
   TrashIcon,
   PencilSquareIcon,
@@ -39,6 +40,13 @@ export default function Home() {
   const [travellers, setTravellers] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [loadingTripData, setLoadingTripData] = useState(false);
+
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  function showToast(message) {
+    setToastMessage(message);
+    setToastOpen(true);
+  }
 
   const subscriptionsRef = useRef({});
 
@@ -201,6 +209,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-base-200">
+      <Toast open={toastOpen} message={toastMessage} onClose={() => setToastOpen(false)} />
       <div className="container mx-auto px-3 xs:px-4 sm:px-5 py-4 xs:py-5 sm:py-6 max-w-full xs:max-w-[97vw] sm:max-w-[93vw] md:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl">
         <div className="flex flex-col items-center">
           <h1 className="mt-4 xs:mt-6 sm:mt-8 text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-3xl xl:text-3xl font-bold mb-4 xs:mb-6 sm:mb-8 flex items-center gap-2 text-center text-primary">
@@ -420,6 +429,7 @@ export default function Home() {
                 onTravellersChange={refreshTravellers}
                 onExpensesChange={refreshExpenses}
                 expenses={expenses}
+                onShowToast={showToast}
               />
               <Expenses
                 tripId={selectedTrip.id}
@@ -427,6 +437,7 @@ export default function Home() {
                 currencySymbol={CURRENCY_SYMBOLS[selectedTrip.currency]}
                 travellers={travellers}
                 onExpensesChange={refreshExpenses}
+                onShowToast={showToast}
               />
             </div>
           )}

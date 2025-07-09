@@ -29,7 +29,7 @@ const CURRENCY_SYMBOLS = {
   CNY: "¥",
 };
 
-export default function Expenses({ tripId, currency, travellers = [], onExpensesChange }) {
+export default function Expenses({ tripId, currency, travellers = [], onExpensesChange, onShowToast }) {
   const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [adding, setAdding] = useState(false);
@@ -110,6 +110,9 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
       setDescription("");
       // Keep the same traveller selected for convenience
       fetchExpenses();
+      if (onShowToast) {
+        onShowToast("Expense added");
+      }
     }
     setAdding(false);
   }
