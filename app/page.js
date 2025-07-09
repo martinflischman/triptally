@@ -582,9 +582,9 @@ export default function Home() {
                     </div>
                   ) : (
                     <>
-                      {/* Summary row: two blocks, each w-1/2 */}
+                      {/* Summary row: two blocks, each w-1/2, fixed height and vertical centering */}
                       <div className="flex flex-row gap-3 xs:gap-4 w-full mb-3">
-                        <div className="w-1/2 bg-secondary/10 p-2 xs:p-3 rounded-lg border border-secondary/20 min-w-[140px]">
+                        <div className="w-1/2 bg-secondary/10 p-2 xs:p-3 h-20 flex flex-col justify-center rounded-lg border border-secondary/20 min-w-[140px]">
                           <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
                             Total Expenses
                           </div>
@@ -592,7 +592,7 @@ export default function Home() {
                             {CURRENCY_SYMBOLS[selectedTrip.currency]} {totalExpense.toFixed(2)}
                           </div>
                         </div>
-                        <div className="w-1/2 bg-primary/10 p-2 xs:p-3 rounded-lg border border-primary/20 min-w-[140px]">
+                        <div className="w-1/2 bg-primary/10 p-2 xs:p-3 h-20 flex flex-col justify-center rounded-lg border border-primary/20 min-w-[140px]">
                           <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
                             Per Traveller
                           </div>
@@ -601,7 +601,7 @@ export default function Home() {
                           </div>
                         </div>
                       </div>
-                      {/* Traveller blocks: grid with 4 columns (md:grid-cols-4), each block w-full in its cell */}
+                      {/* Traveller blocks: grid with 2 columns on mobile, 4 on desktop, fixed height and vertical centering */}
                       {travellers.length > 0 && expenses.length > 0 && (
                         <div className={`w-full ${travellers.length === 1 ? 'flex justify-center' : ''}`}>
                           <div className={`grid ${travellers.length === 1 ? '' : 'grid-cols-2'} md:grid-cols-4 gap-3 xs:gap-4 w-full`}>
@@ -610,8 +610,8 @@ export default function Home() {
                                 .filter(exp => exp.paid_by === traveller.id)
                                 .reduce((sum, exp) => sum + (Number(exp.amount) || 0), 0);
                               return (
-                                <div key={traveller.id} className="bg-base-200 p-2 xs:p-3 rounded-lg border border-base-300 flex flex-col justify-center w-full min-w-[140px]">
-                                  <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">{traveller.name}</div>
+                                <div key={traveller.id} className="bg-base-200 p-2 xs:p-3 h-20 flex flex-col justify-center rounded-lg border border-base-300 w-full min-w-[140px]">
+                                  <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1 truncate">{traveller.name}</div>
                                   <div className="text-sm text-base-content/70">Paid</div>
                                   <div className="text-lg font-bold text-base-content">
                                     {CURRENCY_SYMBOLS[selectedTrip.currency]} {totalPaid.toFixed(2)}
