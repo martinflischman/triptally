@@ -34,7 +34,7 @@ export default function Home() {
   const [editingTripName, setEditingTripName] = useState("");
   const [editingTripCurrency, setEditingTripCurrency] = useState("USD");
 
-  // New states for travellers and expenses of selected trip
+  // States for travellers and expenses of selected trip
   const [travellers, setTravellers] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [loadingTripData, setLoadingTripData] = useState(false);
@@ -68,7 +68,8 @@ export default function Home() {
     const { data: travellersData, error: travellersError } = await supabase
       .from("travellers")
       .select("*")
-      .eq("trip_id", tripId);
+      .eq("trip_id", tripId)
+      .order("name", { ascending: true });
 
     if (!travellersError) setTravellers(travellersData || []);
     else setTravellers([]);
@@ -84,6 +85,20 @@ export default function Home() {
 
     setLoadingTripData(false);
   }
+
+  // Function to refresh travellers data
+  const refreshTravellers = () => {
+    if (selectedTrip) {
+      fetchTripData(selectedTrip.id);
+    }
+  };
+
+  // Function to refresh expenses data
+  const refreshExpenses = () => {
+    if (selectedTrip) {
+      fetchTripData(selectedTrip.id);
+    }
+  };
 
   async function handleCreateTrip(e) {
     e.preventDefault();
@@ -216,7 +231,7 @@ export default function Home() {
 
               {loading ? (
                 <div className="flex justify-center py-4">
-                  <span className="loading loading-spinner loading-lg"></span>
+                  <span className="loading loading-dots text-primary loading-lg"></span>
                 </div>
               ) : (
                 <div className="space-y-3 xs:space-y-4 w-full">
@@ -336,7 +351,7 @@ export default function Home() {
                   {/* Show loading state if fetching trip data */}
                   {loadingTripData ? (
                     <div className="flex justify-center py-4">
-                      <span className="loading loading-spinner loading-sm"></span>
+                      <span className="loading loading-dots text-primary loading-sm"></span>
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 xs:gap-4">
@@ -363,12 +378,17 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Pass tripId and currency as before */}
-              <Travellers tripId={selectedTrip.id} />
+              {/* Pass refresh functions and data to components */}
+              <Travellers
+                tripId={selectedTrip.id}
+                onTravellersChange={refreshTravellers}
+              />
               <Expenses
                 tripId={selectedTrip.id}
                 currency={selectedTrip.currency}
                 currencySymbol={CURRENCY_SYMBOLS[selectedTrip.currency]}
+                travellers={travellers}
+                onExpensesChange={refreshExpenses}
               />
             </div>
           )}

@@ -6,7 +6,7 @@ import {
   PlusIcon,
 } from "@heroicons/react/24/outline";
 
-export default function Travellers({ tripId }) {
+export default function Travellers({ tripId, onTravellersChange }) {
   const [travellers, setTravellers] = useState([]);
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(true);
@@ -48,6 +48,10 @@ export default function Travellers({ tripId }) {
     } else {
       setName("");
       fetchTravellers();
+      // Notify parent component that travellers changed
+      if (onTravellersChange) {
+        onTravellersChange();
+      }
     }
     setAdding(false);
   }
@@ -56,6 +60,10 @@ export default function Travellers({ tripId }) {
     if (!window.confirm("Remove this traveller?")) return;
     await supabase.from("travellers").delete().eq("id", id);
     fetchTravellers();
+    // Notify parent component that travellers changed
+    if (onTravellersChange) {
+      onTravellersChange();
+    }
   }
 
   async function handleEditTraveller(id, currentName) {
@@ -77,6 +85,10 @@ export default function Travellers({ tripId }) {
     setEditingName("");
     setError("");
     fetchTravellers();
+    // Notify parent component that travellers changed
+    if (onTravellersChange) {
+      onTravellersChange();
+    }
   }
 
   function handleCancelEdit() {
@@ -122,7 +134,7 @@ export default function Travellers({ tripId }) {
 
         {loading ? (
           <div className="flex justify-center py-4">
-            <span className="loading loading-spinner loading-md"></span>
+            <span className="loading loading-dots loading-md text-primary loading-md"></span>
           </div>
         ) : travellers.length === 0 ? (
           <div className="alert alert-info rounded-lg text-sm py-2">
