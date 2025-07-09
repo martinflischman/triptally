@@ -275,26 +275,28 @@ export default function Home() {
                   <h2 className="card-title text-base xs:text-lg sm:text-xl md:text-lg lg:text-lg xl:text-lg mb-3 xs:mb-4">
                     Create a New Trip
                   </h2>
-                  <input
-                    className="input input-bordered w-full rounded-lg mb-3 xs:mb-4 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
-                    placeholder="Trip Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    disabled={creating}
-                  />
-                  <select
-                    className="select select-bordered w-full rounded-lg mb-3 xs:mb-4 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
-                    value={currency}
-                    onChange={(e) => setCurrency(e.target.value)}
-                    disabled={creating}
-                  >
-                    <option value="">Select currency</option>
-                    {Object.keys(CURRENCY_SYMBOLS).map((code) => (
-                      <option key={code} value={code}>
-                        {code}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="flex flex-col sm:flex-row gap-3 xs:gap-4 mb-3 xs:mb-4">
+                    <input
+                      className="input input-bordered w-full sm:w-2/3 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
+                      placeholder="Trip Name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      disabled={creating}
+                    />
+                    <select
+                      className="select select-bordered w-full sm:w-1/3 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm h-10 xs:h-12"
+                      value={currency}
+                      onChange={(e) => setCurrency(e.target.value)}
+                      disabled={creating}
+                    >
+                      <option value="">Select currency</option>
+                      {Object.keys(CURRENCY_SYMBOLS).map((code) => (
+                        <option key={code} value={code}>
+                          {code}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                   <div className="flex flex-row gap-3 mb-3 xs:mb-4">
                     <div className="flex-1">
                       <label className="block text-xs xs:text-sm mb-1 font-medium">Trip Start Date</label>
@@ -465,9 +467,16 @@ export default function Home() {
 
               <div className="card bg-base-100 shadow mb-3 xs:mb-4 rounded-lg">
                 <div className="card-body p-3 xs:p-4 sm:p-6">
-                  <h2 className="card-title text-lg xs:text-xl sm:text-2xl md:text-lg lg:text-lg xl:text-lg mb-2 xs:mb-3">
-                    {selectedTrip.name}
-                  </h2>
+                  <div className="flex flex-col">
+                    <h2 className="card-title text-lg xs:text-xl sm:text-2xl md:text-lg lg:text-lg xl:text-lg mb-1">
+                      {selectedTrip.name}
+                    </h2>
+                    {selectedTrip.start_date && selectedTrip.end_date && (
+                      <div className="text-xs xs:text-sm text-base-content/60 mb-2">
+                        {selectedTrip.start_date} <span className="mx-1">&rarr;</span> {selectedTrip.end_date}
+                      </div>
+                    )}
+                  </div>
                   {/* Show loading state if fetching trip data */}
                   {loadingTripData ? (
                     <div className="flex justify-center py-4">
