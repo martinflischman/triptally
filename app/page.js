@@ -307,8 +307,8 @@ export default function Home() {
       />
       <div className="container mx-auto px-3 xs:px-4 sm:px-5 py-4 xs:py-5 sm:py-6 max-w-full xs:max-w-[97vw] sm:max-w-[93vw] md:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl">
         <div className="flex flex-col items-center">
-          <h1 className="mt-4 xs:mt-6 sm:mt-8 text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-3xl xl:text-3xl font-bold mb-4 xs:mb-6 sm:mb-8 flex items-center gap-2 text-center text-primary">
-            <MapIcon className="h-8 w-8 xs:h-10 xs:w-10 sm:h-12 sm:w-12 md:h-10 md:w-10 lg:h-6 lg:w-6 xl:h-6 xl:w-6" />
+          <h1 className="mt-4 xs:mt-6 sm:mt-8 text-3xl xs:text-4xl sm:text-5xl md:text-4xl lg:text-3xl xl:text-3xl font-bold mb-4 xs:mb-6 sm:mb-8 flex items-center gap-2 text-center text-primary">
+            <MapIcon className="h-7 w-7 xs:h-8 xs:w-8 sm:h-9 sm:w-9 md:h-8 md:w-8 lg:h-6 lg:w-6 xl:h-6 xl:w-6" />
             TripTally
           </h1>
 
@@ -330,7 +330,7 @@ export default function Home() {
                       </label>
                       <input
                         id="trip-name"
-                        className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
+                        className="input input-bordered input-primary w-full rounded-lg text-base h-10 xs:h-12"
                         placeholder="Summer in Italy 🍝"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -344,7 +344,7 @@ export default function Home() {
                       </label>
                       <select
                         id="currency-select"
-                        className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
+                        className="select select-bordered select-primary w-full rounded-lg text-base h-10 xs:h-12"
                         value={currency}
                         onChange={(e) => setCurrency(e.target.value)}
                         disabled={creating}
@@ -367,7 +367,7 @@ export default function Home() {
                       <input
                         id="start-date"
                         type="date"
-                        className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
+                        className="input input-bordered input-primary w-full rounded-lg text-base h-10 xs:h-12"
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
                         disabled={creating}
@@ -381,7 +381,7 @@ export default function Home() {
                       <input
                         id="end-date"
                         type="date"
-                        className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
+                        className="input input-bordered input-primary w-full rounded-lg text-base h-10 xs:h-12"
                         value={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
                         disabled={creating}

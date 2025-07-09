@@ -5,6 +5,9 @@
   input, select, textarea {
     @apply text-base;
   }
+  input:focus, select:focus, textarea:focus {
+    @apply ring-2 ring-primary border-primary outline-none;
+  }
 }
 
 @keyframes fade-in-up {
