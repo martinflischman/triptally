@@ -181,71 +181,72 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
           Add Expense
         </h3>
 
-        {travellers.length === 0 ? (
-          <div className="btn w-full rounded-lg pointer-events-none cursor-default bg-warning/20 text-warning font-semibold border-warning/20 mb-3 xs:mb-4 justify-start text-left">
-            Add travellers first to assign expenses.
-          </div>
-        ) : (
-          <form
-            className="flex flex-col gap-2 xs:gap-3 mb-3 xs:mb-4"
-            onSubmit={handleAddExpense}
+        {/* Always show the expense form, but disable paidBy and button if no travellers */}
+        <form
+          className="flex flex-col gap-2 xs:gap-3 mb-3 xs:mb-4"
+          onSubmit={handleAddExpense}
+        >
+          <select
+            className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            disabled={adding}
           >
-            <select
-              className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              disabled={adding}
-            >
-              {CATEGORY_OPTIONS.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
+            {CATEGORY_OPTIONS.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
 
-            <input
-              className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
-              placeholder={`Amount (${currency})`}
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              disabled={adding}
-              type="number"
-              inputMode="decimal"
-              min="0"
-              step="0.01"
-            />
+          <input
+            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
+            placeholder={`Amount (${currency})`}
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            disabled={adding}
+            type="number"
+            inputMode="decimal"
+            min="0"
+            step="0.01"
+          />
 
-            <select
-              className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
-              value={paidBy}
-              onChange={(e) => setPaidBy(e.target.value)}
-              disabled={adding}
-            >
-              <option value="">Who paid?</option>
-              {travellers.map((traveller) => (
-                <option key={traveller.id} value={traveller.id}>
-                  {traveller.name}
-                </option>
-              ))}
-            </select>
+          <select
+            className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
+            value={paidBy}
+            onChange={(e) => setPaidBy(e.target.value)}
+            disabled={adding || travellers.length === 0}
+          >
+            {travellers.length === 0 ? (
+              <option value="">Add a traveller first</option>
+            ) : (
+              <>
+                <option value="">Who paid?</option>
+                {travellers.map((traveller) => (
+                  <option key={traveller.id} value={traveller.id}>
+                    {traveller.name}
+                  </option>
+                ))}
+              </>
+            )}
+          </select>
 
-            <input
-              className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
-              placeholder="Description (optional)"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              disabled={adding}
-            />
+          <input
+            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
+            placeholder="Description (optional)"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            disabled={adding}
+          />
 
-            <button
-              className="btn btn-primary w-full flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm"
-              disabled={adding || !paidBy}
-            >
-              <PlusIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4" />
-              {adding ? "Adding..." : "Add Expense"}
-            </button>
-          </form>
-        )}
+          <button
+            className="btn btn-primary w-full flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm shadow-none"
+            disabled={adding || !paidBy || travellers.length === 0}
+          >
+            <PlusIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4" />
+            {adding ? "Adding..." : "Add Expense"}
+          </button>
+        </form>
 
         {error && (
           <div className="alert alert-error mb-3 xs:mb-4 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm py-2">

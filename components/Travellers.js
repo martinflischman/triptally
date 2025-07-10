@@ -178,11 +178,11 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
               disabled={adding}
             />
             <button
-              className="btn btn-primary w-full flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm"
+              className="btn btn-primary w-full flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm shadow-none"
               disabled={adding}
             >
               <PlusIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4" />
-              {adding ? "Adding..." : "Add"}
+              {adding ? "Adding..." : "Add Traveller"}
             </button>
           </form>
 
@@ -198,8 +198,8 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
             </div>
           ) : travellers.length === 0 ? (
             <div className="input input-bordered w-full rounded-lg pointer-events-none cursor-default bg-info/20 text-info font-semibold border-info/20">
-                No travellers yet.
-             </div>
+              No travellers yet.
+            </div>
           ) : (
             <div className="space-y-2 xs:space-y-3">
               {travellers.map((trav) => (

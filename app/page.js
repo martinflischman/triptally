@@ -549,7 +549,7 @@ export default function Home() {
                         </div>
                       )}
                       <button
-                        className="btn btn-primary w-full rounded-lg flex items-center gap-2 h-10 xs:h-12 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm"
+                        className="btn btn-primary w-full rounded-lg flex items-center gap-2 h-10 xs:h-12 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm shadow-none"
                         disabled={creating}
                       >
                         <svg
@@ -583,7 +583,7 @@ export default function Home() {
                   ) : (
                     <div className="space-y-3 xs:space-y-4 w-full">
                       {trips.length === 0 ? (
-                        <div className="bg-info/20 text-info rounded-lg text-sm xs:text-base md:text-sm lg:text-sm py-2 px-4">
+                        <div className="input input-bordered w-full rounded-lg pointer-events-none cursor-default bg-info/20 text-info font-semibold border-info/20 text-sm py-2 px-4">
                           You don’t have any trips yet.
                         </div>
                       ) : (
