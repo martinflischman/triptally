@@ -378,7 +378,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-base-200" role="main">
       {/* Responsive header bar with MapIcon and user info */}
-      <header className="w-full flex items-center justify-between px-4 py-3 bg-base-100 shadow-sm mb-2">
+      <header className="w-full flex items-center justify-between px-4 py-3 bg-base-100 shadow-sm mb-2 md:sticky md:top-0 md:z-50">
         <span className="flex items-center gap-2 text-2xl font-bold text-primary tracking-tight">
           <MapIcon className="h-6 w-6" />
           TripTally
@@ -436,6 +436,17 @@ export default function Home() {
           )}
         </div>
       </header>
+      {/* Scroll to top button, only on desktop/tablet */}
+      <button
+        className="hidden md:flex fixed bottom-6 right-6 z-50 bg-primary text-white rounded-full p-3 shadow-lg hover:bg-primary/80 transition"
+        style={{ outline: 'none' }}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="Scroll to top"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-6 w-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+        </svg>
+      </button>
       {!authChecked ? (
         <div className="flex items-center justify-center min-h-screen">
           <span className="loading loading-dots text-primary loading-lg"></span>
