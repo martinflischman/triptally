@@ -571,11 +571,10 @@ export default function Home() {
                     </div>
                   </form>
 
-                  {trips.length > 0 && (
-                    <h2 className="text-base xs:text-lg sm:text-xl md:text-lg lg:text-lg xl:text-lg font-semibold mb-2 xs:mb-3 text-primary w-full text-left">
-                      Your Trips
-                    </h2>
-                  )}
+                  {/* Always show 'Your Trips' heading */}
+                  <h2 className="text-base xs:text-lg sm:text-xl md:text-lg lg:text-lg xl:text-lg font-semibold mb-2 xs:mb-3 text-primary w-full text-left">
+                    Your Trips
+                  </h2>
 
                   {loading ? (
                     <div className="flex justify-center py-4">
@@ -584,8 +583,8 @@ export default function Home() {
                   ) : (
                     <div className="space-y-3 xs:space-y-4 w-full">
                       {trips.length === 0 ? (
-                        <div className="alert alert-info rounded-lg text-sm xs:text-base md:text-sm lg:text-sm py-2">
-                          No trips found.
+                        <div className="bg-info/20 text-info rounded-lg text-sm xs:text-base md:text-sm lg:text-sm py-2 px-4">
+                          You don’t have any trips yet.
                         </div>
                       ) : (
                         trips.map((trip) => (
