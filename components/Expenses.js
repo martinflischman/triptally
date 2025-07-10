@@ -1,3 +1,4 @@
+"use client";
 // Expenses.js
 // Handles adding, editing, and removing expenses for a trip
 import { useEffect, useState } from "react";

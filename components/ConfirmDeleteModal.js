@@ -1,3 +1,4 @@
+"use client";
 // ConfirmDeleteModal.js
 // Shows a modal dialog to confirm deleting a trip or traveller
 import React from "react";

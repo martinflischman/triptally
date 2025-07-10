@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 
 export default function ReassignExpensesModal({ open, onClose, onConfirm, travellers, excludeTravellerId, expenses = [] }) {

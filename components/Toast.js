@@ -1,3 +1,4 @@
+"use client";
 // Toast.js
 // Shows a temporary notification (success or error) at the bottom of the screen
 import { useEffect } from "react";

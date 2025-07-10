@@ -1,3 +1,4 @@
+"use client";
 // Travellers.js
 // Handles adding, editing, and removing travellers for a trip
 import { useEffect, useState } from "react";
