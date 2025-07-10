@@ -99,7 +99,13 @@ export default function Home() {
   // Fetch all trips from the database
   async function fetchTrips() {
     setLoading(true);
-    const { data, error } = await supabase.from("trips").select("*");
+    // Only fetch trips for the current user
+    if (!user) {
+      setTrips([]);
+      setLoading(false);
+      return;
+    }
+    const { data, error } = await supabase.from("trips").select("*").eq("user_id", user.id);
     if (!error) {
       // Sort trips by start date
       data.sort((a, b) => (a.start_date || "") > (b.start_date || "") ? 1 : -1);
@@ -165,8 +171,13 @@ export default function Home() {
       setCreating(false);
       return;
     }
-    // Insert new trip into database
-    const { error } = await supabase.from("trips").insert([{ name, currency, start_date: startDate, end_date: endDate }]);
+    if (!user) {
+      setError("User not authenticated.");
+      setCreating(false);
+      return;
+    }
+    // Insert new trip into database with user_id
+    const { error } = await supabase.from("trips").insert([{ name, currency, start_date: startDate, end_date: endDate, user_id: user.id }]);
     if (error) {
       setError(error.message);
     } else {
