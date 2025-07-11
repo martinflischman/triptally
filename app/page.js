@@ -782,19 +782,19 @@ export default function Home() {
                         <>
                           {/* Summary row: two blocks, each w-1/2, fixed height and vertical centering */}
                           <div className="flex flex-row gap-3 xs:gap-4 w-full mb-3">
-                            <div className="w-1/2 bg-primary/10 hover:bg-primary hover:text-white hover:shadow-[0_2px_8px_0_rgba(85,60,255,0.4)] transition-colors transition-shadow p-5 flex flex-col justify-center rounded-lg min-w-[140px] group text-left">
-                              <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-3 group-hover:text-white transition-colors">
+                            <div className="w-1/2 bg-primary/10 p-5 flex flex-col justify-center rounded-lg min-w-[140px] group text-left">
+                              <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-3">
                                 Total Expenses
                               </div>
-                              <div className="text-lg xs:text-xl md:text-lg lg:text-lg xl:text-lg font-bold text-primary group-hover:text-white transition-colors">
+                              <div className="text-lg xs:text-xl md:text-lg lg:text-lg xl:text-lg font-bold text-primary">
                                 {CURRENCY_SYMBOLS[selectedTrip.currency]} {totalExpense.toFixed(2)}
                               </div>
                             </div>
-                            <div className="w-1/2 bg-secondary/10 hover:bg-secondary hover:text-white hover:shadow-[0_2px_8px_0_rgba(231,70,156,0.4)] transition-colors transition-shadow p-5 flex flex-col justify-center rounded-lg min-w-[140px] group text-left">
-                              <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-3 group-hover:text-white transition-colors">
+                            <div className="w-1/2 bg-secondary/10 p-5 flex flex-col justify-center rounded-lg min-w-[140px] group text-left">
+                              <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-3">
                                 Per Traveller
                               </div>
-                              <div className="text-lg xs:text-xl md:text-lg lg:text-lg xl:text-lg font-bold text-secondary group-hover:text-white transition-colors">
+                              <div className="text-lg xs:text-xl md:text-lg lg:text-lg xl:text-lg font-bold text-secondary">
                                 {CURRENCY_SYMBOLS[selectedTrip.currency]} {perTraveller.toFixed(2)}
                               </div>
                             </div>
@@ -808,7 +808,7 @@ export default function Home() {
                                     .filter(exp => exp.paid_by === traveller.id)
                                     .reduce((sum, exp) => sum + (Number(exp.amount) || 0), 0);
                                   return (
-                                    <div key={traveller.id} className="bg-base-200 hover:bg-base-300 hover:shadow-md transition-colors transition-shadow p-5 flex flex-col justify-between rounded-lg w-full min-w-[140px] text-left" style={{ cursor: 'default' }}>
+                                    <div key={traveller.id} className="bg-base-200 p-5 flex flex-col justify-between rounded-lg w-full min-w-[140px] text-left" style={{ cursor: 'default' }}>
                                       <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-3 truncate">
                                         {traveller.name} paid
                                       </div>
