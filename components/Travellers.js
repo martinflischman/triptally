@@ -217,9 +217,9 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
             <div className="space-y-2 xs:space-y-3">
               {travellers.map((trav) => (
                 <div key={trav.id} className="card bg-base-200 shadow rounded-lg h-10 xs:h-12">
-                  <div className="card-body p-2 xs:p-2 sm:p-3 flex items-center">
+                  <div className="card-body h-full p-0">
                     {editingId === trav.id ? (
-                      <div className="flex flex-col gap-2 xs:gap-3 w-full">
+                      <div className="flex flex-col gap-2 xs:gap-3 w-full h-full justify-center">
                         {/* Edit traveller form */}
                         <input
                           className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
@@ -245,11 +245,11 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
                         </div>
                       </div>
                     ) : (
-                      <div className="flex justify-between items-center w-full">
+                      <div className="flex justify-between items-center w-full h-full px-4">
                         <span className="flex-1 min-w-0 text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm font-medium truncate pr-2">
                           {trav.name}
                         </span>
-                        <div className="flex gap-1">
+                        <div className="flex gap-1 items-center">
                           <button
                             className="btn btn-ghost btn-xs rounded-lg p-1 focus:outline-none focus:ring-0 border-none"
                             onClick={() => handleEditTraveller(trav.id, trav.name)}
