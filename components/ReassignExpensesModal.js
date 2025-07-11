@@ -58,7 +58,7 @@ export default function ReassignExpensesModal({ open, onClose, onConfirm, travel
           ))}
         </div>
         <div className="flex justify-end gap-2">
-          <button className="btn btn-ghost btn-soft flex-1" onClick={onClose}>Cancel</button>
+          <button className="btn btn-soft flex-1" onClick={onClose}>Cancel</button>
           <button
             className="btn btn-error btn-soft flex-1 hover:text-white"
             disabled={!allAssigned}

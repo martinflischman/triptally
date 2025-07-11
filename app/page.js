@@ -751,7 +751,7 @@ export default function Home() {
               {selectedTrip && (
                 <div className="w-full">
                   <button
-                    className="btn btn-sm btn-soft mb-3 xs:mb-4 rounded-lg text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs h-8 xs:h-10"
+                    className="btn btn-soft mb-3 xs:mb-4 rounded-lg text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs h-8 xs:h-10"
                     onClick={handleBack}
                   >
                     ← Back to Trips

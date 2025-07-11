@@ -252,9 +252,7 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
                         <div className="flex gap-1">
                           <button
                             className="btn btn-ghost btn-xs rounded-lg p-1"
-                            onClick={() =>
-                              handleEditTraveller(trav.id, trav.name)
-                            }
+                            onClick={() => handleEditTraveller(trav.id, trav.name)}
                             title="Edit Traveller"
                             type="button"
                           >
