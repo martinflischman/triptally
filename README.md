@@ -35,6 +35,21 @@ TripTally is a modern web app for tracking group travel expenses. Easily add tri
 - Supabase (database, authentication, and real-time)
 - canvas-confetti (celebration animation)
 
+## Design Consistency
+TripTally uses a strict design system for:
+- **Spacing & Padding:** All cards, modals, and forms use consistent padding (e.g., p-4, p-5, p-6) and margin for visual balance.
+- **Border Radius:** All cards, modals, and buttons use rounded-lg or rounded-xl for a modern, friendly look.
+- **Font Size & Hierarchy:** Headings, labels, and body text use a clear hierarchy for readability. Amounts and totals are prominent but not overpowering.
+- **Whitespace:** Generous whitespace is used to group related controls and separate unrelated ones, improving clarity and touch targets.
+- **Color & Shadows:** Uses DaisyUI/Tailwind color tokens for backgrounds, text, and shadows. Shadows are soft and used for separation, not floating effects.
+- **Accessibility:** All spacing, color, and font choices are made with accessibility in mind.
+
+## Code Commenting & Structure
+- All main files and components are commented to explain what each part does.
+- Comments are kept up to date and clarify the purpose and logic of each function or section.
+- If you want to change something, read the comments to understand what it does first.
+- If you get stuck, you can always ask for help or open an issue.
+
 ## Setup Instructions
 1. **Clone the repository:**
    ```
@@ -67,12 +82,6 @@ TripTally is a modern web app for tracking group travel expenses. Easily add tri
 - All error messages are visible and accessible (role="alert")
 - Meta tags, manifest, and icons for SEO and PWA
 - App is installable as a PWA (add to home screen on mobile/desktop)
-
-## Code Structure & Comments (for Non-Coders)
-- All main files and components are commented to explain what each part does
-- Look for comments at the top of each file and above major functions/sections
-- If you want to change something, read the comments to understand what it does first
-- If you get stuck, you can always ask for help or open an issue
 
 ## Inviting Testers & Production Readiness
 - You can share your deployed app link with friends or team members for testing

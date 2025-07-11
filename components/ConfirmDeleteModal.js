@@ -1,6 +1,7 @@
 "use client";
 // ConfirmDeleteModal.js
-// Shows a modal dialog to confirm deleting a trip or traveller
+// Modal dialog for confirming destructive actions (delete trip, traveller, or expense)
+// Shows a title, message, and Delete/Cancel buttons with overlay
 import React, { useState } from "react";
 
 export default function ConfirmDeleteModal({ open, onClose, onConfirm, title, message, confirmText = "Delete", cancelText = "Cancel", cancelRed = false }) {

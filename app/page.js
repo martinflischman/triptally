@@ -1,5 +1,7 @@
 // Main page for TripTally app
 // Handles trip creation, selection, editing, deletion, and displays all trip-related data
+// Integrates with Supabase for real-time updates and authentication
+// Uses modals for confirming deletion and reassigning
 "use client";
 
 import { useEffect, useState, useRef } from "react";

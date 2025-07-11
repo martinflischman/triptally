@@ -1,6 +1,8 @@
 "use client";
 // Travellers.js
 // Handles adding, editing, and removing travellers for a trip
+// Provides the Add Traveller form and traveller list
+// Uses modals for confirming deletion and reassigning expenses
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import {

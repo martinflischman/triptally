@@ -1,3 +1,7 @@
+// ReassignExpensesModal.js
+// Modal dialog for reassigning one or more expenses to a different traveller before deletion
+// Used for both traveller and expense deletion flows
+
 "use client";
 
 import React, { useState, useEffect } from "react";

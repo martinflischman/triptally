@@ -1,6 +1,8 @@
 "use client";
 // Expenses.js
 // Handles adding, editing, and removing expenses for a trip
+// Provides the Add Expense form and expense history list
+// Uses modals for confirming deletion and reassigning expenses
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import {
