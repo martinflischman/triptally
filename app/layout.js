@@ -46,13 +46,10 @@ export default function RootLayout({ children }) {
     <html lang="en" className="bg-base-200">
       <head>
         <meta name="description" content="TripTally: Effortlessly track group travel expenses, split costs, and see who paid what. Modern, mobile-friendly, and real-time." />
-        <meta name="theme-color" content="#ffffff" />
-        <meta
-          name="theme-color"
-          content="#1f2937"
-          media="(prefers-color-scheme: dark)"
-        />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#1f2937" media="(prefers-color-scheme: dark)" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="msapplication-TileColor" content="#1f2937" />
         {/* Open Graph meta tags for social sharing */}
         <meta property="og:title" content="TripTally" />
         <meta property="og:description" content="Effortlessly track group travel expenses, split costs, and see who paid what. Modern, mobile-friendly, and real-time." />
