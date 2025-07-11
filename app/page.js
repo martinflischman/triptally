@@ -687,7 +687,7 @@ export default function Home() {
                                         Save
                                       </button>
                                       <button
-                                        className="btn btn-ghost btn-soft h-10 rounded-lg px-4 font-semibold"
+                                        className="btn btn-ghost h-10 rounded-lg px-4 font-semibold"
                                         onClick={() => setEditingTripId(null)}
                                       >
                                         Cancel
