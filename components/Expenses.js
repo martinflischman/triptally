@@ -12,13 +12,21 @@ import {
 // --- List of possible expense categories ---
 const CATEGORY_OPTIONS = [
   "Accommodation",
-  "Transport",
   "Food & Drink",
+  "Groceries",
+  "Transport",
+  "Fuel",
   "Entertainment",
+  "Activities",
   "Shopping",
+  "Tickets & Admissions",
   "Healthcare",
+  "Communication",
+  "Insurance",
+  "Fees & Charges",
+  "Gifts & Souvenirs",
   "Other",
-].sort();
+];
 
 // --- Currency symbols for supported currencies ---
 const CURRENCY_SYMBOLS = {
@@ -225,7 +233,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
           {/* Amount input */}
           <input
             className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
-            placeholder={`Amount (${currency})`}
+            placeholder="Enter amount"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             disabled={adding}
