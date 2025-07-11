@@ -30,6 +30,7 @@ const CURRENCY_SYMBOLS = {
 };
 
 export default function Home() {
+  // --- State variables for all app data and UI state ---
   // Router for navigation
   const router = useRouter();
   // State for checking if user is authenticated
@@ -72,23 +73,24 @@ export default function Home() {
   const subscriptionsRef = useRef({});
   // State for dropdown menu visibility
   const [menuOpen, setMenuOpen] = useState(false);
-  // Add state for scrollable and scrolled
+  // Add state for scrollable and scrolled (for back-to-top button)
   const [showBackToTop, setShowBackToTop] = useState(false);
 
-  // Show a toast notification
+  // --- Toast notification handler ---
+  // Shows a temporary message at the bottom of the screen
   function showToast(message, type = "success") {
     setToastMessage(message);
     setToastType(type);
     setToastOpen(true);
   }
 
-  // Open the delete confirmation modal for a trip
+  // --- Modal open handler for deleting a trip ---
   function handleRequestDeleteTrip(trip) {
     setTripToDelete(trip);
     setConfirmDeleteOpen(true);
   }
 
-  // Actually delete a trip after confirmation
+  // --- Actually delete a trip after confirmation ---
   async function handleDeleteTripConfirmed() {
     if (!tripToDelete) return;
     await supabase.from("trips").delete().eq("id", tripToDelete.id);
@@ -98,7 +100,7 @@ export default function Home() {
     showToast("Trip deleted", "error");
   }
 
-  // Fetch all trips from the database
+  // --- Fetch all trips from the database for the current user ---
   async function fetchTrips() {
     setLoading(true);
     // Only fetch trips for the current user
@@ -118,7 +120,7 @@ export default function Home() {
     setLoading(false);
   }
 
-  // Fetch travellers and expenses for a selected trip
+  // --- Fetch travellers and expenses for a selected trip ---
   async function fetchTripData(tripId) {
     setLoadingTripData(true);
     // Fetch travellers
@@ -139,7 +141,8 @@ export default function Home() {
     setLoadingTripData(false);
   }
 
-  // Refresh functions for child components
+  // --- Refresh functions for child components ---
+  // Used to re-fetch data after changes
   const refreshTravellers = () => {
     if (selectedTrip) fetchTripData(selectedTrip.id);
   };
@@ -147,7 +150,7 @@ export default function Home() {
     if (selectedTrip) fetchTripData(selectedTrip.id);
   };
 
-  // Handle creating a new trip
+  // --- Handle creating a new trip ---
   async function handleCreateTrip(e) {
     e.preventDefault();
     setCreating(true);
@@ -202,19 +205,19 @@ export default function Home() {
     setCreating(false);
   }
 
-  // Handle deleting a trip (with browser confirm)
+  // --- Handle deleting a trip (with browser confirm) ---
   async function handleDeleteTrip(id) {
     if (!window.confirm("Are you sure you want to delete this trip?")) return;
     await supabase.from("trips").delete().eq("id", id);
     fetchTrips();
   }
 
-  // Go back to trip list
+  // --- Go back to trip list ---
   function handleBack() {
     setSelectedTrip(null);
   }
 
-  // Handle editing a trip (open edit mode)
+  // --- Handle editing a trip (open edit mode) ---
   function handleEditTrip(trip) {
     setEditingTripId(trip.id);
     setEditingTripName(trip.name);
@@ -223,7 +226,7 @@ export default function Home() {
     setEditingTripEndDate(trip.end_date || "");
   }
 
-  // Save edits to a trip
+  // --- Save edits to a trip ---
   async function handleSaveEditTrip(id) {
     if (!editingTripName) return;
     if (!editingTripCurrency) return;
@@ -247,22 +250,22 @@ export default function Home() {
     showToast("Changes saved", "success");
   }
 
-  // Calculate total expense sum for selected trip
+  // --- Calculate total expense sum for selected trip ---
   const totalExpense = expenses.reduce(
     (sum, exp) => sum + (Number(exp.amount) || 0),
     0
   );
 
-  // Calculate amount per traveller safely
+  // --- Calculate amount per traveller safely ---
   const perTraveller = travellers.length ? totalExpense / travellers.length : 0;
 
-  // Handle user logout
+  // --- Handle user logout ---
   async function handleLogout() {
     await supabase.auth.signOut();
     router.replace("/signin");
   }
 
-  // Fetch user info for header display (first name for Google, email for magic link)
+  // --- Fetch user info for header display (first name for Google, email for magic link) ---
   useEffect(() => {
     async function fetchUser() {
       const { data: { user } } = await supabase.auth.getUser();
@@ -287,14 +290,14 @@ export default function Home() {
     fetchUser();
   }, []);
 
-  // Fetch trips whenever user is loaded
+  // --- Fetch trips whenever user is loaded ---
   useEffect(() => {
     if (user) {
       fetchTrips();
     }
   }, [user]);
 
-  // Route protection: redirect to /signin if not authenticated
+  // --- Route protection: redirect to /signin if not authenticated ---
   useEffect(() => {
     async function checkAuth() {
       const { data: { user } } = await supabase.auth.getUser();
@@ -307,7 +310,7 @@ export default function Home() {
     checkAuth();
   }, [router]);
 
-  // When a trip is selected, fetch its travellers and expenses
+  // --- When a trip is selected, fetch its travellers and expenses ---
   useEffect(() => {
     if (!selectedTrip) {
       setTravellers([]);
@@ -317,7 +320,7 @@ export default function Home() {
     fetchTripData(selectedTrip.id);
   }, [selectedTrip]);
 
-  // Subscribe to real-time updates for travellers and expenses of selected trip
+  // --- Subscribe to real-time updates for travellers and expenses of selected trip ---
   useEffect(() => {
     if (!selectedTrip) return;
 
@@ -366,7 +369,7 @@ export default function Home() {
     };
   }, [selectedTrip]);
 
-  // Close dropdown on outside click
+  // --- Close dropdown on outside click ---
   function handleClickOutside(e) {
     if (!e.target.closest('#user-menu')) setMenuOpen(false);
   }
@@ -379,6 +382,7 @@ export default function Home() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [menuOpen]);
 
+  // --- Show/hide back-to-top button based on scroll position and content height ---
   useEffect(() => {
     function checkScroll() {
       const scrollable = document.documentElement.scrollHeight > window.innerHeight;
@@ -394,6 +398,7 @@ export default function Home() {
     };
   }, []);
 
+  // --- Render main UI: header, trip list, modals, etc. ---
   return (
     <main className="min-h-screen bg-base-200" role="main">
       {/* Responsive header bar with MapIcon and user info */}

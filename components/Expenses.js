@@ -9,6 +9,7 @@ import {
   PlusIcon,
 } from "@heroicons/react/24/outline";
 
+// --- List of possible expense categories ---
 const CATEGORY_OPTIONS = [
   "Accommodation",
   "Transport",
@@ -19,6 +20,7 @@ const CATEGORY_OPTIONS = [
   "Other",
 ].sort();
 
+// --- Currency symbols for supported currencies ---
 const CURRENCY_SYMBOLS = {
   USD: "$",
   EUR: "€",
@@ -32,26 +34,30 @@ const CURRENCY_SYMBOLS = {
 };
 
 export default function Expenses({ tripId, currency, travellers = [], onExpensesChange, onShowToast }) {
+  // --- State variables for all expense data and UI state ---
   const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [adding, setAdding] = useState(false);
   const [error, setError] = useState("");
+  // State for add expense form
   const [category, setCategory] = useState(CATEGORY_OPTIONS[0]);
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [paidBy, setPaidBy] = useState("");
+  // State for editing an expense
   const [editingId, setEditingId] = useState(null);
   const [editingCategory, setEditingCategory] = useState(CATEGORY_OPTIONS[0]);
   const [editingAmount, setEditingAmount] = useState("");
   const [editingDescription, setEditingDescription] = useState("");
   const [editingPaidBy, setEditingPaidBy] = useState("");
 
+  // --- Fetch expenses when tripId changes ---
   useEffect(() => {
     if (tripId) fetchExpenses();
     // eslint-disable-next-line
   }, [tripId]);
 
-  // Reset paidBy when travellers change
+  // --- Reset paidBy when travellers change ---
   useEffect(() => {
     // Clear paidBy if selected traveller no longer exists
     if (paidBy && !travellers.find((t) => t.id === paidBy)) {
@@ -59,6 +65,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
     }
   }, [travellers, paidBy]);
 
+  // --- Fetch all expenses for the current trip from Supabase ---
   async function fetchExpenses() {
     setLoading(true);
     const { data, error } = await supabase
@@ -78,23 +85,27 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
     setLoading(false);
   }
 
+  // --- Handle adding a new expense ---
   async function handleAddExpense(e) {
     e.preventDefault();
     setAdding(true);
     setError("");
 
+    // Validate amount
     if (!amount || isNaN(amount) || Number(amount) <= 0) {
       setError("Please enter a valid amount.");
       setAdding(false);
       return;
     }
 
+    // Validate paidBy
     if (!paidBy) {
       setError("Please select who paid for this expense.");
       setAdding(false);
       return;
     }
 
+    // Insert new expense into database
     const { error } = await supabase.from("expenses").insert([
       {
         trip_id: tripId,
@@ -119,6 +130,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
     setAdding(false);
   }
 
+  // --- Handle deleting an expense ---
   async function handleDeleteExpense(id) {
     if (!window.confirm("Delete this expense?")) return;
     await supabase.from("expenses").delete().eq("id", id);
@@ -131,6 +143,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
     }
   }
 
+  // --- Handle editing an expense (open edit mode) ---
   function handleEditExpense(exp) {
     setEditingId(exp.id);
     setEditingCategory(exp.category);
@@ -139,17 +152,21 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
     setEditingPaidBy(exp.paid_by || "");
   }
 
+  // --- Save edits to an expense ---
   async function handleSaveEditExpense(id) {
+    // Validate amount
     if (!editingAmount || isNaN(editingAmount) || Number(editingAmount) <= 0) {
       setError("Please enter a valid amount.");
       return;
     }
 
+    // Validate paidBy
     if (!editingPaidBy) {
       setError("Please select who paid for this expense.");
       return;
     }
 
+    // Update expense in database
     await supabase
       .from("expenses")
       .update({
@@ -164,6 +181,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
     fetchExpenses();
   }
 
+  // --- Get the name of the traveller who paid for an expense ---
   function getTravellerName(expense) {
     if (expense.travellers) {
       return expense.travellers.name;
@@ -173,8 +191,10 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
     return traveller ? traveller.name : "Unknown";
   }
 
+  // --- If no tripId is provided, don't render anything ---
   if (!tripId) return null;
 
+  // --- Render the expense form and expense history list ---
   return (
     <div className="card bg-base-100 shadow mt-3 xs:mt-4 sm:mt-6 rounded-lg w-full max-w-full xs:max-w-[97vw] sm:max-w-[93vw] md:max-w-full">
       <div className="card-body p-3 xs:p-4 sm:p-5">
@@ -187,6 +207,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
           className="flex flex-col gap-2 xs:gap-3 mb-3 xs:mb-4"
           onSubmit={handleAddExpense}
         >
+          {/* Category dropdown */}
           <select
             className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
             value={category}
@@ -200,6 +221,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
             ))}
           </select>
 
+          {/* Amount input */}
           <input
             className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
             placeholder={`Amount (${currency})`}
@@ -212,6 +234,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
             step="0.01"
           />
 
+          {/* Paid by dropdown */}
           <select
             className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
             value={paidBy}
@@ -232,6 +255,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
             )}
           </select>
 
+          {/* Description input */}
           <input
             className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
             placeholder="Description (optional)"
@@ -240,6 +264,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
             disabled={adding}
           />
 
+          {/* Add Expense button */}
           <button
             className="btn btn-primary w-full flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm shadow-none"
             disabled={adding || !paidBy || travellers.length === 0}
@@ -249,16 +274,19 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
           </button>
         </form>
 
+        {/* Show error message if any */}
         {error && (
           <div className="alert alert-error mb-3 xs:mb-4 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm py-2">
             {error}
           </div>
         )}
 
+        {/* Expense history section */}
         <h4 className="font-bold text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl xl:text-xl mb-2 xs:mb-3">
           Expense History
         </h4>
 
+        {/* Show loading spinner, empty state, or list of expenses */}
         {loading ? (
           <div className="flex justify-center py-4">
             <span className="loading loading-dots loading-md loading-md text-primary"></span>
@@ -274,6 +302,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
                 <div className="card-body p-2 xs:p-3 sm:p-4">
                   {editingId === exp.id ? (
                     <div className="flex flex-col gap-2 xs:gap-3">
+                      {/* Edit expense form */}
                       <select
                         className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
                         value={editingCategory}

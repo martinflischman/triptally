@@ -11,7 +11,7 @@ import {
 import ReassignExpensesModal from "./ReassignExpensesModal";
 
 export default function Travellers({ tripId, onTravellersChange, onExpensesChange, expenses = [], onShowToast }) {
-  // State for all travellers in the trip
+  // --- State variables for all traveller data and UI state ---
   const [travellers, setTravellers] = useState([]);
   // State for the add traveller form
   const [name, setName] = useState("");
@@ -28,13 +28,13 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
   const [reassignTravellerId, setReassignTravellerId] = useState(null);
   const [modalExpenses, setModalExpenses] = useState([]);
 
-  // Fetch all travellers for the trip when tripId changes
+  // --- Fetch all travellers for the trip when tripId changes ---
   useEffect(() => {
     if (tripId) fetchTravellers();
     // eslint-disable-next-line
   }, [tripId]);
 
-  // Fetch all travellers from Supabase
+  // --- Fetch all travellers from Supabase for the current trip ---
   async function fetchTravellers() {
     setLoading(true);
     const { data, error } = await supabase
@@ -46,7 +46,7 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
     setLoading(false);
   }
 
-  // Handle adding a new traveller
+  // --- Handle adding a new traveller ---
   async function handleAddTraveller(e) {
     e.preventDefault();
     setAdding(true);
@@ -56,6 +56,7 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
       setAdding(false);
       return;
     }
+    // Insert new traveller into database
     const { error } = await supabase
       .from("travellers")
       .insert([{ name: name.trim(), trip_id: tripId }]);
@@ -75,6 +76,7 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
     setAdding(false);
   }
 
+  // --- Handle deleting a traveller ---
   async function handleDeleteTraveller(id) {
     // Check if this traveller is referenced in any expenses
     const referencedExpenses = expenses.filter(exp => exp.paid_by === id);
@@ -95,6 +97,7 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
     }
   }
 
+  // --- Handle reassigning expenses and deleting a traveller ---
   async function handleReassignAndDelete(reassignments) {
     // Update each expense to the selected new payer
     const updates = Object.entries(reassignments).map(([expenseId, newTravellerId]) =>
@@ -118,12 +121,14 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
     setModalExpenses([]);
   }
 
+  // --- Handle editing a traveller (open edit mode) ---
   async function handleEditTraveller(id, currentName) {
     setEditingId(id);
     setEditingName(currentName);
     setError("");
   }
 
+  // --- Save edits to a traveller ---
   async function handleSaveEdit(id) {
     if (!editingName.trim()) {
       setError("Traveller name is required.");
@@ -143,14 +148,17 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
     }
   }
 
+  // --- Cancel editing a traveller ---
   function handleCancelEdit() {
     setEditingId(null);
     setEditingName("");
     setError("");
   }
 
+  // --- If no tripId is provided, don't render anything ---
   if (!tripId) return null;
 
+  // --- Render the traveller form and traveller list ---
   return (
     <>
       <ReassignExpensesModal
@@ -167,6 +175,7 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
             Travellers
           </h3>
 
+          {/* Add traveller form */}
           <form
             className="space-y-2 xs:space-y-3 mb-3 xs:mb-4"
             onSubmit={handleAddTraveller}
@@ -187,12 +196,14 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
             </button>
           </form>
 
+          {/* Show error message if any */}
           {error && (
             <div className="alert alert-error mb-3 xs:mb-4 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm py-2">
               {error}
             </div>
           )}
 
+          {/* Show loading spinner, empty state, or list of travellers */}
           {loading ? (
             <div className="flex justify-center py-4">
               <span className="loading loading-dots loading-md loading-md text-primary loading-md"></span>
@@ -208,6 +219,7 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
                   <div className="card-body p-2 xs:p-3 sm:p-4">
                     {editingId === trav.id ? (
                       <div className="flex flex-col gap-2 xs:gap-3">
+                        {/* Edit traveller form */}
                         <input
                           className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
                           value={editingName}
@@ -250,7 +262,7 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
                           <button
                             className="btn btn-ghost btn-xs rounded-lg p-1"
                             onClick={() => handleDeleteTraveller(trav.id)}
-                            title="Remove Traveller"
+                            title="Delete Traveller"
                             type="button"
                           >
                             <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4 text-error" />
