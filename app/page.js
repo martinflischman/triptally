@@ -520,7 +520,7 @@ export default function Home() {
                           </label>
                           <input
                             id="trip-name"
-                            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
+                            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12 text-black placeholder-black pl-4"
                             placeholder="Summer in Italy 🍝"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
@@ -534,7 +534,7 @@ export default function Home() {
                           </label>
                           <select
                             id="currency-select"
-                            className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
+                            className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12 pl-4"
                             value={currency}
                             onChange={(e) => setCurrency(e.target.value)}
                             disabled={creating}
@@ -557,7 +557,7 @@ export default function Home() {
                           <input
                             id="start-date"
                             type="date"
-                            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
+                            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12 pl-4"
                             value={startDate}
                             onChange={(e) => setStartDate(e.target.value)}
                             disabled={creating}
@@ -571,7 +571,7 @@ export default function Home() {
                           <input
                             id="end-date"
                             type="date"
-                            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
+                            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12 pl-4"
                             value={endDate}
                             onChange={(e) => setEndDate(e.target.value)}
                             disabled={creating}

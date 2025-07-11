@@ -217,7 +217,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
         >
           {/* Category dropdown */}
           <select
-            className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
+            className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12 pl-4"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             disabled={adding}
@@ -232,7 +232,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
 
           {/* Amount input */}
           <input
-            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
+            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12 text-black placeholder-black pl-4"
             placeholder="Enter amount"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
@@ -245,7 +245,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
 
           {/* Paid by dropdown */}
           <select
-            className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
+            className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12 pl-4"
             value={paidBy}
             onChange={(e) => setPaidBy(e.target.value)}
             disabled={adding || travellers.length === 0}
@@ -266,7 +266,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
 
           {/* Description input */}
           <input
-            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
+            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12 text-black placeholder-black pl-4"
             placeholder="Description (optional)"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
