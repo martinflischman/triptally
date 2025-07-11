@@ -3,7 +3,7 @@
 // Shows a modal dialog to confirm deleting a trip or traveller
 import React from "react";
 
-export default function ConfirmDeleteModal({ open, onClose, onConfirm, title, message, confirmText = "Delete", cancelText = "Cancel" }) {
+export default function ConfirmDeleteModal({ open, onClose, onConfirm, title, message, confirmText = "Delete", cancelText = "Cancel", cancelRed = false }) {
   // If not open, don't render anything
   if (!open) return null;
 
@@ -27,8 +27,21 @@ export default function ConfirmDeleteModal({ open, onClose, onConfirm, title, me
         <h3 id="modal-title" className="text-lg font-bold mb-3 text-error text-center">{title}</h3>
         <p id="modal-message" className="mb-5 text-sm text-base-content/80 text-center">{message}</p>
         <div className="flex justify-center gap-2 w-full">
-          <button className="btn btn-ghost" onClick={onClose}>{cancelText}</button>
-          <button className="btn btn-error text-white" onClick={onConfirm}>{confirmText}</button>
+          <button
+            className={`flex-1 px-4 py-2 rounded-lg border text-base font-medium transition-colors duration-150
+              ${cancelRed ? 'text-error border-error bg-base-200 hover:bg-base-300 focus:ring-2 focus:ring-error' : 'text-base-content border-base-300 bg-base-200 hover:bg-base-300 focus:ring-2 focus:ring-primary'}`}
+            style={{ minWidth: 0 }}
+            onClick={onClose}
+          >
+            {cancelText}
+          </button>
+          <button
+            className="flex-1 px-4 py-2 rounded-lg border border-error bg-error text-white text-base font-medium transition-colors duration-150 hover:bg-error/90 focus:ring-2 focus:ring-error"
+            style={{ minWidth: 0 }}
+            onClick={onConfirm}
+          >
+            {confirmText}
+          </button>
         </div>
       </div>
     </div>

@@ -470,9 +470,10 @@ export default function Home() {
             }}
             onConfirm={handleDeleteTripConfirmed}
             title="Delete Trip?"
-            message="Are you sure you want to delete this trip? This will permanently delete all trip information and cannot be undone."
+            message="Are you sure you want to delete this trip? This can't be undone."
             confirmText="Delete"
             cancelText="Cancel"
+            cancelRed
           />
           <div className="container mx-auto px-3 xs:px-4 sm:px-5 py-2 xs:py-3 sm:py-4 max-w-full xs:max-w-[97vw] sm:max-w-[93vw] md:max-w-lg lg:max-w-xl xl:max-w-2xl 2xl:max-w-3xl">
             <div className="flex flex-col items-center">
