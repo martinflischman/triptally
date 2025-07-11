@@ -9,6 +9,7 @@ import {
   PlusIcon,
 } from "@heroicons/react/24/outline";
 import ReassignExpensesModal from "./ReassignExpensesModal";
+import ConfirmDeleteModal from "./ConfirmDeleteModal";
 
 export default function Travellers({ tripId, onTravellersChange, onExpensesChange, expenses = [], onShowToast, currency }) {
   // --- State variables for all traveller data and UI state ---
@@ -27,6 +28,9 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
   const [showReassignModal, setShowReassignModal] = useState(false);
   const [reassignTravellerId, setReassignTravellerId] = useState(null);
   const [modalExpenses, setModalExpenses] = useState([]);
+  // State for delete confirmation modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [travellerToDelete, setTravellerToDelete] = useState(null);
 
   // --- Fetch all travellers for the trip when tripId changes ---
   useEffect(() => {
@@ -86,8 +90,14 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
       setShowReassignModal(true);
       return;
     }
-    if (!window.confirm("Remove this traveller?")) return;
-    await supabase.from("travellers").delete().eq("id", id);
+    setTravellerToDelete(id);
+    setShowDeleteModal(true);
+  }
+
+  // Confirm deletion of traveller (no expenses)
+  async function confirmDeleteTraveller() {
+    if (!travellerToDelete) return;
+    await supabase.from("travellers").delete().eq("id", travellerToDelete);
     fetchTravellers();
     if (onTravellersChange) {
       onTravellersChange();
@@ -95,6 +105,13 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
     if (onShowToast) {
       onShowToast("Traveller deleted", "error");
     }
+    setShowDeleteModal(false);
+    setTravellerToDelete(null);
+  }
+
+  function cancelDeleteTraveller() {
+    setShowDeleteModal(false);
+    setTravellerToDelete(null);
   }
 
   // --- Handle reassigning expenses and deleting a traveller ---
@@ -161,6 +178,16 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
   // --- Render the traveller form and traveller list ---
   return (
     <>
+      <ConfirmDeleteModal
+        open={showDeleteModal}
+        onClose={cancelDeleteTraveller}
+        onConfirm={confirmDeleteTraveller}
+        title="Delete Traveller?"
+        message="Are you sure you want to delete this traveller? This can't be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        cancelRed
+      />
       <ReassignExpensesModal
         open={showReassignModal}
         onClose={() => { setShowReassignModal(false); setReassignTravellerId(null); setModalExpenses([]); }}
