@@ -3,7 +3,6 @@ import "./globals.css";
 export const metadata = {
   title: "TripTally",
   description: "Track your trips expenses with ease.",
-  viewport: "width=device-width, initial-scale=1.0",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -35,10 +34,11 @@ export const metadata = {
       },
     ],
   },
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#1f2937" },
-  ],
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1.0,
 };
 
 export default function RootLayout({ children }) {
@@ -64,21 +64,6 @@ export default function RootLayout({ children }) {
         <meta name="twitter:title" content="TripTally" />
         <meta name="twitter:description" content="Effortlessly track group travel expenses, split costs, and see who paid what. Modern, mobile-friendly, and real-time." />
         <meta name="twitter:image" content="/android-chrome-192x192.png" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                const theme = localStorage.getItem('theme') || 
-                  (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-                document.documentElement.setAttribute('data-theme', theme);
-                
-                // Update theme color based on current theme
-                const themeColor = theme === 'dark' ? '#1f2937' : '#ffffff';
-                document.querySelector('meta[name="theme-color"]').setAttribute('content', themeColor);
-              })();
-            `,
-          }}
-        />
       </head>
       <body className="min-h-[100dvh] bg-base-200 text-base-content antialiased overscroll-none scroll-smooth touch-pan-y">
         <main>{children}</main>
