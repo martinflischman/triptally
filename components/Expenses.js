@@ -311,7 +311,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
                 <div className="text-lg font-bold text-base-content mb-1">
                   {exp.category || 'Expense'}
                 </div>
-                <div className="text-2xl font-extrabold text-secondary mb-3">
+                <div className="text-xl font-bold text-secondary mb-3">
                   {CURRENCY_SYMBOLS[currency] || currency} {Number(exp.amount).toFixed(2)}
                 </div>
                 <div className="text-xs text-base-content/60 font-medium tracking-wide mt-3">
