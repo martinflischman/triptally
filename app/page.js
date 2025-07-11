@@ -675,13 +675,13 @@ export default function Home() {
                                     </div>
                                     <div className="flex gap-2 mt-2">
                                       <button
-                                        className="h-10 rounded-lg px-4 bg-success/20 text-success font-semibold"
+                                        className="btn btn-primary h-10 rounded-lg px-4 font-semibold text-white"
                                         onClick={() => handleSaveEditTrip(trip.id)}
                                       >
                                         Save
                                       </button>
                                       <button
-                                        className="btn btn-ghost btn-xs xs:btn-sm md:btn-xs lg:btn-xs rounded-lg text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs"
+                                        className="btn btn-ghost h-10 rounded-lg px-4 font-semibold"
                                         onClick={() => setEditingTripId(null)}
                                       >
                                         Cancel
