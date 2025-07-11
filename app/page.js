@@ -782,7 +782,7 @@ export default function Home() {
                         <>
                           {/* Summary row: two blocks, each w-1/2, fixed height and vertical centering */}
                           <div className="flex flex-row gap-3 xs:gap-4 w-full mb-3">
-                            <div className="w-1/2 bg-secondary/10 p-2 xs:p-3 h-20 flex flex-col justify-center rounded-lg border border-secondary/20 min-w-[140px]">
+                            <div className="w-1/2 bg-secondary/10 p-2 xs:p-3 h-20 flex flex-col justify-center rounded-lg min-w-[140px]">
                               <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
                                 Total Expenses
                               </div>
@@ -790,7 +790,7 @@ export default function Home() {
                                 {CURRENCY_SYMBOLS[selectedTrip.currency]} {totalExpense.toFixed(2)}
                               </div>
                             </div>
-                            <div className="w-1/2 bg-primary/10 p-2 xs:p-3 h-20 flex flex-col justify-center rounded-lg border border-primary/20 min-w-[140px]">
+                            <div className="w-1/2 bg-primary/10 p-2 xs:p-3 h-20 flex flex-col justify-center rounded-lg min-w-[140px]">
                               <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
                                 Per Traveller
                               </div>
