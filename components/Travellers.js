@@ -229,14 +229,14 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
                         />
                         <div className="flex gap-2">
                           <button
-                            className="btn btn-success btn-xs xs:btn-sm md:btn-sm rounded-lg text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm"
+                            className="btn btn-primary btn-soft h-10 rounded-lg px-4 font-semibold"
                             onClick={() => handleSaveEdit(trav.id)}
                             type="button"
                           >
                             Save
                           </button>
                           <button
-                            className="btn btn-ghost btn-xs xs:btn-sm md:btn-sm rounded-lg text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm"
+                            className="btn btn-ghost h-10 rounded-lg px-4 font-semibold"
                             onClick={handleCancelEdit}
                             type="button"
                           >
