@@ -40,7 +40,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
   const [adding, setAdding] = useState(false);
   const [error, setError] = useState("");
   // State for add expense form
-  const [category, setCategory] = useState(CATEGORY_OPTIONS[0]);
+  const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [paidBy, setPaidBy] = useState("");
@@ -214,6 +214,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
             onChange={(e) => setCategory(e.target.value)}
             disabled={adding}
           >
+            <option value="">Select expense</option>
             {CATEGORY_OPTIONS.map((cat) => (
               <option key={cat} value={cat}>
                 {cat}
