@@ -285,10 +285,12 @@ export default function Home() {
     fetchUser();
   }, []);
 
-  // On mount, fetch all trips
+  // Fetch trips whenever user is loaded
   useEffect(() => {
-    fetchTrips();
-  }, []);
+    if (user) {
+      fetchTrips();
+    }
+  }, [user]);
 
   // Route protection: redirect to /signin if not authenticated
   useEffect(() => {
