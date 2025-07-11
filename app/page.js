@@ -29,7 +29,85 @@ const CURRENCY_SYMBOLS = {
   CAD: "C$",
   JPY: "¥",
   CNY: "¥",
+  CHF: "Fr.",
+  SEK: "kr",
+  NOK: "kr",
+  DKK: "kr",
+  NZD: "NZ$",
+  SGD: "S$",
+  HKD: "HK$",
+  MXN: "Mex$",
+  BRL: "R$",
+  RUB: "₽",
+  TRY: "₺",
+  PLN: "zł",
+  KRW: "₩",
+  THB: "฿",
+  AED: "د.إ",
+  SAR: "ر.س",
+  ILS: "₪",
+  CZK: "Kč",
+  HUF: "Ft",
+  ARS: "$",
+  CLP: "$",
+  COP: "$",
+  IDR: "Rp",
+  MYR: "RM",
+  PHP: "₱",
+  TWD: "NT$",
+  VND: "₫",
+  ZMW: "ZK"
 };
+
+// Mapping of currency codes to full names
+const CURRENCY_NAMES = {
+  USD: "US Dollar",
+  EUR: "Euro",
+  GBP: "British Pound",
+  ZAR: "South African Rand",
+  INR: "Indian Rupee",
+  AUD: "Australian Dollar",
+  CAD: "Canadian Dollar",
+  JPY: "Japanese Yen",
+  CNY: "Chinese Yuan",
+  CHF: "Swiss Franc",
+  SEK: "Swedish Krona",
+  NOK: "Norwegian Krone",
+  DKK: "Danish Krone",
+  NZD: "New Zealand Dollar",
+  SGD: "Singapore Dollar",
+  HKD: "Hong Kong Dollar",
+  MXN: "Mexican Peso",
+  BRL: "Brazilian Real",
+  RUB: "Russian Ruble",
+  TRY: "Turkish Lira",
+  PLN: "Polish Zloty",
+  KRW: "South Korean Won",
+  THB: "Thai Baht",
+  AED: "UAE Dirham",
+  SAR: "Saudi Riyal",
+  ILS: "Israeli Shekel",
+  CZK: "Czech Koruna",
+  HUF: "Hungarian Forint",
+  ARS: "Argentine Peso",
+  CLP: "Chilean Peso",
+  COP: "Colombian Peso",
+  IDR: "Indonesian Rupiah",
+  MYR: "Malaysian Ringgit",
+  PHP: "Philippine Peso",
+  TWD: "Taiwan Dollar",
+  VND: "Vietnamese Dong",
+  ZMW: "Zambian Kwacha"
+};
+
+// Order: most common first, then rest alphabetically
+const COMMON_CURRENCIES = ["USD", "EUR", "GBP", "ZAR", "AUD", "CAD", "JPY", "CNY"];
+const ALL_CURRENCIES = [
+  ...COMMON_CURRENCIES,
+  ...Object.keys(CURRENCY_SYMBOLS).filter(
+    code => !COMMON_CURRENCIES.includes(code)
+  ).sort()
+];
 
 export default function Home() {
   // --- State variables for all app data and UI state ---
@@ -542,9 +620,9 @@ export default function Home() {
                             required
                           >
                             <option value="">Select Currency</option>
-                            {Object.keys(CURRENCY_SYMBOLS).map((code) => (
+                            {ALL_CURRENCIES.map((code) => (
                               <option key={code} value={code}>
-                                {code}
+                                {code} — {CURRENCY_NAMES[code] || code}
                               </option>
                             ))}
                           </select>
@@ -649,10 +727,10 @@ export default function Home() {
                                           setEditingTripCurrency(e.target.value)
                                         }
                                       >
-                                        {Object.keys(CURRENCY_SYMBOLS).map(
+                                        {ALL_CURRENCIES.map(
                                           (code) => (
                                             <option key={code} value={code}>
-                                              {code}
+                                              {code} — {CURRENCY_NAMES[code] || code}
                                             </option>
                                           )
                                         )}
