@@ -1,7 +1,7 @@
 "use client";
 // ConfirmDeleteModal.js
 // Shows a modal dialog to confirm deleting a trip or traveller
-import React from "react";
+import React, { useState } from "react";
 
 export default function ConfirmDeleteModal({ open, onClose, onConfirm, title, message, confirmText = "Delete", cancelText = "Cancel", cancelRed = false }) {
   // If not open, don't render anything
@@ -16,6 +16,19 @@ export default function ConfirmDeleteModal({ open, onClose, onConfirm, title, me
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
 
+  // Track hover state for Delete button
+  const [deleteHover, setDeleteHover] = useState(false);
+
+  // Cancel button classes
+  const cancelBase = "flex-1 px-4 py-2 rounded-lg border text-base font-medium transition-colors duration-150 cursor-pointer select-none";
+  const cancelDefault = "bg-error text-white border-error";
+  const cancelDeleteHover = "bg-white text-error border-error";
+
+  // Delete button classes
+  const deleteBase = "flex-1 px-4 py-2 rounded-lg border text-base font-medium transition-colors duration-150 cursor-pointer select-none";
+  const deleteDefault = "bg-white text-error border-error";
+  const deleteHoverClass = "bg-error text-white border-error";
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
       role="dialog"
@@ -28,17 +41,28 @@ export default function ConfirmDeleteModal({ open, onClose, onConfirm, title, me
         <p id="modal-message" className="mb-5 text-sm text-base-content/80 text-center">{message}</p>
         <div className="flex justify-center gap-2 w-full">
           <button
-            className={`flex-1 px-4 py-2 rounded-lg border text-base font-medium transition-colors duration-150 cursor-pointer
-              ${cancelRed ? 'text-error border-error bg-base-200 hover:bg-base-300 focus:ring-2 focus:ring-error' : 'text-base-content border-base-300 bg-base-200 hover:bg-base-300 focus:ring-2 focus:ring-primary'}`}
+            className={
+              cancelBase +
+              " " +
+              (deleteHover ? cancelDeleteHover : cancelDefault)
+            }
             style={{ minWidth: 0 }}
             onClick={onClose}
+            type="button"
           >
             {cancelText}
           </button>
           <button
-            className="flex-1 px-4 py-2 rounded-lg border border-error bg-error text-white text-base font-medium transition-colors duration-150 hover:bg-error/90 focus:ring-2 focus:ring-error cursor-pointer"
+            className={
+              deleteBase +
+              " " +
+              (deleteHover ? deleteHoverClass : deleteDefault)
+            }
             style={{ minWidth: 0 }}
             onClick={onConfirm}
+            onMouseEnter={() => setDeleteHover(true)}
+            onMouseLeave={() => setDeleteHover(false)}
+            type="button"
           >
             {confirmText}
           </button>
