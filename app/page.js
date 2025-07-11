@@ -584,7 +584,7 @@ export default function Home() {
               {!selectedTrip && (
                 <>
                   <form
-                    className="card bg-base-100 shadow w-full mb-4 xs:mb-6 sm:mb-8 rounded-lg"
+                    className="card bg-base-100 shadow w-full mb-4 xs:mb-6 sm:mb-8 mt-4 xs:mt-6 sm:mt-8 rounded-lg"
                     onSubmit={handleCreateTrip}
                   >
                     <div className="card-body p-3 xs:p-4 sm:p-6">
@@ -687,10 +687,12 @@ export default function Home() {
                     </div>
                   </form>
 
-                  {/* Always show 'Your Trips' heading */}
-                  <h2 className="text-xl xs:text-3xl sm:text-4xl md:text-2xl lg:text-2xl xl:text-2xl font-semibold mb-2 xs:mb-3 text-base-content w-full text-left">
-                    Your Trips
-                  </h2>
+                  {/* Only show 'Your Trips' heading if there are trips */}
+                  {trips.length > 0 && (
+                    <h2 className="text-xl xs:text-3xl sm:text-4xl md:text-2xl lg:text-2xl xl:text-2xl font-semibold mb-2 xs:mb-3 text-base-content w-full text-left">
+                      Your Trips
+                    </h2>
+                  )}
 
                   {loading ? (
                     <div className="flex justify-center py-4">
