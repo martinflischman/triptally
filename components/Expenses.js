@@ -376,7 +376,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
                         </div>
                         <div className="flex flex-row gap-1 ml-2 xs:ml-3">
                           <button
-                            className="btn btn-ghost btn-xs rounded-lg p-1"
+                            className="btn btn-ghost btn-xs rounded-lg p-1 focus:outline-none focus:ring-0 border-none"
                             title="Edit Expense"
                             onClick={() => handleEditExpense(exp)}
                             type="button"
@@ -384,7 +384,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
                             <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4" />
                           </button>
                           <button
-                            className="btn btn-ghost btn-xs rounded-lg p-1"
+                            className="btn btn-ghost btn-xs rounded-lg p-1 hover:bg-error/10 focus:bg-error/10 focus:outline-none focus:ring-0 border-none"
                             title="Delete Expense"
                             onClick={() => handleDeleteExpense(exp.id)}
                             type="button"
