@@ -243,6 +243,10 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
     setEditingId(null);
     setError("");
     fetchExpenses();
+    // Show toast notification after editing
+    if (onShowToast) {
+      onShowToast("Expense updated");
+    }
   }
 
   // --- Get the name of the traveller who paid for an expense ---

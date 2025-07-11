@@ -165,6 +165,10 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
     if (onTravellersChange) {
       onTravellersChange();
     }
+    // Show toast notification after editing
+    if (onShowToast) {
+      onShowToast("Traveller updated");
+    }
   }
 
   // --- Cancel editing a traveller ---
