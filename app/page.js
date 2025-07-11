@@ -712,12 +712,10 @@ export default function Home() {
                                         <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4" />
                                       </button>
                                       <button
-                                        className="btn btn-ghost btn-xs rounded-lg p-1"
+                                        className="btn btn-ghost btn-xs rounded-lg p-1 focus:outline-none focus:ring-2 focus:ring-primary"
                                         title="Delete Trip"
                                         aria-label="Delete Trip"
-                                        onClick={() =>
-                                          handleRequestDeleteTrip(trip)
-                                        }
+                                        onClick={() => handleRequestDeleteTrip(trip)}
                                       >
                                         <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4 text-error" />
                                       </button>
