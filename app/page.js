@@ -782,19 +782,19 @@ export default function Home() {
                         <>
                           {/* Summary row: two blocks, each w-1/2, fixed height and vertical centering */}
                           <div className="flex flex-row gap-3 xs:gap-4 w-full mb-3">
-                            <div className="w-1/2 bg-secondary/10 p-2 xs:p-3 h-20 flex flex-col justify-center rounded-lg min-w-[140px]">
-                              <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
+                            <div className="w-1/2 bg-secondary/10 hover:bg-secondary/20 transition-colors p-2 xs:p-3 h-20 flex flex-col justify-center rounded-lg min-w-[140px] cursor-pointer group">
+                              <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1 group-hover:text-secondary transition-colors">
                                 Total Expenses
                               </div>
-                              <div className="text-base xs:text-lg md:text-base lg:text-base xl:text-base font-semibold text-secondary">
+                              <div className="text-base xs:text-lg md:text-base lg:text-base xl:text-base font-semibold text-secondary group-hover:text-secondary transition-colors">
                                 {CURRENCY_SYMBOLS[selectedTrip.currency]} {totalExpense.toFixed(2)}
                               </div>
                             </div>
-                            <div className="w-1/2 bg-primary/10 p-2 xs:p-3 h-20 flex flex-col justify-center rounded-lg min-w-[140px]">
-                              <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1">
+                            <div className="w-1/2 bg-primary/10 hover:bg-primary/20 transition-colors p-2 xs:p-3 h-20 flex flex-col justify-center rounded-lg min-w-[140px] cursor-pointer group">
+                              <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1 group-hover:text-primary transition-colors">
                                 Per Traveller
                               </div>
-                              <div className="text-lg xs:text-xl md:text-lg lg:text-lg xl:text-lg font-bold text-primary">
+                              <div className="text-lg xs:text-xl md:text-lg lg:text-lg xl:text-lg font-bold text-primary group-hover:text-primary transition-colors">
                                 {CURRENCY_SYMBOLS[selectedTrip.currency]} {perTraveller.toFixed(2)}
                               </div>
                             </div>
