@@ -378,9 +378,9 @@ export default function Home() {
   }, [menuOpen]);
 
   return (
-    <main className="min-h-screen bg-base-200" role="main">
+    <main className="min-h-screen bg-base-100" role="main">
       {/* Responsive header bar with MapIcon and user info */}
-      <header className="w-full flex items-center justify-between px-4 py-3 bg-base-100 shadow-sm mb-2 md:sticky md:top-0 md:z-50">
+      <header className="w-full flex items-center justify-between px-4 py-3 bg-base-100 mb-2 md:sticky md:top-0 md:z-50">
         <span className="flex items-center gap-2 text-2xl font-bold text-primary tracking-tight">
           <MapIcon className="h-6 w-6" />
           TripTally
