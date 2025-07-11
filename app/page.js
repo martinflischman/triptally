@@ -434,27 +434,26 @@ export default function Home() {
           )}
           {/* Dropdown menu: appears below avatar when open */}
           {menuOpen && user && (
-            <div className="absolute right-0 top-12 z-50 bg-base-100 rounded-xl shadow py-2 px-4 animate-fade-in min-w-[200px] max-w-xs w-fit" role="menu" aria-label="User menu">
-              {/* 'Logged in as:' label */}
-              <div className="flex flex-col min-w-0 mb-2">
+            <div className="absolute right-0 top-12 z-50 bg-base-100 rounded-xl shadow py-3 px-5 animate-fade-in min-w-[200px] max-w-xs w-fit" role="menu" aria-label="User menu">
+              <div className="flex flex-col min-w-0">
                 <span className="text-xs text-base-content/50 mb-1">Logged in as:</span>
                 <span className="font-medium text-base-content break-words" title={user.user_metadata?.full_name || user.user_metadata?.name || user.email}>
                   {user.user_metadata?.full_name || user.user_metadata?.name || user.email}
                 </span>
-                <span className="text-xs text-base-content/60 break-words" title={user.email}>{user.email}</span>
+                <span className="text-xs text-base-content/60 break-words mb-2" title={user.email}>{user.email}</span>
+                <div className="border-t border-base-300 my-2" />
+                <button
+                  className="btn btn-soft btn-error w-full flex items-center gap-2 justify-center hover:text-white"
+                  onClick={handleLogout}
+                  role="menuitem"
+                  aria-label="Log out"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m-6-3h12m0 0l-3-3m3 3l-3 3" />
+                  </svg>
+                  Log out
+                </button>
               </div>
-              <div className="border-t border-base-300 my-2" />
-              <button
-                className="btn btn-soft btn-error w-full flex items-center gap-2 justify-center hover:text-white"
-                onClick={handleLogout}
-                role="menuitem"
-                aria-label="Log out"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m-6-3h12m0 0l-3-3m3 3l-3 3" />
-                </svg>
-                Log out
-              </button>
             </div>
           )}
         </div>
@@ -520,7 +519,7 @@ export default function Home() {
                           </label>
                           <input
                             id="trip-name"
-                            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12 text-black placeholder-black pl-4"
+                            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12 pl-4"
                             placeholder="Summer in Italy 🍝"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
