@@ -43,7 +43,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="bg-base-100" data-theme="">
+    <html lang="en" className="bg-base-200" data-theme="">
       <head>
         <meta name="description" content="TripTally: Effortlessly track group travel expenses, split costs, and see who paid what. Modern, mobile-friendly, and real-time." />
         <meta name="theme-color" content="#ffffff" />
@@ -80,7 +80,7 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body className="min-h-[100dvh] bg-base-100 text-base-content antialiased overscroll-none scroll-smooth touch-pan-y">
+      <body className="min-h-[100dvh] bg-base-200 text-base-content antialiased overscroll-none scroll-smooth touch-pan-y">
         <main>{children}</main>
       </body>
     </html>
