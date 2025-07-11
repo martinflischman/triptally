@@ -727,7 +727,7 @@ export default function Home() {
                               </div>
                               {editingTripId !== trip.id && (
                                 <button
-                                  className="btn btn-outline btn-sm w-full mt-3 xs:mt-4 flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm"
+                                  className="btn btn-soft btn-sm w-full mt-3 xs:mt-4 flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm"
                                   onClick={() => setSelectedTrip(trip)}
                                 >
                                   <MapIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4" />
