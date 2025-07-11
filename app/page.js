@@ -539,7 +539,7 @@ export default function Home() {
                             disabled={creating}
                             required
                           >
-                            <option value="">Select currency</option>
+                            <option value="">Select Currency</option>
                             {Object.keys(CURRENCY_SYMBOLS).map((code) => (
                               <option key={code} value={code}>
                                 {code}

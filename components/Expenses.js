@@ -222,7 +222,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
             onChange={(e) => setCategory(e.target.value)}
             disabled={adding}
           >
-            <option value="">Select expense</option>
+            <option value="">Select Expense</option>
             {CATEGORY_OPTIONS.map((cat) => (
               <option key={cat} value={cat}>
                 {cat}
@@ -251,10 +251,10 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
             disabled={adding || travellers.length === 0}
           >
             {travellers.length === 0 ? (
-              <option value="">Add a traveller first</option>
+              <option value="">Add a Traveller First</option>
             ) : (
               <>
-                <option value="">Select who paid</option>
+                <option value="">Select Who Paid</option>
                 {travellers.map((traveller) => (
                   <option key={traveller.id} value={traveller.id}>
                     {traveller.name}
