@@ -155,6 +155,8 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   // Add state for scrollable and scrolled (for back-to-top button)
   const [showBackToTop, setShowBackToTop] = useState(false);
+  // --- State for logout confirmation modal ---
+  const [confirmLogoutOpen, setConfirmLogoutOpen] = useState(false);
 
   // --- Toast notification handler ---
   // Shows a temporary message at the bottom of the screen
@@ -524,7 +526,7 @@ export default function Home() {
                 <div className="border-t border-base-300 my-2" />
                 <button
                   className="btn btn-soft btn-error w-full flex items-center gap-2 justify-center hover:text-white"
-                  onClick={handleLogout}
+                  onClick={() => setConfirmLogoutOpen(true)}
                   role="menuitem"
                   aria-label="Log out"
                 >
@@ -538,6 +540,17 @@ export default function Home() {
           )}
         </div>
       </header>
+      {/* Logout confirmation modal */}
+      <ConfirmDeleteModal
+        open={confirmLogoutOpen}
+        onClose={() => setConfirmLogoutOpen(false)}
+        onConfirm={handleLogout}
+        title="Log out?"
+        message="Are you sure you want to log out?"
+        confirmText="Log out"
+        cancelText="Cancel"
+        cancelRed={false}
+      />
       {/* Scroll to top button, only on desktop/tablet and if scrollable */}
       {showBackToTop && (
         <button
