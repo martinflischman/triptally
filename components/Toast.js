@@ -16,15 +16,16 @@ export default function Toast({ open, message, onClose, duration = 2000, type = 
 
   if (!open) return null;
 
-  // Choose color based on type
-  const colorClass = type === "error"
-    ? "bg-error/20 text-error rounded-lg border-none shadow-none outline-none"
-    : "bg-success/20 text-success rounded-lg border-none shadow-none outline-none";
+  // Choose DaisyUI alert-soft class based on type
+  let colorClass = "alert alert-success alert-soft";
+  if (type === "error") colorClass = "alert alert-error alert-soft";
+  else if (type === "warning") colorClass = "alert alert-warning alert-soft";
+  else if (type === "info") colorClass = "alert alert-info alert-soft";
 
   return (
     <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 flex justify-center w-full pointer-events-none" role="alert" aria-live="assertive">
-      <div className={`alert ${colorClass} pointer-events-auto animate-fade-in-up`}>
-        <span className={`font-semibold ${type === "error" ? "text-error" : "text-success"}`}>{message}</span>
+      <div className={`${colorClass} pointer-events-auto animate-fade-in-up`}>
+        <span className="font-semibold">{message}</span>
       </div>
     </div>
   );

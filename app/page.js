@@ -621,7 +621,7 @@ export default function Home() {
                   ) : (
                     <div className="space-y-3 xs:space-y-4 w-full">
                       {trips.length === 0 ? (
-                        <div className="input input-bordered w-full rounded-lg pointer-events-none cursor-default bg-info/20 text-info font-semibold border-info/20 text-sm py-2 px-4">
+                        <div className="alert alert-info alert-soft w-full rounded-lg pointer-events-none cursor-default font-semibold text-sm py-2 px-4" role="alert">
                           You don’t have any trips yet.
                         </div>
                       ) : (

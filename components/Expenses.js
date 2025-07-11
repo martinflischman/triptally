@@ -365,7 +365,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
 
           {/* Show error message if any */}
           {error && (
-            <div className="alert alert-error mb-3 xs:mb-4 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm py-2">
+            <div className="alert alert-error alert-soft mb-3 xs:mb-4 rounded-lg text-sm xs:text-base md:text-sm lg:text-sm py-2" role="alert">
               {error}
             </div>
           )}
@@ -381,7 +381,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
               <span className="loading loading-dots loading-md loading-md text-primary"></span>
             </div>
           ) : expenses.length === 0 ? (
-            <div className="input input-bordered w-full rounded-lg pointer-events-none cursor-default bg-info/20 text-info font-semibold border-info/20">
+            <div className="alert alert-info alert-soft w-full rounded-lg pointer-events-none cursor-default font-semibold text-sm py-2 px-4" role="alert">
               No expenses yet.
             </div>
           ) : (
