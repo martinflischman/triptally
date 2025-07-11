@@ -5,20 +5,21 @@
 import React, { useState } from "react";
 
 export default function ConfirmDeleteModal({ open, onClose, onConfirm, title, message, confirmText = "Delete", cancelText = "Cancel", cancelRed = false }) {
-  // If not open, don't render anything
-  if (!open) return null;
+  // Track hover state for Delete button
+  const [deleteHover, setDeleteHover] = useState(false);
 
   // Handle Escape key to close modal
   React.useEffect(() => {
+    if (!open) return;
     function handleKeyDown(e) {
       if (e.key === "Escape") onClose();
     }
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [onClose]);
+  }, [onClose, open]);
 
-  // Track hover state for Delete button
-  const [deleteHover, setDeleteHover] = useState(false);
+  // If not open, don't render anything
+  if (!open) return null;
 
   // Cancel button classes
   const cancelBase = "flex-1 px-4 py-2 rounded-lg border text-base font-medium transition-colors duration-150 cursor-pointer select-none";
