@@ -36,7 +36,7 @@ export default function ConfirmDeleteModal({ open, onClose, onConfirm, title, me
       aria-labelledby="modal-title"
       aria-describedby="modal-message"
     >
-      <div className="bg-base-100 rounded-lg shadow-lg p-6 w-full max-w-xs border-t-4 border-error flex flex-col items-center">
+      <div className="bg-base-100 rounded-2xl shadow-2xl p-6 w-full max-w-xs flex flex-col items-center">
         <h3 id="modal-title" className="text-lg font-bold mb-3 text-error text-center">{title}</h3>
         <p id="modal-message" className="mb-5 text-sm text-base-content/80 text-center">{message}</p>
         <div className="flex justify-center gap-2 w-full">
