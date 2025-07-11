@@ -415,19 +415,19 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
           ) : (
             <div className="space-y-2 xs:space-y-3">
               {expenses.map((exp) => (
-                <div key={exp.id} className="card bg-base-200 shadow rounded-lg p-4 flex flex-col gap-0">
-                  <div className="text-lg font-bold text-base-content mb-1">
+                <div key={exp.id} className="card bg-base-200 shadow rounded-lg p-2 xs:p-3 flex flex-col gap-0 min-h-0">
+                  <div className="text-base font-semibold text-base-content mb-0.5">
                     {exp.category || 'Expense'}
                   </div>
-                  <div className="text-xl font-bold text-secondary mb-3">
+                  <div className="text-lg font-bold text-secondary mb-1">
                     {CURRENCY_SYMBOLS[currency] || currency} {Number(exp.amount).toFixed(2)}
                   </div>
-                  <div className="text-xs text-base-content/60 font-medium tracking-wide mt-3">
+                  <div className="text-xs text-base-content/60 font-medium tracking-wide mt-2">
                     {new Date(exp.created_at).toLocaleDateString()} 
                     <span className="mx-1">&bull;</span>
                     <span className="text-xs text-primary font-semibold">Paid by: {getTravellerName(exp)}</span>
                   </div>
-                  <div className="flex gap-2 absolute top-4 right-4">
+                  <div className="flex gap-2 absolute top-2 right-2">
                     <button className="btn btn-ghost btn-xs rounded-lg p-1 focus:outline-none focus:ring-0 border-none" title="Edit Expense" onClick={() => handleEditExpense(exp)} type="button">
                       <PencilSquareIcon className="h-4 w-4" />
                     </button>
