@@ -40,31 +40,13 @@ export default function ConfirmDeleteModal({ open, onClose, onConfirm, title, me
         <h3 id="modal-title" className="text-lg font-bold mb-3 text-error text-center">{title}</h3>
         <p id="modal-message" className="mb-5 text-sm text-base-content/80 text-center">{message}</p>
         <div className="flex justify-center gap-2 w-full">
+          <button className="btn btn-ghost flex-1" onClick={onClose}>{cancelText}</button>
           <button
-            className={
-              cancelBase +
-              " " +
-              (deleteHover ? cancelDeleteHover : cancelDefault)
-            }
-            style={{ minWidth: 0 }}
-            onClick={onClose}
-            type="button"
+            className="btn btn-error flex-1"
+            disabled={!allAssigned}
+            onClick={() => onConfirm(reassignments)}
           >
-            {cancelText}
-          </button>
-          <button
-            className={
-              deleteBase +
-              " " +
-              (deleteHover ? deleteHoverClass : deleteDefault)
-            }
-            style={{ minWidth: 0 }}
-            onClick={onConfirm}
-            onMouseEnter={() => setDeleteHover(true)}
-            onMouseLeave={() => setDeleteHover(false)}
-            type="button"
-          >
-            {confirmText}
+            Reassign & Delete
           </button>
         </div>
       </div>

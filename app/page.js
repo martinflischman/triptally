@@ -445,7 +445,7 @@ export default function Home() {
               </div>
               <div className="border-t border-base-300 my-2" />
               <button
-                className="flex items-center gap-2 justify-center text-center text-error font-medium py-1 px-2 rounded hover:bg-error/10 w-full"
+                className="btn btn-error w-full flex items-center gap-2 justify-center"
                 onClick={handleLogout}
                 role="menuitem"
                 aria-label="Log out"
@@ -462,7 +462,7 @@ export default function Home() {
       {/* Scroll to top button, only on desktop/tablet and if scrollable */}
       {showBackToTop && (
         <button
-          className="hidden md:flex fixed bottom-6 right-6 z-50 bg-primary text-white rounded-full p-3 hover:bg-primary/80 transition"
+          className="btn btn-circle btn-primary hidden md:flex fixed bottom-6 right-6 z-50"
           style={{ outline: 'none' }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           aria-label="Scroll to top"
