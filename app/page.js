@@ -874,29 +874,29 @@ export default function Home() {
                         </div>
                       ) : (
                         <>
-                          {/* Summary row: two blocks, each w-1/2, fixed height and vertical centering */}
-                          <div className="flex flex-row gap-3 xs:gap-4 w-full mb-3">
-                            <div className="w-1/2 bg-primary/10 p-4 flex flex-col items-start justify-center rounded-lg min-w-[140px] group text-left">
-                              <div className="text-base xs:text-lg font-bold text-primary mb-1">Total Expenses</div>
-                              <div className="text-2xl xs:text-3xl font-extrabold text-primary leading-tight">{CURRENCY_SYMBOLS[selectedTrip.currency]} {totalExpense.toFixed(2)}</div>
+                          {/* Responsive summary row: always side by side, scale text and padding by screen size */}
+                          <div className="flex flex-row gap-2 sm:gap-3 md:gap-4 w-full mb-3">
+                            <div className="w-1/2 bg-primary/10 p-2 sm:p-3 md:p-4 xl:p-6 flex flex-col items-start justify-center rounded-lg min-w-[100px] group text-left">
+                              <div className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-bold text-primary mb-1">Total Expenses</div>
+                              <div className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-primary leading-tight">{CURRENCY_SYMBOLS[selectedTrip.currency]} {totalExpense.toFixed(2)}</div>
                             </div>
-                            <div className="w-1/2 bg-secondary/10 p-4 flex flex-col items-start justify-center rounded-lg min-w-[140px] group text-left">
-                              <div className="text-base xs:text-lg font-bold text-secondary mb-1">Per Traveller</div>
-                              <div className="text-2xl xs:text-3xl font-extrabold text-secondary leading-tight">{CURRENCY_SYMBOLS[selectedTrip.currency]} {perTraveller.toFixed(2)}</div>
+                            <div className="w-1/2 bg-secondary/10 p-2 sm:p-3 md:p-4 xl:p-6 flex flex-col items-start justify-center rounded-lg min-w-[100px] group text-left">
+                              <div className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-bold text-secondary mb-1">Per Traveller</div>
+                              <div className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-secondary leading-tight">{CURRENCY_SYMBOLS[selectedTrip.currency]} {perTraveller.toFixed(2)}</div>
                             </div>
                           </div>
-                          {/* Traveller blocks: grid with max width for each card, responsive */}
+                          {/* Traveller blocks: grid with 1 col on <xs, 2 on xs and above */}
                           {travellers.length > 0 && expenses.length > 0 && (
-                            <div className={`w-full flex justify-center`}>
-                              <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 xs:gap-4 w-full max-w-4xl`}>
+                            <div className="w-full flex justify-center">
+                              <div className="grid grid-cols-1 min-[375px]:grid-cols-2 gap-2 sm:gap-3 md:gap-4 w-full max-w-4xl">
                                 {travellers.map(traveller => {
                                   const totalPaid = expenses
                                     .filter(exp => exp.paid_by === traveller.id)
                                     .reduce((sum, exp) => sum + (Number(exp.amount) || 0), 0);
                                   return (
-                                    <div key={traveller.id} className="bg-base-200 p-3 flex flex-col items-start justify-center rounded-lg max-w-xs w-full text-left min-h-0" style={{ cursor: 'default' }}>
-                                      <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-1 truncate">{traveller.name} paid</div>
-                                      <div className="text-lg font-bold text-base-content">{CURRENCY_SYMBOLS[selectedTrip.currency]} {totalPaid.toFixed(2)}</div>
+                                    <div key={traveller.id} className="bg-base-200 p-2 sm:p-3 md:p-4 xl:p-6 flex flex-col items-start justify-center rounded-lg w-full text-left min-h-0" style={{ cursor: 'default' }}>
+                                      <div className="text-xs sm:text-sm md:text-base lg:text-base xl:text-lg text-base-content/70 mb-1 truncate">{traveller.name} paid</div>
+                                      <div className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-base-content">{CURRENCY_SYMBOLS[selectedTrip.currency]} {totalPaid.toFixed(2)}</div>
                                     </div>
                                   );
                                 })}
