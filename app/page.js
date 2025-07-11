@@ -675,8 +675,14 @@ export default function Home() {
                                     </div>
                                     <div className="flex gap-2 mt-2">
                                       <button
-                                        className="btn btn-primary btn-soft h-10 rounded-lg px-4 font-semibold text-white"
+                                        className="btn btn-primary btn-soft h-10 rounded-lg px-4 font-semibold"
                                         onClick={() => handleSaveEditTrip(trip.id)}
+                                        disabled={
+                                          !editingTripName ||
+                                          !editingTripCurrency ||
+                                          !editingTripStartDate ||
+                                          !editingTripEndDate
+                                        }
                                       >
                                         Save
                                       </button>
