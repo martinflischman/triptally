@@ -298,119 +298,25 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
         ) : (
           <div className="space-y-2 xs:space-y-3">
             {expenses.map((exp) => (
-              <div key={exp.id} className="card bg-base-200 shadow rounded-lg">
-                <div className="card-body p-2 xs:p-3 sm:p-4">
-                  {editingId === exp.id ? (
-                    <div className="flex flex-col gap-2 xs:gap-3">
-                      {/* Edit expense form */}
-                      <select
-                        className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
-                        value={editingCategory}
-                        onChange={(e) => setEditingCategory(e.target.value)}
-                      >
-                        {CATEGORY_OPTIONS.map((cat) => (
-                          <option key={cat} value={cat}>
-                            {cat}
-                          </option>
-                        ))}
-                      </select>
-
-                      <input
-                        className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
-                        value={editingAmount}
-                        onChange={(e) => setEditingAmount(e.target.value)}
-                        type="number"
-                        inputMode="decimal"
-                        min="0"
-                        step="0.01"
-                      />
-
-                      <select
-                        className="select select-bordered w-full rounded-lg text-base h-10 xs:h-12"
-                        value={editingPaidBy}
-                        onChange={(e) => setEditingPaidBy(e.target.value)}
-                      >
-                        <option value="">Who paid?</option>
-                        {travellers.map((traveller) => (
-                          <option key={traveller.id} value={traveller.id}>
-                            {traveller.name}
-                          </option>
-                        ))}
-                      </select>
-
-                      <input
-                        className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
-                        value={editingDescription}
-                        onChange={(e) => setEditingDescription(e.target.value)}
-                        placeholder="Description (optional)"
-                      />
-
-                      <div className="flex gap-2">
-                        <button
-                          className="btn btn-primary btn-soft h-10 rounded-lg px-4 font-semibold"
-                          onClick={() => handleSaveEditExpense(exp.id)}
-                          type="button"
-                        >
-                          Save
-                        </button>
-                        <button
-                          className="btn btn-ghost h-10 rounded-lg px-4 font-semibold"
-                          onClick={() => setEditingId(null)}
-                          type="button"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col">
-                      <div className="flex flex-row justify-between items-start">
-                        {/* Top row: Date and Paid by, and action icons */}
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/50">
-                            {new Date(exp.created_at).toLocaleDateString()}
-                          </span>
-                          <span className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-primary font-semibold">
-                            · Paid by: {getTravellerName(exp)}
-                          </span>
-                        </div>
-                        <div className="flex flex-row gap-1 ml-2 xs:ml-3">
-                          <button
-                            className="btn btn-ghost btn-xs rounded-lg p-1 focus:outline-none focus:ring-0 border-none"
-                            title="Edit Expense"
-                            onClick={() => handleEditExpense(exp)}
-                            type="button"
-                          >
-                            <PencilSquareIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4" />
-                          </button>
-                          <button
-                            className="btn btn-ghost btn-xs rounded-lg p-1 hover:bg-error/10 focus:bg-error/10 focus:outline-none focus:ring-0 border-none"
-                            title="Delete Expense"
-                            onClick={() => handleDeleteExpense(exp.id)}
-                            type="button"
-                          >
-                            <TrashIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4 text-error" />
-                          </button>
-                        </div>
-                      </div>
-                      {/* Small space */}
-                      <div className="h-1" />
-                      {/* Category */}
-                      <div className="font-semibold text-xs xs:text-sm sm:text-base md:text-base lg:text-base xl:text-base truncate mb-1">
-                        {exp.category}
-                      </div>
-                      {/* Description below category, if present */}
-                      {exp.description && (
-                        <div className="text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm text-base-content/70 mb-1 line-clamp-2">
-                          {exp.description}
-                        </div>
-                      )}
-                      {/* Amount */}
-                      <div className="text-base xs:text-lg sm:text-xl md:text-xl lg:text-xl xl:text-xl font-bold text-secondary mt-1">
-                        {CURRENCY_SYMBOLS[currency]} {Number(exp.amount).toFixed(2)}
-                      </div>
-                    </div>
-                  )}
+              <div key={exp.id} className="card bg-base-100 shadow rounded-lg p-4 flex flex-col gap-0">
+                <div className="text-lg font-bold text-base-content mb-1">
+                  {exp.category || 'Expense'}
+                </div>
+                <div className="text-2xl font-extrabold text-secondary mb-3">
+                  {CURRENCY_SYMBOLS[currency] || currency} {Number(exp.amount).toFixed(2)}
+                </div>
+                <div className="text-xs text-base-content/60 font-medium tracking-wide mt-3">
+                  {new Date(exp.created_at).toLocaleDateString()} 
+                  <span className="mx-1">&bull;</span>
+                  <span className="text-xs text-primary font-semibold">Paid by: {getTravellerName(exp)}</span>
+                </div>
+                <div className="flex gap-2 absolute top-4 right-4">
+                  <button className="btn btn-ghost btn-xs rounded-lg p-1 focus:outline-none focus:ring-0 border-none" title="Edit Expense" onClick={() => handleEditExpense(exp)} type="button">
+                    <PencilSquareIcon className="h-4 w-4" />
+                  </button>
+                  <button className="btn btn-ghost btn-xs rounded-lg p-1 hover:bg-error/10 focus:bg-error/10 focus:outline-none focus:ring-0 border-none" title="Delete Expense" onClick={() => handleDeleteExpense(exp.id)} type="button">
+                    <TrashIcon className="h-4 w-4 text-error" />
+                  </button>
                 </div>
               </div>
             ))}
