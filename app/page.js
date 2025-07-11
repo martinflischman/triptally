@@ -782,7 +782,7 @@ export default function Home() {
                         <>
                           {/* Summary row: two blocks, each w-1/2, fixed height and vertical centering */}
                           <div className="flex flex-row gap-3 xs:gap-4 w-full mb-3">
-                            <div className="w-1/2 bg-primary/10 hover:bg-primary hover:text-white hover:shadow-[0_4px_24px_0_theme('colors.primary.500_/_40%')] transition-colors transition-shadow p-5 flex flex-col justify-center rounded-lg min-w-[140px] group text-left">
+                            <div className="w-1/2 bg-primary/10 hover:bg-primary hover:text-white hover:shadow-[0_2px_8px_0_rgba(85,60,255,0.4)] transition-colors transition-shadow p-5 flex flex-col justify-center rounded-lg min-w-[140px] group text-left">
                               <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-3 group-hover:text-white transition-colors">
                                 Total Expenses
                               </div>
@@ -790,7 +790,7 @@ export default function Home() {
                                 {CURRENCY_SYMBOLS[selectedTrip.currency]} {totalExpense.toFixed(2)}
                               </div>
                             </div>
-                            <div className="w-1/2 bg-secondary/10 hover:bg-secondary hover:text-white hover:shadow-[0_4px_24px_0_theme('colors.secondary.500_/_40%')] transition-colors transition-shadow p-5 flex flex-col justify-center rounded-lg min-w-[140px] group text-left">
+                            <div className="w-1/2 bg-secondary/10 hover:bg-secondary hover:text-white hover:shadow-[0_2px_8px_0_rgba(231,70,156,0.4)] transition-colors transition-shadow p-5 flex flex-col justify-center rounded-lg min-w-[140px] group text-left">
                               <div className="text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs text-base-content/70 mb-3 group-hover:text-white transition-colors">
                                 Per Traveller
                               </div>
