@@ -28,7 +28,7 @@ export default function ConfirmDeleteModal({ open, onClose, onConfirm, title, me
         <p id="modal-message" className="mb-5 text-sm text-base-content/80 text-center">{message}</p>
         <div className="flex justify-center gap-2 w-full">
           <button
-            className={`flex-1 px-4 py-2 rounded-lg border text-base font-medium transition-colors duration-150
+            className={`flex-1 px-4 py-2 rounded-lg border text-base font-medium transition-colors duration-150 cursor-pointer
               ${cancelRed ? 'text-error border-error bg-base-200 hover:bg-base-300 focus:ring-2 focus:ring-error' : 'text-base-content border-base-300 bg-base-200 hover:bg-base-300 focus:ring-2 focus:ring-primary'}`}
             style={{ minWidth: 0 }}
             onClick={onClose}
@@ -36,7 +36,7 @@ export default function ConfirmDeleteModal({ open, onClose, onConfirm, title, me
             {cancelText}
           </button>
           <button
-            className="flex-1 px-4 py-2 rounded-lg border border-error bg-error text-white text-base font-medium transition-colors duration-150 hover:bg-error/90 focus:ring-2 focus:ring-error"
+            className="flex-1 px-4 py-2 rounded-lg border border-error bg-error text-white text-base font-medium transition-colors duration-150 hover:bg-error/90 focus:ring-2 focus:ring-error cursor-pointer"
             style={{ minWidth: 0 }}
             onClick={onConfirm}
           >
