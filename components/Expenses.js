@@ -232,7 +232,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
 
           {/* Amount input */}
           <input
-            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12 text-black placeholder-black pl-4"
+            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12 pl-4"
             placeholder="Enter amount"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
@@ -254,7 +254,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
               <option value="">Add a traveller first</option>
             ) : (
               <>
-                <option value="">Who paid?</option>
+                <option value="">Select who paid</option>
                 {travellers.map((traveller) => (
                   <option key={traveller.id} value={traveller.id}>
                     {traveller.name}
@@ -266,7 +266,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
 
           {/* Description input */}
           <input
-            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12 text-black placeholder-black pl-4"
+            className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12 pl-4"
             placeholder="Description (optional)"
             value={description}
             onChange={(e) => setDescription(e.target.value)}

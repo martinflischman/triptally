@@ -845,6 +845,8 @@ export default function Home() {
                 </div>
               )}
             </div>
+            {/* Add extra space at the bottom of the page for comfort */}
+            <div className="pb-12" />
           </div>
         </>
       )}
