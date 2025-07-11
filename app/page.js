@@ -434,7 +434,7 @@ export default function Home() {
           )}
           {/* Dropdown menu: appears below avatar when open */}
           {menuOpen && user && (
-            <div className="absolute right-0 top-12 z-50 bg-base-200 rounded-xl shadow-lg border border-base-300 py-2 px-4 animate-fade-in min-w-[200px] max-w-xs w-fit" role="menu" aria-label="User menu">
+            <div className="absolute right-0 top-12 z-50 bg-base-100 rounded-xl shadow py-2 px-4 animate-fade-in min-w-[200px] max-w-xs w-fit" role="menu" aria-label="User menu">
               {/* 'Logged in as:' label */}
               <div className="flex flex-col min-w-0 mb-2">
                 <span className="text-xs text-base-content/50 mb-1">Logged in as:</span>
