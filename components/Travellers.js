@@ -216,10 +216,10 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
           ) : (
             <div className="space-y-2 xs:space-y-3">
               {travellers.map((trav) => (
-                <div key={trav.id} className="card bg-base-200 shadow rounded-lg">
-                  <div className="card-body p-2 xs:p-3 sm:p-4">
+                <div key={trav.id} className="card bg-base-200 shadow rounded-lg h-10 xs:h-12">
+                  <div className="card-body p-2 xs:p-2 sm:p-3 flex items-center">
                     {editingId === trav.id ? (
-                      <div className="flex flex-col gap-2 xs:gap-3">
+                      <div className="flex flex-col gap-2 xs:gap-3 w-full">
                         {/* Edit traveller form */}
                         <input
                           className="input input-bordered w-full rounded-lg text-base h-10 xs:h-12"
@@ -245,8 +245,8 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
                         </div>
                       </div>
                     ) : (
-                      <div className="flex justify-between items-center">
-                        <span className="flex-1 min-w-0 text-sm xs:text-base md:text-base lg:text-base xl:text-base font-medium truncate pr-2">
+                      <div className="flex justify-between items-center w-full">
+                        <span className="flex-1 min-w-0 text-xs xs:text-sm md:text-sm lg:text-sm xl:text-sm font-medium truncate pr-2">
                           {trav.name}
                         </span>
                         <div className="flex gap-1">

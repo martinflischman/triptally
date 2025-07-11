@@ -298,7 +298,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
         ) : (
           <div className="space-y-2 xs:space-y-3">
             {expenses.map((exp) => (
-              <div key={exp.id} className="card bg-base-100 shadow rounded-lg p-4 flex flex-col gap-0">
+              <div key={exp.id} className="card bg-base-200 shadow rounded-lg p-4 flex flex-col gap-0">
                 <div className="text-lg font-bold text-base-content mb-1">
                   {exp.category || 'Expense'}
                 </div>

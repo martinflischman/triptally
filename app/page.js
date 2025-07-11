@@ -509,7 +509,7 @@ export default function Home() {
                     onSubmit={handleCreateTrip}
                   >
                     <div className="card-body p-3 xs:p-4 sm:p-6">
-                      <h2 className="card-title text-base xs:text-lg sm:text-xl md:text-lg lg:text-lg xl:text-lg mb-3 xs:mb-4">
+                      <h2 className="card-title text-lg xs:text-xl sm:text-2xl md:text-xl lg:text-xl xl:text-xl mb-3 xs:mb-4">
                         Create a New Trip
                       </h2>
                       {/* In the trip creation form, move labels above their respective input fields */}
@@ -609,7 +609,7 @@ export default function Home() {
                   </form>
 
                   {/* Always show 'Your Trips' heading */}
-                  <h2 className="text-base xs:text-lg sm:text-xl md:text-lg lg:text-lg xl:text-lg font-semibold mb-2 xs:mb-3 text-primary w-full text-left">
+                  <h2 className="text-xl xs:text-3xl sm:text-4xl md:text-2xl lg:text-2xl xl:text-2xl font-semibold mb-2 xs:mb-3 text-base-content w-full text-left">
                     Your Trips
                   </h2>
 
@@ -761,7 +761,7 @@ export default function Home() {
                     <div className="card-body p-3 xs:p-4 sm:p-6">
                       <div className="flex items-start justify-between mb-2">
                         <div>
-                          <h2 className="card-title text-lg xs:text-xl sm:text-2xl md:text-lg lg:text-lg xl:text-lg mb-0">
+                          <h2 className="card-title text-lg xs:text-2xl sm:text-3xl md:text-xl lg:text-xl xl:text-xl mb-0">
                             {selectedTrip.name}
                           </h2>
                           {selectedTrip.start_date && selectedTrip.end_date && (
