@@ -266,7 +266,7 @@ export default function Expenses({ tripId, currency, travellers = [], onExpenses
 
           {/* Add Expense button */}
           <button
-            className="btn btn-primary w-full flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm shadow-none"
+            className="btn btn-primary btn-soft w-full flex items-center gap-2 rounded-lg h-10 xs:h-12 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm shadow-none"
             disabled={adding || !paidBy || travellers.length === 0}
           >
             <PlusIcon className="h-4 w-4 xs:h-5 xs:w-5 md:h-4 md:w-4 lg:h-4 lg:w-4 xl:h-4 xl:w-4" />

@@ -462,7 +462,7 @@ export default function Home() {
       {/* Scroll to top button, only on desktop/tablet and if scrollable */}
       {showBackToTop && (
         <button
-          className="btn btn-circle btn-primary hidden md:flex fixed bottom-6 right-6 z-50"
+          className="btn btn-circle btn-primary btn-soft hidden md:flex fixed bottom-6 right-6 z-50"
           style={{ outline: 'none' }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           aria-label="Scroll to top"
@@ -586,7 +586,7 @@ export default function Home() {
                         </div>
                       )}
                       <button
-                        className="btn btn-primary w-full rounded-lg flex items-center gap-2 h-10 xs:h-12 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm shadow-none"
+                        className="btn btn-primary btn-soft w-full rounded-lg flex items-center gap-2 h-10 xs:h-12 text-sm xs:text-base md:text-sm lg:text-sm xl:text-sm shadow-none"
                         disabled={creating}
                       >
                         <svg
@@ -675,13 +675,13 @@ export default function Home() {
                                     </div>
                                     <div className="flex gap-2 mt-2">
                                       <button
-                                        className="btn btn-primary h-10 rounded-lg px-4 font-semibold text-white"
+                                        className="btn btn-primary btn-soft h-10 rounded-lg px-4 font-semibold text-white"
                                         onClick={() => handleSaveEditTrip(trip.id)}
                                       >
                                         Save
                                       </button>
                                       <button
-                                        className="btn btn-ghost h-10 rounded-lg px-4 font-semibold"
+                                        className="btn btn-ghost btn-soft h-10 rounded-lg px-4 font-semibold"
                                         onClick={() => setEditingTripId(null)}
                                       >
                                         Cancel
@@ -747,7 +747,7 @@ export default function Home() {
               {selectedTrip && (
                 <div className="w-full">
                   <button
-                    className="btn btn-sm mb-3 xs:mb-4 rounded-lg text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs h-8 xs:h-10"
+                    className="btn btn-sm btn-soft mb-3 xs:mb-4 rounded-lg text-xs xs:text-sm md:text-xs lg:text-xs xl:text-xs h-8 xs:h-10"
                     onClick={handleBack}
                   >
                     ← Back to Trips
