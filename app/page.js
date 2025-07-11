@@ -72,6 +72,8 @@ export default function Home() {
   const subscriptionsRef = useRef({});
   // State for dropdown menu visibility
   const [menuOpen, setMenuOpen] = useState(false);
+  // Add state for scrollable and scrolled
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   // Show a toast notification
   function showToast(message, type = "success") {
@@ -377,6 +379,21 @@ export default function Home() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [menuOpen]);
 
+  useEffect(() => {
+    function checkScroll() {
+      const scrollable = document.documentElement.scrollHeight > window.innerHeight;
+      const scrolled = window.scrollY > 40;
+      setShowBackToTop(scrollable && scrolled);
+    }
+    window.addEventListener('scroll', checkScroll);
+    window.addEventListener('resize', checkScroll);
+    checkScroll();
+    return () => {
+      window.removeEventListener('scroll', checkScroll);
+      window.removeEventListener('resize', checkScroll);
+    };
+  }, []);
+
   return (
     <main className="min-h-screen bg-base-200" role="main">
       {/* Responsive header bar with MapIcon and user info */}
@@ -413,18 +430,17 @@ export default function Home() {
           {/* Dropdown menu: appears below avatar when open */}
           {menuOpen && user && (
             <div className="absolute right-0 top-12 z-50 bg-base-200 rounded-xl shadow-lg border border-base-300 py-2 px-4 animate-fade-in min-w-[200px] max-w-xs w-fit" role="menu" aria-label="User menu">
-              {/* User's name and email, no avatar in dropdown */}
+              {/* 'Logged in as:' label */}
               <div className="flex flex-col min-w-0 mb-2">
-                {/* Full name (or first name), horizontal */}
+                <span className="text-xs text-base-content/50 mb-1">Logged in as:</span>
                 <span className="font-medium text-base-content break-words" title={user.user_metadata?.full_name || user.user_metadata?.name || user.email}>
                   {user.user_metadata?.full_name || user.user_metadata?.name || user.email}
                 </span>
-                {/* Email below name */}
                 <span className="text-xs text-base-content/60 break-words" title={user.email}>{user.email}</span>
               </div>
               <div className="border-t border-base-300 my-2" />
               <button
-                className="flex items-center gap-2 text-error font-medium py-1 px-2 rounded hover:bg-error/10 w-full text-left"
+                className="flex items-center gap-2 justify-center text-center text-error font-medium py-1 px-2 rounded hover:bg-error/10 w-full"
                 onClick={handleLogout}
                 role="menuitem"
                 aria-label="Log out"
@@ -438,17 +454,19 @@ export default function Home() {
           )}
         </div>
       </header>
-      {/* Scroll to top button, only on desktop/tablet */}
-      <button
-        className="hidden md:flex fixed bottom-6 right-6 z-50 bg-primary text-white rounded-full p-3 shadow-lg hover:bg-primary/80 transition"
-        style={{ outline: 'none' }}
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        aria-label="Scroll to top"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-6 w-6">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-        </svg>
-      </button>
+      {/* Scroll to top button, only on desktop/tablet and if scrollable */}
+      {showBackToTop && (
+        <button
+          className="hidden md:flex fixed bottom-6 right-6 z-50 bg-primary text-white rounded-full p-3 hover:bg-primary/80 transition"
+          style={{ outline: 'none' }}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Scroll to top"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-6 w-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+          </svg>
+        </button>
+      )}
       {!authChecked ? (
         <div className="flex items-center justify-center min-h-screen">
           <span className="loading loading-dots text-primary loading-lg"></span>
