@@ -43,10 +43,9 @@ export default function ConfirmDeleteModal({ open, onClose, onConfirm, title, me
           <button className="btn btn-ghost flex-1" onClick={onClose}>{cancelText}</button>
           <button
             className="btn btn-error flex-1"
-            disabled={!allAssigned}
-            onClick={() => onConfirm(reassignments)}
+            onClick={onConfirm}
           >
-            Reassign & Delete
+            {confirmText}
           </button>
         </div>
       </div>
