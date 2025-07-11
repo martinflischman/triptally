@@ -1,8 +1,20 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+// Currency symbols for supported currencies
+const CURRENCY_SYMBOLS = {
+  USD: "$",
+  EUR: "€",
+  GBP: "£",
+  ZAR: "R",
+  INR: "₹",
+  AUD: "A$",
+  CAD: "C$",
+  JPY: "¥",
+  CNY: "¥",
+};
 
-export default function ReassignExpensesModal({ open, onClose, onConfirm, travellers, excludeTravellerId, expenses = [] }) {
+export default function ReassignExpensesModal({ open, onClose, onConfirm, travellers, excludeTravellerId, expenses = [], currency }) {
   const [reassignments, setReassignments] = useState({});
 
   useEffect(() => {
@@ -20,18 +32,20 @@ export default function ReassignExpensesModal({ open, onClose, onConfirm, travel
   const allAssigned = expenses.length > 0 && Object.values(reassignments).every(val => val);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
       <div className="bg-base-100 rounded-lg shadow-lg p-6 w-full max-w-md">
         <h3 className="text-lg font-bold mb-4">Reassign Expenses</h3>
         <p className="mb-3 text-sm">This traveller has paid for the following expenses. Please select a new payer for each before deleting.</p>
         <div className="space-y-3 max-h-64 overflow-y-auto mb-4">
           {expenses.map(exp => (
             <div key={exp.id} className="flex items-center gap-2">
-              <div className="flex-1 truncate text-sm">
-                {exp.category} <span className="text-xs text-base-content/60">({Number(exp.amount).toFixed(2)})</span>
+              <div className="w-1/2 truncate text-sm">
+                {exp.category} <span className="text-xs text-base-content/60">(
+                  {CURRENCY_SYMBOLS[exp.currency || currency] || exp.currency || currency || ""} {Number(exp.amount).toFixed(2)}
+                )</span>
               </div>
               <select
-                className="select select-bordered select-sm text-base"
+                className="select select-bordered w-1/2"
                 value={reassignments[exp.id] || ""}
                 onChange={e => setReassignments(r => ({ ...r, [exp.id]: e.target.value }))}
               >

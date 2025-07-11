@@ -829,6 +829,7 @@ export default function Home() {
                     onExpensesChange={refreshExpenses}
                     expenses={expenses}
                     onShowToast={showToast}
+                    currency={selectedTrip.currency}
                   />
                   <Expenses
                     tripId={selectedTrip.id}

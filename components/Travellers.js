@@ -10,7 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 import ReassignExpensesModal from "./ReassignExpensesModal";
 
-export default function Travellers({ tripId, onTravellersChange, onExpensesChange, expenses = [], onShowToast }) {
+export default function Travellers({ tripId, onTravellersChange, onExpensesChange, expenses = [], onShowToast, currency }) {
   // --- State variables for all traveller data and UI state ---
   const [travellers, setTravellers] = useState([]);
   // State for the add traveller form
@@ -168,6 +168,7 @@ export default function Travellers({ tripId, onTravellersChange, onExpensesChang
         travellers={travellers}
         excludeTravellerId={reassignTravellerId}
         expenses={modalExpenses}
+        currency={currency}
       />
       <div className="card bg-base-100 shadow mt-3 xs:mt-4 sm:mt-6 rounded-lg w-full max-w-full xs:max-w-[97vw] sm:max-w-[93vw] md:max-w-full">
         <div className="card-body p-3 xs:p-4 sm:p-5">
